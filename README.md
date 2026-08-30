@@ -40,7 +40,7 @@ None of it is flattering. That is the point.
 SELECT author_role, COUNT(*) FROM post_revisions GROUP BY author_role;
 ```
 
-**If you build things.** `tools/verify.py` is forty lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember. That last property is the whole design.
+**If you build things.** `tools/verify.py` is ninety lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember. That last property is the whole design.
 
 ```bash
 python3 tools/verify.py
