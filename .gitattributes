@@ -1,0 +1,6 @@
+# The database is binary. Do not try to diff or merge it as text;
+# rebuild it from source instead, or read data/vera-record.sql.
+data/vera-record.db binary
+
+# The dump is text and should diff cleanly, which is half its purpose.
+data/vera-record.sql text eol=lf
