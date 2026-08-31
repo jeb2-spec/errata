@@ -12,9 +12,11 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost FROM correc
 2026-08-29|against the company|the company we were writing about
 2026-08-30|in our favour|us
 2026-08-30|against a person, in our own favour|him
+2026-08-31|in our favour|the reader
+2026-08-31|in our favour|the subject
 ```
 
-Five errors. Three of them ran in our own favour. We fixed those too.
+Seven errors. Five of them ran in our own favour. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -26,7 +28,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Twelve principles. Five corrections. Eighteen lessons. One hundred and eleven revisions across thirty four published articles, forty eight of which carry the exact prose that was removed.
+Twelve principles. Seven corrections. Twenty four lessons. One hundred and eleven revisions across thirty four published articles, forty eight of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -40,7 +42,7 @@ None of it is flattering. That is the point.
 SELECT author_role, COUNT(*) FROM post_revisions GROUP BY author_role;
 ```
 
-**If you build things.** `tools/verify.py` is ninety lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember. That last property is the whole design.
+**If you build things.** `tools/verify.py` is ninety nine lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember. That last property is the whole design.
 
 ```bash
 python3 tools/verify.py
@@ -71,7 +73,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in five rows
+-- the whole argument, in seven rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -90,8 +92,8 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 5 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 18 | What generalises past this project |
+| `corrections` | 7 | What was claimed, what it became, which way the error ran, **who paid** |
+| `lessons` | 24 | What generalises past this project |
 | `post_revisions` | 111 | Every revision of 34 articles, **48 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -112,7 +114,7 @@ The error ran **against** the company we were criticising.
 
 That is the part worth sitting with. It would have been easy to leave. Nobody was going to complain on that company's behalf. But **a standard that only survives contact with someone you already doubt is a preference, not a standard**, and a preference is not worth publishing a database about.
 
-So the article carries a dated correction, the sentence it used to contain is in the table above, and this paragraph exists.
+So the article carries a dated correction, and the sentence it used to contain is in the table above.
 
 We found it because a reader pushed back with a clause number and we went and read the clause.
 
@@ -125,11 +127,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    86254df02e134d884362fb01ff44e63cf2c6840ec3ca50a9c38427c06ee6c989
-  computed  86254df02e134d884362fb01ff44e63cf2c6840ec3ca50a9c38427c06ee6c989
+  stored    39f26bd64691df88f1bd0df4f1e34f031d9c8f4d777aa6158ade52614f230c4d
+  computed  39f26bd64691df88f1bd0df4f1e34f031d9c8f4d777aa6158ade52614f230c4d
 
 OK    contents match the recorded digest.
-      12 principles, 5 corrections, 18 lessons, 111 post_revisions, 1 documents
+      12 principles, 7 corrections, 24 lessons, 111 post_revisions, 1 documents
 ```
 
 Change one word of one correction and it says so:
@@ -137,8 +139,8 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    86254df02e134d884362fb01ff44e63cf2c6840ec3ca50a9c38427c06ee6c989
-  computed  35f20c8f3e665a1d323ad7bebc0475c692e1aeae7bbead166109ffa0711a480e
+  stored    39f26bd64691df88f1bd0df4f1e34f031d9c8f4d777aa6158ade52614f230c4d
+  computed  4d64ebc925e19bf23f06427b7328299ac16e8e7186aa6d99fb2d50e5bbcdab31
 
 FAIL  contents do not match the recorded digest.
       Something changed after this database was built.
@@ -218,4 +220,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected five times in two days, four of them against ourselves. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected seven times in its first three days, five of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*

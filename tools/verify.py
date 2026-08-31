@@ -4,7 +4,7 @@ verify.py - check this database against its own integrity digest.
 
 No dependencies. Python 3 standard library only. Works offline.
 
-    python3 tools/verify.py
+    python3 tools/verify.py [path/to/errata.db]
 
 It recomputes a SHA-256 over a canonical serialisation of every row in
 every table, the meta table included, and compares it to the digest
@@ -22,7 +22,16 @@ import sys
 from pathlib import Path
 
 TABLES = ["principles", "corrections", "lessons", "post_revisions", "documents"]
-DB = Path(__file__).resolve().parent.parent / "data" / "errata.db"
+
+# An explicit path wins; otherwise verify the copy this repository ships.
+# Silently verifying a different file than the one named on the command
+# line is worse than erroring, and an earlier version of this script did
+# exactly that by ignoring its arguments.
+DB = (
+    Path(sys.argv[1]).resolve()
+    if len(sys.argv) > 1
+    else Path(__file__).resolve().parent.parent / "data" / "errata.db"
+)
 
 
 def digest(conn):
