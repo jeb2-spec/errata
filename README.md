@@ -127,8 +127,8 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    16d6246d967db4e5aad355d516a7af7e5f4e04f3fbfc2feb8b5afc9e4f09ecab
-  computed  16d6246d967db4e5aad355d516a7af7e5f4e04f3fbfc2feb8b5afc9e4f09ecab
+  stored    17486ea44776847b022e6c158ef31dafd431d1fd5d05e37c22dffc22cc15c7c9
+  computed  17486ea44776847b022e6c158ef31dafd431d1fd5d05e37c22dffc22cc15c7c9
 
 OK    contents match the recorded digest.
       12 principles, 7 corrections, 24 lessons, 111 post_revisions, 1 documents
@@ -139,8 +139,8 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    16d6246d967db4e5aad355d516a7af7e5f4e04f3fbfc2feb8b5afc9e4f09ecab
-  computed  58824e1326e7c0e24b54594c480a69794b034a316c8afacefa04c259b61ac3a5
+  stored    17486ea44776847b022e6c158ef31dafd431d1fd5d05e37c22dffc22cc15c7c9
+  computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
       Something changed after this database was built.
