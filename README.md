@@ -61,7 +61,7 @@ SELECT * FROM passages_removed;
 ## Quickstart
 
 ```bash
-git clone https://github.com/OWNER/errata.git
+git clone https://github.com/jeb2-spec/errata.git
 cd errata
 
 # check the file is what it claims to be, before reading a word of it
