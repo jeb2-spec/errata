@@ -152,7 +152,7 @@ The seal covers the `meta` table too, disclosures included. An earlier build did
 
 **Integrity is not accuracy.** A tamper-evident record of a false claim is still false, held perfectly still.
 
-And a seal we make ourselves proves internal consistency, nothing more. We build this, we hash it, we publish it. Someone who controls all three can rewrite an entry and re-seal it. What would defeat that is an anchor: this digest published somewhere we have no reach. **We have not done that yet.** Saying so is more use to you than implying otherwise.
+And a seal we make ourselves proves internal consistency, nothing more. We build this, we hash it, we publish it. Someone who controls all three can rewrite an entry and re-seal it. What defeats that is an anchor: the record's fingerprint witnessed somewhere we have no reach. Since 1 September 2026 each published build is stamped with OpenTimestamps, which commits the file's hash to the Bitcoin blockchain through independent calendar servers. The proof ships beside the data as `data/errata.db.ots`, and [ANCHORS.md](ANCHORS.md) shows how to check it and what it still cannot do.
 
 ---
 
