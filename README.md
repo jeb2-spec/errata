@@ -36,19 +36,19 @@ None of it is flattering. That is the point.
 
 ## Three ways in
 
-**If you orchestrate agents.** Your agents are already generating a record. Every commit message, every tool call, every retraction. Right now that record is exhaust. `post_revisions` shows what it looks like when you treat it as an asset: which changes came from a human, which from an assistant, which from an unattended cron, and what each one removed. The `author_role` column exists because "who did this" stopped being a rhetorical question.
+**If you orchestrate agents.** Your agents are already generating a record. Every commit message, every tool call, every retraction. Right now that record is exhaust, and it could answer a question raw logs cannot: what did the system believe before it changed its mind? `post_revisions` shows what that looks like as an asset: which changes came from a human, which from an assistant, which from an unattended cron, and what each one removed. The `author_role` column exists because "who did this" stopped being a rhetorical question.
 
 ```sql
 SELECT author_role, COUNT(*) FROM post_revisions GROUP BY author_role;
 ```
 
-**If you build things.** `tools/verify.py` is ninety nine lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember. That last property is the whole design.
+**If you build things.** `tools/verify.py` is ninety nine lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember, because a record that depends on remembering to keep a record will eventually have gaps. That property is the whole design.
 
 ```bash
 python3 tools/verify.py
 ```
 
-**If you are the person a record is about.** This is the harder one, and it is why the project exists. Somewhere there is a file about you that you have never read, assembled by someone who will never meet you, and you will be judged on it. You cannot audit it. You were not asked.
+**If you are the person a record is about.** This is the harder one, and it is why the project exists. Somewhere there is a file about you that you have never read, assembled by someone who will never meet you, and you will be judged on it. You cannot audit it, you cannot see what was removed, and you cannot see which of its mistakes benefited the person keeping it. You were not asked.
 
 So here is ours, about us, in full, including the parts we would rather you skipped. If we are going to keep records about people, this is the standard we think that obligates.
 
