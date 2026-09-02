@@ -4,6 +4,8 @@
 
 This is the other file.
 
+If you got here from a friend and none of this looks like your world: it is a list of every mistake we made in public and how we fixed it, including the ones that made us look good, kept somewhere we cannot quietly rewrite. You do not need to know any code to read it. The box below is for people who do; skip it and keep going.
+
 ```console
 $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost FROM corrections;"
 
@@ -14,9 +16,11 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost FROM correc
 2026-08-30|against a person, in our own favour|him
 2026-08-31|in our favour|the reader
 2026-08-31|in our favour|the subject
+2026-09-01|in our favour|its first two readers
+2026-09-01|in our favour|us
 ```
 
-Seven errors. Five of them ran in our own favour. We fixed those too.
+Nine errors. Seven of them ran in our own favour. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -28,7 +32,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Twelve principles. Seven corrections. Twenty four lessons. One hundred and eleven revisions across thirty four published articles, forty eight of which carry the exact prose that was removed.
+Twelve principles. Nine corrections. Twenty seven lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -73,7 +77,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in seven rows
+-- the whole argument, in nine rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -92,9 +96,9 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 7 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 24 | What generalises past this project |
-| `post_revisions` | 111 | Every revision of 34 articles, **48 carrying the prose that was cut** |
+| `corrections` | 9 | What was claimed, what it became, which way the error ran, **who paid** |
+| `lessons` | 27 | What generalises past this project |
+| `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
 
@@ -127,11 +131,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    17486ea44776847b022e6c158ef31dafd431d1fd5d05e37c22dffc22cc15c7c9
-  computed  17486ea44776847b022e6c158ef31dafd431d1fd5d05e37c22dffc22cc15c7c9
+  stored    96720d76cc36cc0f365db18ca06f2751913f71ec7c3c9e6b0e6b0653738e2609
+  computed  96720d76cc36cc0f365db18ca06f2751913f71ec7c3c9e6b0e6b0653738e2609
 
 OK    contents match the recorded digest.
-      12 principles, 7 corrections, 24 lessons, 111 post_revisions, 1 documents
+      12 principles, 9 corrections, 27 lessons, 117 post_revisions, 1 documents
 ```
 
 Change one word of one correction and it says so:
@@ -139,7 +143,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    17486ea44776847b022e6c158ef31dafd431d1fd5d05e37c22dffc22cc15c7c9
+  stored    96720d76cc36cc0f365db18ca06f2751913f71ec7c3c9e6b0e6b0653738e2609
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -152,7 +156,7 @@ The seal covers the `meta` table too, disclosures included. An earlier build did
 
 **Integrity is not accuracy.** A tamper-evident record of a false claim is still false, held perfectly still.
 
-And a seal we make ourselves proves internal consistency, nothing more. We build this, we hash it, we publish it. Someone who controls all three can rewrite an entry and re-seal it. What defeats that is an anchor: the record's fingerprint witnessed somewhere we have no reach. Since 1 September 2026 each published build is stamped with OpenTimestamps, which commits the file's hash to the Bitcoin blockchain through independent calendar servers. The proof ships beside the data as `data/errata.db.ots`, and [ANCHORS.md](ANCHORS.md) shows how to check it and what it still cannot do.
+And a seal we make ourselves proves internal consistency, nothing more. We build this, we hash it, we publish it. Someone who controls all three can rewrite an entry and re-seal it. What defeats that is an anchor: the record's fingerprint witnessed somewhere we have no reach. Since 1 September 2026 each published build is stamped with OpenTimestamps, which commits the file's hash to the Bitcoin blockchain through independent calendar servers. [ANCHORS.md](ANCHORS.md) lists every build, its fingerprint, and where its proof lives: the current build's stamp ships as `data/errata.db.ots` once it is made, earlier stamps are kept under `data/anchors/`, and a build whose stamp is still owed says so in that table rather than shipping a proof of a different file.
 
 ---
 
@@ -220,4 +224,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected seven times in its first three days, five of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected nine times in its first four days, seven of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
