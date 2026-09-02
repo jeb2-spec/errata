@@ -1,0 +1,6 @@
+# `ots upgrade` writes a .bak of the pre-upgrade proof beside each file it
+# upgrades. The upgraded proof is a strict superset: same commitment, plus
+# the Bitcoin attestation. The backup is transient noise, and shipping it
+# would put two proofs for one file in the tree with nothing saying which
+# is current. Deleted after every upgrade, ignored so it cannot slip in.
+*.ots.bak
