@@ -21,9 +21,11 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost FROM correc
 2026-09-02|in our favour|the founder
 2026-09-02|in our favour|the founder
 2026-09-02|in our favour|the reader
+2026-09-02|in our favour|the reader
+2026-09-02|in our favour|the reader
 ```
 
-Twelve errors. Ten of them ran in our own favour. We fixed those too.
+Fourteen errors. Twelve of them ran in our own favour. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -35,7 +37,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Twelve principles. Twelve corrections. Twenty nine lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Twelve principles. Fourteen corrections. Twenty nine lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -43,7 +45,7 @@ None of it is flattering. That is the point.
 
 ## Three ways in
 
-**If you orchestrate agents.** Your agents are already generating a record. Every commit message, every tool call, every retraction. Right now that record is exhaust, and it could answer a question raw logs cannot: what did the system believe before it changed its mind? `post_revisions` shows what that looks like as an asset: which changes came from a human, which from an assistant, which from an unattended cron, and what each one removed. The `author_role` column exists because "who did this" stopped being a rhetorical question.
+**If you orchestrate agents.** Your agents are already generating a record. Every commit message, every tool call, every retraction. Right now that record is exhaust, and it could answer a question raw logs cannot: what did the system believe before it changed its mind? `post_revisions` shows what that looks like as an asset: which changes a person wrote alone, which were written with the assistant, which the assistant authored outright, which came from an unattended cron, and what each one removed. Squash merges book the merger as the git author, so the honest signal is the `Co-Authored-By` trailer rather than the author name; getting that wrong here cost us a correction row. The `author_role` column exists because "who did this" stopped being a rhetorical question.
 
 ```sql
 SELECT author_role, COUNT(*) FROM post_revisions GROUP BY author_role;
@@ -80,7 +82,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in twelve rows
+-- the whole argument, in fourteen rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -99,7 +101,7 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 12 | What was claimed, what it became, which way the error ran, **who paid** |
+| `corrections` | 14 | What was claimed, what it became, which way the error ran, **who paid** |
 | `lessons` | 29 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
@@ -134,11 +136,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4
-  computed  44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4
+  stored    39d4083622a1eb6d564ef0e06abd26f5c5a4eda1f29717af67ccccaad21ef1c0
+  computed  39d4083622a1eb6d564ef0e06abd26f5c5a4eda1f29717af67ccccaad21ef1c0
 
 OK    contents match the recorded digest.
-      12 principles, 12 corrections, 29 lessons, 117 post_revisions, 1 documents
+      12 principles, 14 corrections, 29 lessons, 117 post_revisions, 1 documents
 ```
 
 Change one word of one correction and it says so:
@@ -146,7 +148,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4
+  stored    39d4083622a1eb6d564ef0e06abd26f5c5a4eda1f29717af67ccccaad21ef1c0
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -167,9 +169,9 @@ And a seal we make ourselves proves internal consistency, nothing more. We build
 
 Stated here rather than buried, because an undisclosed edit to a record is the thing this repository exists to argue against.
 
-- **Names are roles.** The founder appears as "the founder". Commit authors are `human`, `assistant`, or `automation`. The articles this data describes are bylined "Vera Team" and "Healthy"; no legal name has ever appeared on them. Withholding a name is reversible. Publishing one is not.
+- **Names are roles.** The founder appears as "the founder". Commit authorship is `human`, `co-authored`, `assistant`, or `automation`. The articles this data describes are bylined "Vera Team" and "Healthy"; no legal name has ever appeared on them. Withholding a name is reversible. Publishing one is not.
 - **No personal data.** Nothing about private individuals. Every article passage reproduced here was already public.
-- **The assistant is disclosed, not hidden.** A meaningful share of this work was done with an AI collaborator. That is why `author_role` is a column and not a footnote, and why several of the corrections in this database are its mistakes rather than ours.
+- **The assistant is disclosed, not hidden.** Most of this work was done with an AI collaborator: at least 78 of the 117 revisions here are `co-authored` or `assistant`. That is why `author_role` is a column and not a footnote, and why several of the corrections in this database are its mistakes rather than ours. Read the column as a floor and not a count. The `Co-Authored-By` convention began on 2026-06-15, so seven revisions predate it and cannot be classified either way. Until 2026-09-02 this column tested only the git author name and so reported 8 assistant rows; no row was false, but the picture was, and the correction is in the table as `a-column-that-did-not-measure-what-we-said`.
 
 ---
 
@@ -227,4 +229,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected twelve times in its first five days, ten of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected fourteen times in its first five days, twelve of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
