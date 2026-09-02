@@ -1,6 +1,14 @@
 # The database is binary. Do not try to diff or merge it as text;
-# rebuild it from source instead, or read data/vera-record.sql.
-data/vera-record.db binary
+# rebuild it from source instead, or read data/errata.sql.
+#
+# Corrected 2026-09-02: these rules named data/vera-record.db and
+# data/vera-record.sql, files that have never existed in this repository,
+# so the binary rule applied to nothing. Found by an adversarial audit.
+data/errata.db binary
 
 # The dump is text and should diff cleanly, which is half its purpose.
-data/vera-record.sql text eol=lf
+data/errata.sql text eol=lf
+
+# Timestamp proofs and the struck mark are binary.
+*.ots binary
+brand/*.png binary
