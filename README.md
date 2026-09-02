@@ -18,9 +18,12 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost FROM correc
 2026-08-31|in our favour|the subject
 2026-09-01|in our favour|its first two readers
 2026-09-01|in our favour|us
+2026-09-02|in our favour|the founder
+2026-09-02|in our favour|the founder
+2026-09-02|in our favour|the reader
 ```
 
-Nine errors. Seven of them ran in our own favour. We fixed those too.
+Twelve errors. Ten of them ran in our own favour. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -32,7 +35,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Twelve principles. Nine corrections. Twenty seven lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Twelve principles. Twelve corrections. Twenty nine lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -77,7 +80,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in nine rows
+-- the whole argument, in twelve rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -96,8 +99,8 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 9 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 27 | What generalises past this project |
+| `corrections` | 12 | What was claimed, what it became, which way the error ran, **who paid** |
+| `lessons` | 29 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -131,11 +134,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    96720d76cc36cc0f365db18ca06f2751913f71ec7c3c9e6b0e6b0653738e2609
-  computed  96720d76cc36cc0f365db18ca06f2751913f71ec7c3c9e6b0e6b0653738e2609
+  stored    44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4
+  computed  44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4
 
 OK    contents match the recorded digest.
-      12 principles, 9 corrections, 27 lessons, 117 post_revisions, 1 documents
+      12 principles, 12 corrections, 29 lessons, 117 post_revisions, 1 documents
 ```
 
 Change one word of one correction and it says so:
@@ -143,7 +146,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    96720d76cc36cc0f365db18ca06f2751913f71ec7c3c9e6b0e6b0653738e2609
+  stored    44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -224,4 +227,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected nine times in its first four days, seven of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected twelve times in its first five days, ten of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
