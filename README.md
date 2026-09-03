@@ -56,6 +56,8 @@ Most of the argument about whether to trust AI agents is conducted in assurances
 
 The claim underneath is the one that is already true of a person. An agent gets better by two things the model does not supply: the experience it keeps, and the people who correct it. A session forgets; a record does not. A model does not argue back; a founder, a reader, and a second model reading adversarially all do, and their corrections are rows in this database. Experience and connections are the variables you can actually work. This is the tool that keeps the first and admits the second, and a tool is all it is. It proves the record is unchanged. It never proves a line in it is true.
 
+What we cannot show you is anybody else doing it. The method has been run on exactly one project, the one you are reading, so what is on offer is a demonstration and not a validation. A repository arguing for checkable claims should not make an unchecked one about itself.
+
 If you build agents, that is the value on offer here, stated as narrowly as we can make it. Not an agent you can trust. An agent you can check.
 
 ---
@@ -153,8 +155,8 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    1b700e2a82de06204aa510aed7f3f3c7626c09612a4554c24025127a9b82345b
-  computed  1b700e2a82de06204aa510aed7f3f3c7626c09612a4554c24025127a9b82345b
+  stored    a07f6034e7822679df266c989847a8ccb66a84686d16977a2ddde890a21cf052
+  computed  a07f6034e7822679df266c989847a8ccb66a84686d16977a2ddde890a21cf052
 
 OK    contents match the recorded digest.
       13 principles, 15 corrections, 29 lessons, 117 post_revisions, 1 documents
@@ -165,7 +167,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    1b700e2a82de06204aa510aed7f3f3c7626c09612a4554c24025127a9b82345b
+  stored    a07f6034e7822679df266c989847a8ccb66a84686d16977a2ddde890a21cf052
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -187,6 +189,7 @@ And a seal we make ourselves proves internal consistency, nothing more. We build
 Stated here rather than buried, because an undisclosed edit to a record is the thing this repository exists to argue against.
 
 - **Names are roles.** The founder appears as "the founder". Commit authorship is `human`, `co-authored`, `assistant`, or `automation`. The articles this data describes are bylined "Vera Team" and "Healthy"; no legal name has ever appeared on them. Withholding a name is reversible. Publishing one is not.
+- **One project has done this, and it is this one.** As of 3 September 2026 this repository has one star, no forks, no issues and no contributors but its author; no other errata built this way has been published to us; and we have no evidence that anyone except its authors has run the verifier. A star means somebody looked, which is not evidence that the method works, and neither is anything else in that list. One project doing something is not evidence it works anywhere else, so read the discipline here as demonstrated rather than validated. Do not take those numbers from us either: they are on this repository's own pages and they update themselves. An outside reader pointed out that we argued for a method without ever saying it was unproven, and they were right.
 - **No personal data.** Nothing about private individuals. Every article passage reproduced here was already public.
 - **The assistant is disclosed, not hidden.** Most of this work was done with an AI collaborator: at least 78 of the 117 revisions here are `co-authored` or `assistant`. That is why `author_role` is a column and not a footnote, and why several of the corrections in this database are its mistakes rather than ours. Read the column as a floor and not a count. The `Co-Authored-By` convention began on 2026-06-15, so seven revisions predate it and cannot be classified either way. Until 2026-09-02 this column tested only the git author name and so reported 8 assistant rows; no row was false, but the picture was, and the correction is in the table as `a-column-that-did-not-measure-what-we-said`.
 
