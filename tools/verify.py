@@ -42,11 +42,11 @@ def digest(conn):
             rows.append(f"{table}\x1f{values}")
 
     # meta is covered too. Without it, the disclosures could be rewritten
-    # and the file would still verify, which would make this script a
-    # decoration. The digest row is the only thing excluded, because a
-    # hash cannot contain itself.
+    # and the file would still verify. Excluded: the digest row, because a
+    # hash cannot contain itself, and the two provenance rows built_on and
+    # source_commit, which describe the build and not the record.
     for key, value in conn.execute(
-        "SELECT key, value FROM meta WHERE key != 'integrity_sha256' ORDER BY key"
+        "SELECT key, value FROM meta WHERE key NOT IN ('integrity_sha256', 'built_on', 'source_commit') ORDER BY key"
     ):
         rows.append(f"meta\x1f{key}\x1f{value}")
 
