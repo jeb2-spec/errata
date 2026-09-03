@@ -61,11 +61,13 @@ generous beyond what we claim.
 | 2026-09-02 (post-merge) | `38f39f76b609ea8ce89b86aa1481e7b232e27e6632fcd7cf0315e704757627fa` | `44f065ff99469e64390f04a767248d873287ba09b22a0e92c15f28da0bb8e8b4` | `data/anchors/2026-09-02-38f39f76.ots` | **confirmed in Bitcoin**, block **965229**, checked 2026-09-02. Merging `main` changed the commit graph the `post_revisions` table is built from, so the digest moved while every count stayed identical. That is the record working, not drifting: it hashes the history it actually has |
 | 2026-09-02 (three-weeks fix) | `23e22011cc0d23d24ab5a5dd05f8cc35ee3b598bdefa266654b241fa02a32675` | `45bf59fea87f5d8c63a175dc588a91a1e484842c0a3c15997bf4bac4b9328124` | `data/anchors/2026-09-02-23e22011.ots` | **confirmed in Bitcoin**, block **965236**, checked 2026-09-03. Carried the three-weeks correction, the one an adversarial audit caught after it had already been anchored |
 | 2026-09-02 (author roles) | `97c0cb6e619f69b7bdc006b21c4743e061c9cd01b2ff4e4cdba937aca8622705` | `39d4083622a1eb6d564ef0e06abd26f5c5a4eda1f29717af67ccccaad21ef1c0` | `data/anchors/2026-09-02-97c0cb6e.ots` | **confirmed in Bitcoin**, block **965236**, checked 2026-09-03. Carried the author_role correction. Superseded the same day by the mark below, proof moved rather than overwritten |
-| 2026-09-02 (the mark) | `da790abd13fc3960070179655ea852d7ff7120b279f4b0b4830bdbcac739d335` | `2b6060fbd757f8bf8bfc149a50939dfca499ffd4cee846252c7eee687d0e5028` | `data/errata.db.ots` | **confirmed in Bitcoin**, block **965236**, checked 2026-09-03. The current published build. Carries the struck mark and the .gitattributes fix |
+| 2026-09-02 (the mark) | `da790abd13fc3960070179655ea852d7ff7120b279f4b0b4830bdbcac739d335` | `2b6060fbd757f8bf8bfc149a50939dfca499ffd4cee846252c7eee687d0e5028` | `data/anchors/2026-09-02-da790abd.ots` | **confirmed in Bitcoin**, block **965236**, checked 2026-09-03. Carried the struck mark and the .gitattributes fix. Superseded 2026-09-03 when its branch was squash-merged into `main`; proof moved rather than overwritten |
+| 2026-09-03 (post-merge, #631) | `c7b3def8a6fe8e3a37dec0e19944884d9fe7b72b15f87f6f0e109881326ecb3f` | `37db078beabc83ff396c3fd92c9105894e2e33a0469439c1e0a1374d3fc887e4` | `data/errata.db.ots` | **pending**, stamped 2026-09-03 with four calendars. The current published build, rebuilt from `main` after the squash-merge of the pull request that carried the five builds above it. Every count is identical to the build before; only the commit graph moved, so only the digest moved. Run `ots upgrade data/errata.db.ots` once the calendars have aggregated |
 
-**All eight proofs are now confirmed in Bitcoin.** Every published state of
-this record, including the ones that were superseded within the hour, can be
-proved to have existed before its block was mined. That includes the builds
+**Eight of these nine proofs are confirmed in Bitcoin; the ninth is
+pending.** Every published state of this record, including the ones that
+were superseded within the hour, can be proved to have existed before its
+block was mined, and the ninth will be once its block is mined. That includes the builds
 that carried our own errors, which is the point: the anchor proves when we
 published a wrong number just as firmly as when we published a right one.
 
