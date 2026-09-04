@@ -16,15 +16,15 @@ If you got here from a friend and none of this looks like your world: it is a li
 
 *Errata* is the Latin plural of *erratum*: a thing that has strayed. Printers of the hand-press era gave the word to a slip bound into a finished book, listing the errors the book already contained. The book shipped with its own mistakes attached. This repository is that slip, kept for a small project that works with an artificial-intelligence assistant every day, and published in a form a stranger can check.
 
-It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors; the file does not record who entered a row, and says so. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and every published build is submitted for anchoring to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed. The record is then turned on itself: a measurement of who catches the project's errors, using the capture-recapture estimators that software inspection borrowed from ecology, and a plain statement of what that measurement cannot yet say.
+It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors, and the file does not record which of us entered which row. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and published builds are anchored to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed, which are pending, and which are still owed. A build made where the calendar servers cannot be reached ships unstamped and says so. The record is then turned on itself: a measurement of who catches the project's errors, using the capture-recapture estimators that software inspection borrowed from ecology, and a plain statement of what that measurement cannot yet say.
 
-The findings to date are brief. Thirty errors. Twenty eight of them ran in our own favour. Most reached a reader before anyone caught them. No defect has ever been found independently by two detectors, so the number of errors nobody found cannot be estimated, and the measurement script refuses to invent one. And the method has been run on one project, this one, so it is demonstrated and not validated.
+The findings to date are brief. Forty one errors. Thirty nine of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute; that pass and its arithmetic are in section 7. And the method has been run on one project, this one, so it is demonstrated and not validated.
 
 **Contents.** 1. The record · 2. The problem · 3. Terms · 4. What is inside · 5. Method · 6. One correction, in full · 7. Measurement · 8. Limits · 9. Reproduction · 10. What this claims for agents · 11. Disclosures · 12. Sources · The short version
 
 ---
 
-## 1. The record, in thirty rows
+## 1. The record, in forty one rows
 
 ```console
 $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our_favour FROM corrections;"
@@ -59,13 +59,24 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-04|in our favour|the reader|1
 2026-09-04|in our favour|the reader|1
 2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
 ```
 
-Thirty errors. Twenty eight of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Forty one errors. Thirty nine of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
-The block above is emitted by the build from the database and compared whole. Until 4 September 2026 it was typed, and twelve of its rows were in an order the command does not produce. That correction is `a-transcript-the-command-does-not-produce`.
+The build derives that block from the database and fails if this file does not already contain it, character for character. Nothing writes this file; the gate only refuses to let it drift. Until 4 September 2026 the block was typed, and twelve of its rows were in an order the command does not produce, which is correction `a-transcript-the-command-does-not-produce`. The sentence that replaced it said the block was emitted by the build, which claimed the stronger of the two arrangements, and that is correction `emitted-by-the-build`.
 
 ---
 
@@ -89,7 +100,7 @@ So this repository is the idea turned around and pointed at its authors. If we a
 SELECT * FROM passages_removed;
 ```
 
-Thirteen principles. Thirty corrections. Forty five lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Thirteen principles. Forty one corrections. Fifty one lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -118,9 +129,9 @@ Seven tables in one SQLite file, with a plain-text dump of the same contents bes
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 13 | The rules, each with the reasoning behind it |
-| `corrections` | 30 | What was claimed, what it became, which way the error ran, **who paid** |
-| `detections` | 37 | Who found each defect, and whether they went looking on their own |
-| `lessons` | 45 | What generalises past this project |
+| `corrections` | 41 | What was claimed, what it became, which way the error ran, **who paid** |
+| `detections` | 50 | Who found each defect, and whether they went looking on their own |
+| `lessons` | 51 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 2 | The Portable Record and the measurement paper, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -175,11 +186,15 @@ Once a record can be checked, it can be measured. [MEASUREMENT.md](MEASUREMENT.m
 
 The estimate uses capture-recapture, the method ecologists use to count a population they cannot enumerate, and the one software-inspection research adopted in 1992 for the question "how many defects remain after this review?" The intuition needs no algebra. Put two independent reviewers over the same material. If they find nearly the same defects, few remain. If they find almost none in common, most of the population is still out there. **The overlap between independent detectors is the signal.**
 
-Here the overlap is zero. No defect in this record has ever been found independently by two detectors. So the dark number is not estimable, and the script that would compute it refuses to print one. That refusal is the finding. An estimator run on insufficient overlap returns a confident figure that means nothing, and a repository built to publish its own errors has no business manufacturing a comforting one.
+Inside the corrections table the overlap is zero. No defect in it has ever been found independently by two detectors, so the dark number is not estimable from those rows and the script that would compute it refuses to print a figure. An estimator run on insufficient overlap returns a confident number that means nothing, and a repository built to publish its own errors has no business manufacturing a comforting one.
 
-The paper also says who catches what, in a table derived from the database and checked by the build. This section used to summarise that table in two sentences, and both were false: it called the founder the single largest independent detector when the table showed a tie, and it said every error the assistant caught on its own was mechanical when two were judgement. Both sentences were sealed into the paper and stood for a day, until a second model read the paper against the table. They are corrections `a-tie-called-a-lead` and `every-was-five-of-seven`, and they are the reason this section now points at the table instead of paraphrasing it.
+That refusal used to be presented as the finding. It is less than that, and the smaller version is more interesting. Reading the detection notes, no two detectors here appear ever to have been set the same task over the same material: each was pointed at a different question in order to cover more ground. A design that never creates the opportunity for overlap cannot measure it, so part of what the zero describes is our own allocation policy. That is correction `an-overlap-nobody-tested-for`. The record has no column for a brief, so that reading cannot be checked with a query, which is stated as a limit in the paper rather than dressed up.
 
-What survives is the claim the two false sentences were reaching for, stated at the size the record supports. A system cannot be its own independent second reviewer, because it shares every prior and every blind spot with the pass that produced the error. In this record, every failure of judgement about a person, about a public claim, or about the system's own limits was caught by somebody else. The paper says so, and says what would have to change.
+So it was tested. Before this build was published, two reviewers were given the same material and the same brief. They returned twelve findings each and shared five, which is the first non-zero overlap this project has ever recorded, and it makes the estimator computable here for the first time: about twenty seven defects in that change, of which nineteen were found. Both reviewers ran on the same model, which inflates the overlap and pushes that estimate down, so read it as a floor. The arithmetic, the caveats, and the reason none of those nineteen appears in the corrections table are in the paper.
+
+This section has now been wrong about the same paragraph three times, which is why it no longer paraphrases the table. It called the founder the single largest independent detector when the table showed a tie. It said every error the assistant caught on its own was mechanical when some were judgement. Then, correcting those two, it said that every failure of judgement about a person, about a public claim, or about the system's own limits had been caught by somebody else. No column records whether a failure was one of judgement, so nothing in the schema could have tested that sentence, which is what made it feel safe to write. It was false anyway. The corrections are `a-tie-called-a-lead`, `every-was-five-of-seven`, `lesson-five-was-never-true` and `a-sentence-shaped-so-nothing-could-test-it`.
+
+The claim that survives is small enough to check. A system reviewing its own work is not an independent second reviewer, because it shares the priors that produced the error. What this record shows is that its self-review catches things, that most of what it catches on its own is mechanical, and that the failures which did the most damage were caught by somebody else. That last split is a reading of the detection notes and not a column, because nothing in the schema records whether a failure was mechanical or one of judgement; the paper says so and names the rows to read. Whether any of it holds anywhere but here, one project cannot say.
 
 ---
 
@@ -189,7 +204,7 @@ Stated in the order a careful reader would raise them.
 
 **Integrity is not accuracy.** A tamper-evident record of a false claim is still false, held perfectly still. The digest proves this file is unchanged. It does not prove any sentence in it is true.
 
-**A seal we make ourselves proves internal consistency, nothing more.** We build this, we hash it, we publish it. Someone who controls all three can rewrite an entry and re-seal it. What defeats that is an anchor: the record's fingerprint witnessed somewhere we have no reach. Every published build is stamped with OpenTimestamps, which commits the file's hash to the Bitcoin blockchain through independent calendar servers. The anchor buys detection by a stranger, not immutability. We could still alter the file, and anyone who checked would find that the stamp no longer matches. [ANCHORS.md](ANCHORS.md) lists every build, its fingerprint, and whether its proof is confirmed or still pending, and a build made where the calendar servers cannot be reached ships with its stamp owed and says so in that table rather than shipping a proof of a different file.
+**A seal we make ourselves proves internal consistency, nothing more.** We build this, we hash it, we publish it. Someone who controls all three can rewrite an entry and re-seal it. What defeats that is an anchor: the record's fingerprint witnessed somewhere we have no reach. Published builds are stamped with OpenTimestamps, which commits the file's hash to the Bitcoin blockchain through independent calendar servers, and a build made where those servers cannot be reached ships with its stamp owed and says so rather than shipping a proof of a different file. The anchor buys detection by a stranger, not immutability. We could still alter the file, and anyone who checked would find that the stamp no longer matches. [ANCHORS.md](ANCHORS.md) lists every build, its fingerprint, and whether its proof is confirmed, pending or owed. Until 4 September 2026 this paragraph said *every* published build is stamped, in a build that was not; the hedge it replaced was removed in the same commit that created the first unstamped build, which is correction `every-build-is-stamped`.
 
 **The seal once failed to cover its own disclosures.** An earlier build left the `meta` table outside the digest, which meant the redaction notice could have been rewritten while the file still verified clean. A verifier that cannot protect its own disclosures is a decoration. The seal covers `meta` now, and the gap is in the history of this repository, because of course it is.
 
@@ -218,7 +233,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in thirty rows
+-- the whole argument, in forty one rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -235,11 +250,11 @@ SELECT * FROM corrections_against_ourselves;
 ```console
 $ python3 tools/verify.py
 
-  stored    59df725c923d7e47869ebf59a3d0d2170bb0099fb176630500d8e87325b8555d
-  computed  59df725c923d7e47869ebf59a3d0d2170bb0099fb176630500d8e87325b8555d
+  stored    c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa
+  computed  c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa
 
 OK    contents match the recorded digest.
-      13 principles, 30 corrections, 37 detections, 45 lessons, 117 post_revisions, 2 documents
+      13 principles, 41 corrections, 50 detections, 51 lessons, 117 post_revisions, 2 documents
 
       This proves the contents are unchanged since the build.
       It does not prove any statement in them is true.
@@ -251,7 +266,7 @@ Change one character of one row and it says so. This is what `tools/tamper-test.
 ```console
 $ python3 tools/verify.py altered-copy.db
 
-  stored    59df725c923d7e47869ebf59a3d0d2170bb0099fb176630500d8e87325b8555d
+  stored    c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa
   computed  <a different digest>
 
 FAIL  contents do not match the recorded digest.
@@ -268,14 +283,18 @@ Three checks. It alters one character in one row of a throwaway copy and require
 
 The third check is the one that is not circular. Reading the same database with the same library proves the library agrees with itself. Rebuilding the number from the published text proves that the bytes you can read carry the record, and that somebody who distrusts us and has no SQLite can reach the same number alone. It was proposed by an outside reader who had inspected this repository but could not execute anything, and who said so rather than implying otherwise. Its first run failed: the order of rows inside the digest turned out to depend on a database tie-break nobody had written down, so the published text could not reproduce it. That is correction `an-order-the-text-could-not-reproduce`, and the rule is now a byte sort that needs no database.
 
-**Check the anchor.**
+**Check the anchor, without trusting us and without running a Bitcoin node.**
 
 ```bash
 pip install opentimestamps-client
-ots verify data/errata.db.ots
+ots info data/errata.db.ots
 ```
 
-A stamp that is still waiting for aggregation shows calendar commitments rather than a block. Earlier builds' stamps are kept under `data/anchors/`, named for the build each one proves. [ANCHORS.md](ANCHORS.md) says which builds are confirmed, which are pending, which stamp if any is still owed, and how to regenerate any anchored file byte for byte.
+That reads the proof file and nothing else. It prints the SHA-256 the stamp was made against, which you can compare with the file you just cloned, and it prints the Bitcoin block heights the proof commits to once the calendars have aggregated it. To finish the job yourself, run `ots -v info` on the same file: the value on the line above each `BitcoinBlockHeaderAttestation` is the merkle root of that block, byte-reversed. Reverse it, look the block up on any explorer you like, and see whether the two match. Nothing in that path goes through us.
+
+`ots verify` is the one-command version, and it needs a local Bitcoin node to read block headers from. Without one it exits with a cookie-file error, so it is not the command to reach for first. Until 4 September 2026 this section offered `ots verify` with no mention of the node, and offered an archived example that could not run at all; that is correction `anchor-commands-nobody-ran`.
+
+A stamp still waiting for aggregation shows calendar commitments rather than a block. Earlier builds' stamps are kept under `data/anchors/`, named for the build each one proves. [ANCHORS.md](ANCHORS.md) says which builds are confirmed, which are pending, which stamp if any is still owed, and how to regenerate any anchored file byte for byte.
 
 ---
 
@@ -306,7 +325,17 @@ Stated here rather than buried, because an undisclosed edit to a record is the t
 - **Names are roles.** The founder appears as "the founder". Commit authorship is `human`, `co-authored`, `assistant`, or `automation`. The articles this data describes are bylined "Vera Team" and "Healthy"; no legal name has ever appeared on them. Withholding a name is reversible. Publishing one is not.
 - **One project has done this, and it is this one.** As of 3 September 2026 this repository has one star, no forks, no issues and no contributors but its author; no other errata built this way has been published to us; and we have no evidence that anyone except its authors has run the verifier. A star means somebody looked, which is not evidence that the method works, and neither is anything else in that list. Do not take those numbers from us either: they are on this repository's own pages and they update themselves. An outside reader pointed out that we argued for a method without ever saying it was unproven, and they were right.
 - **No personal data.** Nothing about private individuals. Every article passage reproduced here was already public.
-- **The assistant is disclosed, not hidden.** Most of this work was done with an AI collaborator: the query in section 5 shows how many of the 117 revisions are `co-authored` or `assistant`. That is why `author_role` is a column and not a footnote, and why several of the corrections in this database are its mistakes rather than ours. Read the column as a floor and not a count. The `Co-Authored-By` convention began on 2026-06-15, so fourteen revisions, across five commits, predate it and cannot be classified either way. Until 4 September 2026 this bullet and the sealed disclosure both said seven; that correction is `seven-that-were-fourteen`. Until 2026-09-02 the column tested only the git author name and so reported 8 assistant rows; no row was false, but the picture was, and the correction is in the table as `a-column-that-did-not-measure-what-we-said`.
+- **The assistant is disclosed, not hidden.** Most of this work was done with an AI collaborator. That is why `author_role` is a column and not a footnote, and why several of the corrections in this database are its mistakes rather than ours. Read the column as a floor and not a count. The `Co-Authored-By` convention began on 2026-06-15, so fourteen revisions, across five commits, predate it and cannot be classified either way. Until 4 September 2026 this bullet and the sealed disclosure both said seven; that correction is `seven-that-were-fourteen`. Until 2026-09-02 the column tested only the git author name and so reported 8 assistant rows; no row was false, but the picture was, and the correction is in the table as `a-column-that-did-not-measure-what-we-said`.
+
+Here is that split. Until 4 September 2026 the bullet above said the query in section 5 shows these numbers, and then showed a reader no output at all, which is correction `a-query-that-is-never-run`. The block is derived by the build and compared against this file character for character, the same way the transcript in section 1 is.
+
+```console
+$ sqlite3 data/errata.db "SELECT author_role, COUNT(*) FROM post_revisions GROUP BY author_role ORDER BY author_role;"
+
+assistant|8
+co-authored|70
+human|39
+```
 
 ---
 
@@ -374,4 +403,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it. If you cite it, cite the build and not the page: the digest that `tools/verify.py` prints identifies the exact record you read, and this address points at whatever we publish next.
 
-*Kept by the Vera Project. Corrected thirty times in its first seven days, twenty eight of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected forty one times in its first seven days, thirty nine of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*

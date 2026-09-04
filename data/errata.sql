@@ -34,7 +34,7 @@ CREATE VIEW passages_removed AS
 INSERT INTO meta VALUES ('title','The Vera Record');
 INSERT INTO meta VALUES ('what_this_is','The conduct record of a project that argues a record beats a reputation, applied to itself. Principles, every correction made and which direction each error ran, transferable lessons, and the full revision history of every published article including the prose removed.');
 INSERT INTO meta VALUES ('built_on','2026-09-04');
-INSERT INTO meta VALUES ('source_commit','023bdd2');
+INSERT INTO meta VALUES ('source_commit','15c91f85');
 INSERT INTO meta VALUES ('format','SQLite 3. Public domain file format, no server required. A plain-text errata.sql dump ships alongside for any reader without SQLite.');
 INSERT INTO meta VALUES ('how_to_open','sqlite3 errata.db  then  .tables  and  SELECT * FROM corrections;  Or open it in any SQLite browser, or read errata.sql in a text editor.');
 INSERT INTO meta VALUES ('start_here','SELECT * FROM corrections ORDER BY occurred_on; then SELECT * FROM passages_removed;');
@@ -44,8 +44,8 @@ INSERT INTO meta VALUES ('disclosure_redaction','Personal names are replaced wit
 INSERT INTO meta VALUES ('disclosure_scope','Contains no personal identifiers, no family information, and nothing about private individuals. All article text reproduced here was already published publicly.');
 INSERT INTO meta VALUES ('integrity_note','SHA-256 over a canonical serialisation of every row in every table, including this meta table, with three rows excluded: the digest row itself, because it cannot contain its own hash, and the two provenance rows built_on and source_commit, because they describe the build and not the record, and including them meant every commit to the source repository moved the seal with nothing in the record changed (corrected 2026-09-03, see the corrections table). Covering the rest of meta matters: without it the disclosures below could be edited and the file would still verify. It proves the contents are unchanged since the build. It does not, and cannot, prove any statement in it is true. Integrity is not accuracy.');
 INSERT INTO meta VALUES ('license','The contents may be quoted and redistributed freely with attribution to the Vera Project.');
-INSERT INTO meta VALUES ('counts','13 principles, 30 corrections, 45 lessons, 117 article revisions across 37 articles');
-INSERT INTO meta VALUES ('integrity_sha256','59df725c923d7e47869ebf59a3d0d2170bb0099fb176630500d8e87325b8555d');
+INSERT INTO meta VALUES ('counts','13 principles, 41 corrections, 51 lessons, 117 article revisions across 37 articles');
+INSERT INTO meta VALUES ('integrity_sha256','c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa');
 INSERT INTO principles VALUES ('ground-truth-or-silence','Ground truth or silence','If you cannot show it, do not claim it. Sourced to the record, or unsaid.','Governs publication, not belief. It says nothing about what anyone may know, notice, or act on. Reading it as a theory of reality would make it false.');
 INSERT INTO principles VALUES ('presence-is-not-proof','Presence is not proof','A true fact framed as a verdict becomes a lie about a person. Describe, never condemn.','Something being present is not evidence it was used for harm. Plenty of honest software looks exactly like the thing someone is afraid of.');
 INSERT INTO principles VALUES ('the-practical-thing','The practical thing at the end','Every piece of work leaves the reader something they can actually do.','A diagnosis with no next step is entertainment. The reader came with a problem.');
@@ -89,6 +89,17 @@ INSERT INTO corrections VALUES ('seven-that-were-fourteen','2026-09-04','The aut
 INSERT INTO corrections VALUES ('a-transcript-the-command-does-not-produce','2026-09-04','The console block that opens this README, presented as the output of a query against the database','Showed the twenty four rows in an order the command does not produce: within every day, the rows were shuffled.','The block had been typed and reordered by hand, and the build gate that checks it tested that each row was present somewhere, not that the block matched. The record''s own correction an-order-the-text-could-not-reproduce is about published text failing to reproduce row order, and the first thing this README showed a reader was a transcript with that defect. The block is now emitted by the build and the gate compares it whole.','in our favour','the reader','The same adversarial review, running the command the block claims to show.',1);
 INSERT INTO corrections VALUES ('ninety-nine-lines','2026-09-04','The README''s description of its verifier, in the paragraph that invites readers to audit rather than trust','Said tools/verify.py was ninety nine lines of standard-library Python.','It has been 107 lines since the 2026-09-04 build that replaced the row order rule with a byte sort, and the sentence went out unchanged in the publish that carried that file. The fifth hand-typed count about our own work to go stale, in the same sentence the first one, forty-lines, corrected. The number is gone rather than updated: a number that is not there cannot be wrong.','in our favour','the reader','Counted the file''s lines before retyping the claim in a rewrite. Nothing had prompted it.',1);
 INSERT INTO corrections VALUES ('fourteen-of-nineteen','2026-09-04','The summary sentence beneath the anchor log in ANCHORS.md','Said fourteen of eighteen proofs were confirmed in Bitcoin and the four newest were pending.','The table it summarised had nineteen rows: fourteen confirmed and five pending. The sentence was written when the table was one row shorter and was not reread when the row was added. ANCHORS.md had no gate, and it is the one document whose job is to say the record cannot be quietly rewritten. The doctor now derives that sentence from the table and fails when the file disagrees.','in our favour','the reader','The same adversarial review, counting the rows.',1);
+INSERT INTO corrections VALUES ('lesson-five-was-never-true','2026-09-04','The correction every-was-five-of-seven in this table, lesson forty three, and the paragraph of the measurement paper both describe','Said lesson five was true at seventeen defects and went stale afterwards, because two self-catches that were failures of judgement arrived later.','It was false when it was sealed. Opening the seventeen defect build out of commit 119e44b, the detections table already held five independent self-audit rows and two of them were judgement failures: a true detail deleted as unsourced, and a remedy recommended from two agreeing summaries. Three of the five were mechanical, not five of five. The word every was not a sentence that aged, it was wrong on the day it was written, and a correction saying a claim went stale is a gentler account of us than one saying we never checked. This is a false sentence inside a correction row, running in our favour, which is the failure this table exists to make impossible. The rows stand unedited with this one beside them.','in our favour','the reader','An adversarial review flagged it. Confirmed by checking out the seventeen defect build and listing its independent self-audit rows one at a time.',1);
+INSERT INTO corrections VALUES ('four-lines-that-were-seventeen','2026-09-04','The correction a-tie-called-a-lead in this table, and lesson forty four','Said the attribution table printed both sevens four lines above the superlative that contradicted them.','Seventeen lines above, with a ten line paragraph in between. In MEASUREMENT.md at commit b28c521 the founder''s seven sits on line 92 and the false sentence begins on line 109. The detail existed to show how near the falsifying evidence sat, so shrinking the distance made the miss look more forgivable than it was. Both rows stand unedited with this one beside them.','in our favour','the reader','An adversarial review. Confirmed by numbering the lines of the file at the commit named.',1);
+INSERT INTO corrections VALUES ('anchor-commands-nobody-ran','2026-09-04','The anchor check published in the README, and the same block in ANCHORS.md','Handed a reader two commands for checking this record''s anchor without our help: ots verify against the current build''s proof, and the same against an archived one.','Neither runs. ots verify reads block headers from a local Bitcoin node and exits non-zero with a cookie file error when there is not one, which almost no reader has, and the requirement was never mentioned. The archived example additionally names its target by removing the .ots suffix, so the tool looks for a file that has never existed and stops before reading the proof. Both blocks now carry commands that were run on a machine set up from these instructions and nothing else, and both state the node requirement. The first repair fixed only the README and left the ANCHORS block byte identical while the correction row said both were done, which two independent reviewers caught before it was published. A reader without one can take the block heights and the file hash out of a proof with ots info and check the merkle root against any block explorer, which is the path that should have been published first.','in our favour','the reader','Installed the client on a machine that had never had it, following this README from its first line, and ran every command in it.',1);
+INSERT INTO corrections VALUES ('a-stamp-the-text-pointed-at','2026-09-04','Three published lines naming data/errata.db.ots, one in the README and two in ANCHORS.md','Sent a reader to the current build''s proof at data/errata.db.ots.','There was no such file. The build published that day was made where the calendar servers cannot be reached, so its stamp was owed, and the archive move that recorded the debt left three sentences pointing at a path that no longer existed. The anchor log said the stamp was owed and the two documents around it did not. The remedy is not a better sentence. Any build whose stamp is owed now says so in the two documents that name the path, and the doctor fails a publish where data/errata.db.ots is named by the text but absent from the tree.','in our favour','the reader','An adversarial review, reading the published tree for the files its text names.',1);
+INSERT INTO corrections VALUES ('every-build-is-stamped','2026-09-04','The README''s Limits section, and its abstract, on how this record is anchored','Said every published build is stamped with OpenTimestamps, and that every published build is submitted for anchoring to a public ledger.','The build those sentences shipped in was neither. A correctly hedged sentence existed one commit earlier and was replaced with the stronger one in the same commit that created the first unstamped build, so the claim was strengthened at the moment it became false. Both sentences now say what the anchor log says: a build made where the calendars cannot be reached ships with its stamp owed, and says so.','in our favour','the reader','An adversarial review, comparing the two sentences with the anchor log in the same tree.',1);
+INSERT INTO corrections VALUES ('a-disclosure-that-says-no-such-thing','2026-09-04','The README abstract, on what this record discloses about its own authorship','Said the file does not record who entered a row, and says so.','It says no such thing. Nothing in the sealed record states that entry authorship is unrecorded, and a search of the text returns nothing. The first half was true and the second half was a claim about the record''s own contents made without opening it, written in the same pass that was correcting a different unverified claim.','in our favour','the reader','An adversarial review, searching the sealed text for the disclosure the sentence promised.',1);
+INSERT INTO corrections VALUES ('emitted-by-the-build','2026-09-04','The sentence beneath the console block that opens this README','Said the block is emitted by the build from the database.','The build derives the block and fails if the README does not already contain it. Nothing writes the README. The difference is the whole distance between a document that cannot go stale and one that cannot go stale silently, and the sentence claimed the stronger of the two. It was written while repairing a transcript that had been typed, which is the defect it describes.','in our favour','the reader','An adversarial review, reading the gate the sentence describes.',1);
+INSERT INTO corrections VALUES ('a-query-that-is-never-run','2026-09-04','The disclosures section of the README, on the assistant''s share of the revisions','Said the query in section 5 shows how many of the revisions are co-authored or assistant.','The query is printed and never run, and no output appears anywhere near it. A reader is told a number is being shown to them and is then shown a SQL statement. The section that prints the verifier''s output does the thing this sentence claimed to do, so the disclosure prints its result now as well.','in our favour','the reader','An adversarial review, looking for the output the sentence promises.',1);
+INSERT INTO corrections VALUES ('an-ok-line-that-dropped-a-category','2026-09-04','The success line printed by scripts/errata-doctor.mjs, the tool that checks this record before every publish','Printed the number of anchor rows and then accounted for them as confirmed and pending only.','Twenty rows, accounted for as fourteen and five. The owed category, which the same tool carries a whole branch to handle, was missing from its own summary, so the healthy output of the instrument was a count that did not add up. That is the defect fourteen-of-nineteen living inside the instrument written to prevent it.','in our favour','the reader','An adversarial review, adding up the numbers in the tool''s own output.',1);
+INSERT INTO corrections VALUES ('a-sentence-shaped-so-nothing-could-test-it','2026-09-04','The paragraph on self review in the measurement paper, and the section of the README that summarises it','Said the failures that needed judgement about a person, about a public claim, or about the system''s own limits were caught by somebody else every time.','It is false, and it was built so that nothing could show it. No column anywhere records whether a failure was one of judgement, so no reader could run the query that would test it; the sentence replaced two false superlatives with one nothing could come back at, which is a worse repair than a smaller claim would have been. Read against the table it summarises it fails anyway: two of the assistant''s independent self-catches are judgement failures, one about a person and one about a public claim, and the same paragraph names both of them seven lines earlier. The replacement carries no count and points at the query instead.','in our favour','the reader','An adversarial review named the sentence unfalsifiable. Reading the paragraph against the detections table then showed it was also false, and contradicted by its own paragraph.',1);
+INSERT INTO corrections VALUES ('an-overlap-nobody-tested-for','2026-09-04','The measurement paper, on what its central refusal means','Said the zero overlap between independent detectors is not a data problem but the result, and that the detectors each happened to be pointed at different work at a different moment.','It is substantially a property of how this project allocates its detectors. The record contains no instance of two detectors being given the same material with the same brief, and the two seats convened on 4 September were briefed differently on purpose, one for facts and one for whether the document lands. A design that never creates the opportunity for overlap cannot observe it, so a refusal to estimate that follows from the design was published as a finding about detection. The paper now says so and names the experiment that would settle it, which costs one review pass.','in our favour','the reader','Reading the day''s two reviews as a study afterwards, and asking why every pair of detectors in the whole record is disjoint.',1);
 INSERT INTO detections VALUES ('settlement-pre-publication','adversarial-review','pre-publication',1,'A separate review pass over the draft, before it shipped.');
 INSERT INTO detections VALUES ('restored-a-true-detail','self-audit','post-publication',1,'Searched the corpus after the deletion, which is the wrong order.');
 INSERT INTO detections VALUES ('auditor-publication-clause','reader','post-publication',1,'A reader supplied the clause number.');
@@ -126,6 +137,19 @@ INSERT INTO detections VALUES ('seven-that-were-fourteen','adversarial-review','
 INSERT INTO detections VALUES ('a-transcript-the-command-does-not-produce','adversarial-review','post-publication',1,'The same review ran the command the block claims to show and compared the order. Contemporaneous.');
 INSERT INTO detections VALUES ('ninety-nine-lines','self-audit','post-publication',1,'Counted the file''s lines before retyping the number in a rewrite of the README. Nothing had prompted it. Contemporaneous.');
 INSERT INTO detections VALUES ('fourteen-of-nineteen','adversarial-review','post-publication',1,'The same review counted the rows of the anchor log against its summary sentence. Contemporaneous.');
+INSERT INTO detections VALUES ('lesson-five-was-never-true','adversarial-review','post-publication',1,'A second seat, reading the corrections table itself rather than the documents it corrects. Contemporaneous.');
+INSERT INTO detections VALUES ('lesson-five-was-never-true','self-audit','post-publication',0,'Checked out the seventeen defect build and listed its independent self-audit rows, which established when the claim became false. Triggered by the review that named it, and scored that way.');
+INSERT INTO detections VALUES ('four-lines-that-were-seventeen','adversarial-review','post-publication',1,'The same seat, measuring the distance the correction row asserts. Contemporaneous.');
+INSERT INTO detections VALUES ('a-stamp-the-text-pointed-at','adversarial-review','post-publication',1,'The same seat, checking that every path the published text names exists in the published tree. Contemporaneous.');
+INSERT INTO detections VALUES ('every-build-is-stamped','adversarial-review','post-publication',1,'The same seat, reading the anchoring claims against the anchor log beside them. Contemporaneous.');
+INSERT INTO detections VALUES ('a-disclosure-that-says-no-such-thing','adversarial-review','post-publication',1,'The same seat, searching the sealed text for a disclosure the abstract promised. Contemporaneous.');
+INSERT INTO detections VALUES ('emitted-by-the-build','adversarial-review','post-publication',1,'The same seat, reading the gate the sentence describes. Contemporaneous.');
+INSERT INTO detections VALUES ('a-query-that-is-never-run','adversarial-review','post-publication',1,'The same seat, looking for output the sentence says is shown. Contemporaneous.');
+INSERT INTO detections VALUES ('an-ok-line-that-dropped-a-category','adversarial-review','post-publication',1,'The same seat, adding up the categories in the doctor''s own success line. Contemporaneous.');
+INSERT INTO detections VALUES ('a-sentence-shaped-so-nothing-could-test-it','adversarial-review','post-publication',1,'The same seat, asking which column would falsify the sentence and finding none. Contemporaneous.');
+INSERT INTO detections VALUES ('a-sentence-shaped-so-nothing-could-test-it','self-audit','post-publication',0,'Read the paragraph against the detections table and found the sentence was not merely untestable but false, and contradicted seven lines above. Triggered by the review, and scored that way.');
+INSERT INTO detections VALUES ('anchor-commands-nobody-ran','self-audit','post-publication',1,'Set a machine up from the README''s own instructions and ran every command in it, including the two nobody had ever run. Nothing had prompted it. Contemporaneous.');
+INSERT INTO detections VALUES ('an-overlap-nobody-tested-for','self-audit','post-publication',1,'Read the day''s two reviews as a study and asked why every pair of detectors in the record is disjoint. Contemporaneous.');
 INSERT INTO lessons VALUES (1,'verification','A gate built from a hand kept list of claims inherits the omissions of the hand.','The list is the weak part, not the checking. This project''s build fails when the README stops describing the database, which is the right design, and the list of things it compared was typed: it covered four of the six tables the README tabulates and neither of the two whose counts had gone stale. Derive what must be checked from the structure being described, so a new table or a new claim is covered the moment it exists rather than the moment somebody remembers it.');
 INSERT INTO lessons VALUES (2,'design','Type is geometry or it is a request, and a request has no measurable width.','Asking for a font by name means no dimension exists until a renderer picks a face, so nothing that depends on the width of the words can be checked before it ships, and the same file renders differently on two machines. Set outlines when a layout has to be provable. Then a check can assert that a word clears what it sits in without rendering anything at all, which is what caught this one.');
 INSERT INTO lessons VALUES (3,'verification','A generated thing has to be checked across the states it will reach, not the state it is in.','A figure sized by eye against one state of the data is correct by coincidence and fails silently when the data moves, and the check that only ever runs against today''s data passes every day while it does. Sweep the parameter space: this record''s mark is now struck against eight digests and record sizes from one correction to four hundred before any of them is written, and the first sweep caught the same defect reappearing inside its own repair.');
@@ -171,6 +195,12 @@ INSERT INTO lessons VALUES (42,'verification','A new instrument''s first disagre
 INSERT INTO lessons VALUES (43,'verification','A sentence sealed at one count is a claim about every later count.','Lesson five was true at seventeen defects and false at twenty four, because two later self-catches were judgement and the word every had been sealed with the earlier number. The measurement paper repeated it, and a rewrite of the README repeated the paper. Anything a document says about a number it does not derive goes stale the moment the number moves, and a sealed document does not warn you. Reread every counting sentence when the count changes, or derive the sentence.');
 INSERT INTO lessons VALUES (44,'verification','A superlative is a claim about every other row.','Single largest, every, none, first: each asserts something about rows the writer did not look at. The founder was called the single largest independent detector while the table four lines above showed a tie. Before publishing a superlative, run the query that would falsify it, and publish the query beside the claim.');
 INSERT INTO lessons VALUES (45,'records','A transcript is a claim that a command produces it.','Text set as terminal output promises that running the command yields those lines in that order. A typed transcript drifts the way a typed number does, and a gate that checks each line is present lets the drift through. Emit transcripts from the command, and gate the whole block.');
+INSERT INTO lessons VALUES (46,'records','A corrections table is a published document and needs its own verification pass.','The worst defect of this record''s first week was a false sentence inside a correction row, running in our own favour. Every other published claim here had a gate over it or a reader through it. The table holding the corrections had neither, because its purpose made it feel exempt: a row admitting a mistake does not read like a claim. It is one. A correction is an assertion about a past state of the record, checkable against the build it describes, and it is wrong exactly as often as any other sentence written from memory. Verify corrections against the builds they name.');
+INSERT INTO lessons VALUES (47,'verification','Repair is a dense authoring event, not a subtraction.','Two publish cycles in one day were each followed by an independent review, and the second cycle, which was mostly repair, produced more defects than the first rather than fewer. Several were created by the repair itself: a published command broken by the file its own fix moved, a hedged sentence strengthened in the very commit that made it false, a claim about the record written while a different claim about the record was being corrected. The pattern then repeated one layer down. A later pass entered eleven corrections about those defects, and a review of that pass found false sentences inside three of the new correction rows, including a miscounted distance inside the correction about a miscounted distance. The moment after a correction is the least skeptical moment in the process, because the author has just spent an hour thinking hard about correctness and the feeling transfers to sentences that earned none of it. Review the repair at least as hard as the thing it repairs. The counts per pass are deliberately not given here: this record does not tag a defect with the review pass that found it, so any number would be one nobody could check.');
+INSERT INTO lessons VALUES (48,'verification','A gate raises trust across a document and raises verification only inside it.','This repository added gate after gate over one week, and each one holds. Defects kept arriving in the ungated prose beside them, including inside the correction rows that describe the gates. A reader cannot see where a gate''s coverage stops, so the checked fraction lends its credibility to the rest, and the unchecked remainder carries trust it never earned. Gate coverage is the metric, not gate count, and adding a gate without extending coverage can leave a document more dangerous than it was. Nothing here records which gate was added when, or which was tested by being deliberately broken, so this lesson states no counts: an unrecorded number is not evidence, and this is a document about that.');
+INSERT INTO lessons VALUES (49,'integrity','A seal reads as a warrant about contents, including to the people who wrote the warning.','Three defects in one review were sentences lifted out of sealed documents and trusted because they were sealed. They were lifted into a repository that publishes the sentence integrity is not accuracy, and knowing the rule gave no protection at all. That is what an affordance does: a tamper-evident wrapper feels like a statement about what is inside it. So the remedy is structural and not a resolution to be more careful. Sealed material needs a visible difference between sealed and independently verified and sealed and merely unchanged.');
+INSERT INTO lessons VALUES (50,'verification','A published command is a claim that it runs.','The anchor check this record handed its readers could not be executed by almost any of them: it needs a local Bitcoin node, which was never mentioned, and the archived example named a target file that has never existed. Neither had been run on a clean machine, because the person who wrote them already had the answer the commands were meant to produce. A command block is a promise about somebody else''s machine. Set one up from your own instructions, starting at the first line, and run every line before publishing it.');
+INSERT INTO lessons VALUES (51,'records','Zero overlap between detectors can describe your allocation policy rather than your detectors.','This record''s central measurement is a refusal: overlap between independent detectors is zero, so the number of defects nobody found is not estimable. That was published as a finding about detection. But the record holds no instance of two detectors ever being given the same material with the same brief, because every seat was pointed at a different question in order to maximise coverage. A design that never creates the opportunity for overlap cannot observe it. Before reporting a quantity as unmeasurable, check whether your own allocation is what made it unmeasurable, and if it is, say so and run the cheap experiment.');
 INSERT INTO post_revisions VALUES (1,'272-percent','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
@@ -1107,28 +1137,28 @@ section.
 
 ---
 
-## The finding, from thirty defects
+## The finding, from forty one defects
 
-Thirty corrections. Seventy three point three percent of them reached a reader
+Forty one corrections. Eighty point five percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| a second model, reviewing adversarially | 10 | 0 |
-| the assistant auditing itself | 8 | 7 |
+| a second model, reviewing adversarially | 19 | 0 |
+| the assistant auditing itself | 10 | 9 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
 | the person being written about | 1 | 0 |
 | a different vendor''s assistant | 0 | 1 |
 
-*Triggered* means the detector only looked because somebody else voiced doubt.
-Triggered self-audits are the ones where the assistant only looked because
-somebody else spoke: twice the founder said "be certain" without naming a
-defect, twice a review agent reported a control broken, once the founder said
-the published mark was coming out wrong, and once a reading produced elsewhere
-was relayed here and the comparison exposed a published sentence as false.
+*Triggered* means the detector only looked because somebody else voiced doubt:
+the founder saying "be certain" without naming a defect, a review agent
+reporting a control broken, a reading produced elsewhere and relayed here.
 Confirming somebody else''s finding is not detecting it, and this record counts
-none of them as detection. The bottom row is the first entry from a detector
+none of them as detection. The triggered rows are listed by
+`SELECT correction_id FROM detections WHERE independent = 0`, and they are not
+enumerated in prose here because the last prose enumeration named six of them
+while the column had grown to nine. The bottom row is the first entry from a detector
 this project does not run. It arrived carrying the same briefing as the
 assistant it caught, which is why its independent column is zero.
 
@@ -1138,11 +1168,16 @@ project whose thesis is that it catches its own.* The table above it showed a
 tie at seven, and the sentence stood for a day before a second model read the
 table against it. That is correction `a-tie-called-a-lead`, and it is the
 shape this paper is about: a superlative nobody had run the query for. The
-six rows that review added are the reason the adversarial column now leads,
-and every one of them is a defect in this paper or in the README that
-summarises it. **The table above is derived from the database by the build,
-and the build fails if this page disagrees with it.** The sentence it
-replaced was typed.
+correction row said the falsifying table sat four lines above the sentence.
+It sat seventeen lines above with a paragraph in between, which is correction
+`four-lines-that-were-seventeen`, a false detail inside the row that fixes a
+false sentence. The adversarial column leads because several review passes over one week added
+rows to it, most of them defects in this paper or in the README that summarises
+it and some in code and in other documents. The exact split per pass is not
+stated because this record does not tag a detection with the pass that produced
+it, and the last two attempts to state it in prose were both wrong. **The table above is derived
+from the database by the build, and the build fails if this page disagrees
+with it.** The sentence it replaced was typed.
 
 And then the number that stopped the analysis:
 
@@ -1160,12 +1195,116 @@ to publish its own errors has no business manufacturing a comforting one.
 
 ## What zero overlap actually means
 
-It is easy to read that as a data problem. It is not. It is the result.
+Until 4 September 2026 this section opened by saying that reading the zero as a
+data problem was a mistake, and that it was the result. That claimed more than
+the design can carry, in the direction that flattered the refusal, and the
+correction is `an-overlap-nobody-tested-for`.
 
-Zero overlap means **every defect in this record got exactly one look.** There
-is no second, independent pass over the same material. The detectors are not
-redundant, they are disjoint: each one happened to be pointed at different work
-at a different moment.
+Zero *independent* overlap means **no defect in this record has had a second,
+independent look.** Nine corrections do carry two detection rows, but in every
+one of those the second detector was triggered by the first rather than
+looking on its own. An earlier draft of this sentence said every defect got
+exactly one look, which the table under it contradicts. But the detectors
+are probably not disjoint by accident. The `detections` table records no brief,
+so what follows is a reading of the `note` column rather than a query, and a
+reader who reads those notes differently is entitled to. They describe
+detectors pointed at different things: the founder looking at a published mark,
+a reader supplying a clause number, a review agent reading shipped code,
+another vendor''s assistant reading a document. Nothing in the record describes
+two detectors set the same task over the same material.
+
+If that reading is right, a design that never creates the opportunity for
+overlap cannot measure it, and the estimator was blocked as much by an
+allocation policy as by the detectors.
+
+**So it was tested, and the test cost one review pass.** The result is the next
+section.
+
+---
+
+## The identical-brief pass, and the first estimate this project can compute
+
+On 4 September 2026, before the build carrying this paragraph was published,
+two reviewers were given the **same material and the same brief**: find every
+statement in this change that is false, unsupported, unfalsifiable, or that
+describes the system inaccurately. Neither could see the other. Neither was
+told what to look for beyond that sentence. The material was the uncommitted
+diff that became this build.
+
+| | |
+| --- | ---: |
+| findings, seat A | 12 |
+| findings, seat B | 12 |
+| found by both | **5** |
+| distinct defects found | 19 |
+
+The overlap is not zero. It is the first non-zero overlap in this record, and
+it was produced by changing the allocation, not the detectors.
+
+Chapman''s estimator, the one this paper argues for at two sources, gives
+
+    N̂ = ((12 + 1)(12 + 1) / (5 + 1)) − 1 = 27.2
+
+with a standard deviation of 5.7 from Chapman''s variance, so an interval that
+runs roughly from 16 to 38 and should be read as wide. Nineteen defects were
+found. **Around eight in that change were found by neither reviewer**, and were
+published in this document unless somebody later catches them.
+
+That number is the thing this paper said it could not produce. It is worth more
+than the refusal it replaces, and it costs one review pass.
+
+**What it is not.** Both seats ran on the same base model, in the same
+repository, with the same tools. That is a violation of the independence
+assumption in the direction that matters most: correlated reviewers share
+blind spots, which inflates the overlap, which pushes the estimate **down**.
+So 27 is a floor on a floor. The literature already says these estimators
+underestimate; this design adds a second reason. A genuinely independent second
+seat, a different vendor or a person, would very likely find the overlap
+smaller and the estimate larger.
+
+**And the classification is ours.** Deciding that seat A''s finding and seat B''s
+finding are the same finding is a judgement, and it was made by the author of
+the material being reviewed, which is the worst possible person to make it.
+Counting more pairs as matches raises the overlap and lowers the estimate, so
+that judgement moves the headline number and it moves it in our favour. Here is
+the whole mapping, so anybody can redo it and disagree.
+
+| # | defect | A | B |
+| ---: | --- | :-: | :-: |
+| 1 | the anchor log''s summary sentence went stale when the rows were flipped | x | x |
+| 2 | `data/errata.db.ots` is named by the text and absent from the tree, and the correction row says it was fixed | x | x |
+| 3 | the ANCHORS command block was never repaired, though the correction row says both blocks were | x | x |
+| 4 | the build this README describes appears in no anchor row | x | x |
+| 5 | "every defect got exactly one look" is contradicted by the detections table | x | x |
+| 6 | the triggered self-audits are enumerated as six against a column of nine | x | |
+| 7 | the allocation argument rests on a brief no column records | x | |
+| 8 | "two review passes in one day" undercounts the passes the anchor log describes | x | |
+| 9 | "nearly every one of those rows" is twelve of sixteen | x | |
+| 10 | "a nine line paragraph in between" is ten lines | x | |
+| 11 | `every-build-is-stamped` claims a repair the abstract never received | x | |
+| 12 | the attribution table is built from the source array while the paper says the database | x | |
+| 13 | "run the query" points at a query that cannot test the claim above it | | x |
+| 14 | the detector column collapses several review seats into one label, hiding overlap | | x |
+| 15 | "the first found six defects and the second found seven" matches no grouping in the record | | x |
+| 16 | "three gates were added in a day" is six by the anchor log''s own rows | | x |
+| 17 | "two judgement self-catches" is stale in the build that adds a third | | x |
+| 18 | "character for character" overstated a gate that did not cover the printed command | | x |
+| 19 | a clause repeated verbatim inside an anchor row | | x |
+
+Rows 12 and 18 are the closest call: both are a gate claiming more than it
+checks, in different documents about different gates. They are counted as two.
+Counting them as one would raise the overlap to six and drop the estimate to
+about 23, which is the direction that flatters us, and is why the choice is
+printed here rather than described.
+
+**The finding underneath the number.** Every one of those nineteen defects was
+caught *before* publication, so not one of them appears in the corrections
+table, and none of them moves the escape rate on this page. This record has
+counted defects for a week under a process where review happened after
+publishing. It says the escape rate is 80.5 percent. What that figure actually
+measures is the publishing order, not the assistant.
+
+---
 
 Which yields three conclusions, in increasing order of discomfort.
 
@@ -1186,17 +1325,49 @@ concretely, though not as cleanly as this paper first said. Most of the
 independent self-catches are mechanical: a wrong count, a stale digest, a
 rebuild that disagreed with itself, a published table whose arithmetic did not
 add up, a publish that shipped fewer rows than the one before it, a line count
-retyped without being recounted. Two are judgement, and both were found the
+retyped without being recounted. Some are judgement, and those were found the
 same way, by going to a primary source after a summary had been trusted: a
 remedy recommended from two agreeing summaries, and a true detail deleted as
-unsourced. Until 4 September 2026 this paragraph said *every* self-catch was
-mechanical. That was true at seventeen defects, was sealed with the word every,
-and was false at twenty four; correction `every-was-five-of-seven`. The
-failures that needed judgement about a person, about a public claim, or about
-the system''s own limits were caught by somebody else every time:
-a claim about a person that the evidence would not carry, a limitation asserted
-without being tested, a control reported as working after only its happy path
-was run, and an image whose type was running off the edge of itself.
+unsourced. The proportions are in the table above and in the query at the end
+of this page, and they are not restated here, because this paragraph has now
+been wrong twice about its own arithmetic.
+
+Until 4 September 2026 it said *every* self-catch was mechanical, and then said
+that sentence had been true at seventeen defects and gone stale. Both are
+false. It was already untrue when it was sealed: the seventeen defect build
+holds five independent self-audit rows and two of them are judgement. The
+corrections are `every-was-five-of-seven` and `lesson-five-was-never-true`, and
+the second of those is a correction of the first.
+
+The sentence that stood here after that repair was worse than either. It said
+the failures needing judgement about a person, about a public claim, or about
+the system''s own limits were caught by somebody else every time. No column in
+this schema records whether a failure was one of judgement, so no reader could
+run the query that would test it, and it was written immediately after two
+false superlatives had been caught: a claim reshaped until nothing could come
+back at it, rather than shrunk until it was safe to make. It was false as well.
+At least three of the assistant''s independent self-catches are failures of
+judgement: a true detail about a person deleted as unsourced, a remedy
+recommended from two agreeing summaries, and this paper''s own claim about what
+its central refusal meant, which is squarely a judgement about the system''s own
+limits and is entered in the same build as
+`an-overlap-nobody-tested-for`. The correction is
+`a-sentence-shaped-so-nothing-could-test-it`. The count is given as *at least*
+because the classification is a reading and not a column, and because the
+sentence before this one said two while the build it shipped in contained the
+third.
+
+What is left is smaller, and part of it is not in any column at all. Nothing in
+this schema records whether a failure was mechanical or one of judgement, so
+the classification in this paragraph is a reading of the rows and not a query
+result, and a reader who disagrees with it should say so. The rows themselves
+are `SELECT correction_id, note FROM detections WHERE detector = ''self-audit''
+AND independent = 1`. Read them. The assistant''s independent catches are
+mostly mechanical and they are not only mechanical. The failures that did the most damage here, a claim about a
+person the evidence would not carry, a limitation asserted without test, a
+control reported as working after only its happy path was run, and an image
+whose type was running off the edge of itself, were each caught by somebody
+else. That is a description of four defects and not a law about the fifth.
 
 That last one is worth naming separately, because it is not a reasoning
 failure. The repository''s banner is generated by a script. The assistant ran
@@ -1263,7 +1434,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 30.** Small enough that the attribution table is suggestive, not
+- **n = 41.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -1275,14 +1446,27 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the thirty seven
-  detection rows were read back from prose written after the fact; eighteen
+- **Most detection rows are reconstructed.** Nineteen of the fifty
+  detection rows were read back from prose written after the fact; thirty one
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
   necessarily zero, it is *unrecorded*, and the correct reading is "this
   project cannot currently tell you." Rows from 2026-09-04 forward are
   contemporaneous, and that is the fix, arriving too late to help this table.
+- **The detector column is a label, not an identity, and that hides overlap by
+  construction.** Every adversarial review in this record is booked as
+  `adversarial-review`, though the notes describe several distinct passes on
+  separate days. Overlap is computed across labels, so two different reviewers
+  finding the same defect are invisible as overlap unless somebody notices in
+  prose. The zero on the historical rows is therefore partly an artefact of the
+  schema, and the identical-brief pass above had to be counted by hand outside
+  the database for exactly this reason. Giving each seat its own identity is
+  the fix and it has not been made.
+- **The brief is nowhere in the record.** The claim that no two detectors were
+  ever set the same task is a reading of the `note` column, not a query, and no
+  reader can check it against a column. It is stated as a reading and should be
+  discounted as one.
 - **One project, one assistant, one human.** Nothing here generalises on this
   evidence. It is a demonstration of a method, not a result about AI systems.
 - **The corrections table is defects we know about.** By construction it can
