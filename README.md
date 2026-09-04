@@ -44,7 +44,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Thirteen principles. Seventeen corrections. Thirty two lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Thirteen principles. Seventeen corrections. Thirty three lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -125,7 +125,7 @@ SELECT * FROM corrections_against_ourselves;
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
 | `corrections` | 17 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 32 | What generalises past this project |
+| `lessons` | 33 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -159,11 +159,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6
-  computed  96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6
+  stored    f6c1f1f53e4913d611a38af1edc91d50b640a4c8c44225b55e3e056780e9c2b6
+  computed  f6c1f1f53e4913d611a38af1edc91d50b640a4c8c44225b55e3e056780e9c2b6
 
 OK    contents match the recorded digest.
-      13 principles, 17 corrections, 19 detections, 32 lessons, 117 post_revisions, 2 documents
+      13 principles, 17 corrections, 19 detections, 33 lessons, 117 post_revisions, 2 documents
 ```
 
 Change one word of one correction and it says so:
@@ -171,7 +171,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6
+  stored    f6c1f1f53e4913d611a38af1edc91d50b640a4c8c44225b55e3e056780e9c2b6
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
