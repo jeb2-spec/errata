@@ -10,6 +10,10 @@ CREATE TABLE corrections (
   claimed_before TEXT NOT NULL, corrected_to TEXT NOT NULL,
   direction TEXT NOT NULL, who_it_cost TEXT NOT NULL, how_found TEXT NOT NULL,
   ran_in_our_favour INTEGER NOT NULL);
+CREATE TABLE detections (
+  correction_id TEXT NOT NULL, detector TEXT NOT NULL,
+  stage TEXT NOT NULL, independent INTEGER NOT NULL, note TEXT NOT NULL,
+  PRIMARY KEY (correction_id, detector));
 CREATE TABLE lessons (
   id INTEGER PRIMARY KEY, domain TEXT NOT NULL,
   lesson TEXT NOT NULL, elaboration TEXT NOT NULL);
@@ -29,8 +33,8 @@ CREATE VIEW passages_removed AS
   FROM post_revisions WHERE removed_prose IS NOT NULL ORDER BY revised_on DESC;
 INSERT INTO meta VALUES ('title','The Vera Record');
 INSERT INTO meta VALUES ('what_this_is','The conduct record of a project that argues a record beats a reputation, applied to itself. Principles, every correction made and which direction each error ran, transferable lessons, and the full revision history of every published article including the prose removed.');
-INSERT INTO meta VALUES ('built_on','2026-09-03');
-INSERT INTO meta VALUES ('source_commit','f1cc86f');
+INSERT INTO meta VALUES ('built_on','2026-09-04');
+INSERT INTO meta VALUES ('source_commit','7b2ce53');
 INSERT INTO meta VALUES ('format','SQLite 3. Public domain file format, no server required. A plain-text errata.sql dump ships alongside for any reader without SQLite.');
 INSERT INTO meta VALUES ('how_to_open','sqlite3 errata.db  then  .tables  and  SELECT * FROM corrections;  Or open it in any SQLite browser, or read errata.sql in a text editor.');
 INSERT INTO meta VALUES ('start_here','SELECT * FROM corrections ORDER BY occurred_on; then SELECT * FROM passages_removed;');
@@ -40,8 +44,8 @@ INSERT INTO meta VALUES ('disclosure_redaction','Personal names are replaced wit
 INSERT INTO meta VALUES ('disclosure_scope','Contains no personal identifiers, no family information, and nothing about private individuals. All article text reproduced here was already published publicly.');
 INSERT INTO meta VALUES ('integrity_note','SHA-256 over a canonical serialisation of every row in every table, including this meta table, with three rows excluded: the digest row itself, because it cannot contain its own hash, and the two provenance rows built_on and source_commit, because they describe the build and not the record, and including them meant every commit to the source repository moved the seal with nothing in the record changed (corrected 2026-09-03, see the corrections table). Covering the rest of meta matters: without it the disclosures below could be edited and the file would still verify. It proves the contents are unchanged since the build. It does not, and cannot, prove any statement in it is true. Integrity is not accuracy.');
 INSERT INTO meta VALUES ('license','The contents may be quoted and redistributed freely with attribution to the Vera Project.');
-INSERT INTO meta VALUES ('counts','13 principles, 16 corrections, 29 lessons, 117 article revisions across 37 articles');
-INSERT INTO meta VALUES ('integrity_sha256','90813fffa8903871650c9e1434470d4fd4ea62bf9f25686b053134601f02095c');
+INSERT INTO meta VALUES ('counts','13 principles, 17 corrections, 32 lessons, 117 article revisions across 37 articles');
+INSERT INTO meta VALUES ('integrity_sha256','96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6');
 INSERT INTO principles VALUES ('ground-truth-or-silence','Ground truth or silence','If you cannot show it, do not claim it. Sourced to the record, or unsaid.','Governs publication, not belief. It says nothing about what anyone may know, notice, or act on. Reading it as a theory of reality would make it false.');
 INSERT INTO principles VALUES ('presence-is-not-proof','Presence is not proof','A true fact framed as a verdict becomes a lie about a person. Describe, never condemn.','Something being present is not evidence it was used for harm. Plenty of honest software looks exactly like the thing someone is afraid of.');
 INSERT INTO principles VALUES ('the-practical-thing','The practical thing at the end','Every piece of work leaves the reader something they can actually do.','A diagnosis with no next step is entertainment. The reader came with a problem.');
@@ -71,35 +75,58 @@ INSERT INTO corrections VALUES ('three-weeks-was-a-week','2026-09-02','The corre
 INSERT INTO corrections VALUES ('a-column-that-did-not-measure-what-we-said','2026-09-02','This database''s README, describing the author_role column of the post_revisions table','Said the column tells you which changes came from a human, which from an assistant, and which from an unattended cron.','It never did. It reported git authorship, correctly, on every row: no published row was ever false. But squash-merging a pull request books the merger as the author, so jointly written work read as human and the column showed 8 assistant rows out of 117 when at least 77 carry a Co-Authored-By trailer naming the assistant. Every part true, the picture wrong by roughly nine times, in the column the README points at to argue the assistant is disclosed rather than hidden. Fixed by making the claim true rather than by weakening it, since withdrawing a disclosure is not a repair. The column now reads the trailer and reports a fourth role, co-authored, and the meta table states that the number is a floor because the trailer convention only began on 2026-06-15.','in our favour','the reader','An adversarial review checked the column against the commit messages behind it, which is the one check nothing about the column itself would ever prompt.',1);
 INSERT INTO corrections VALUES ('a-digest-that-tracked-the-commit-not-the-record','2026-09-03','The anchors table of this record','Said the digest moved after a merge because the post_revisions table is built from the commit graph, and called that the record working rather than drifting.','The post_revisions rows were identical. The digest moved because the meta table carried the hash of the commit that ran the build and the day it ran, and meta is inside the digest. So every commit to the source repository, and every rebuild on a new day, moved the seal with nothing in the record changed, and four anchors were struck for no other reason. The two provenance rows stay in meta for the reader and are now excluded from the digest, so the seal tracks the record''s content and nothing else. The wrong sentence stands in the anchors table with the correction beside it.','in our favour','the reader','Rebuilt the record at a new commit with no content change and diffed the two SQL dumps. One row differed, and it was not in post_revisions.',1);
 INSERT INTO corrections VALUES ('a-characterisation-we-could-not-see-clearly','2026-09-03','The adoption disclosure in this record''s own meta table','Said the outside reader whose question prompted that disclosure had stated this repository''s counts twice and differently.','Withdrawn, and the clause is gone. Two different figures do appear across two screenshots of that reader''s answers, but the earlier one is partly covered by the application''s own input box, the order of the two was inferred from scroll position, and neither the conversation nor the prompts that shaped it were ours to read. That is a conclusion carried past the edge of the evidence, about a third party who is not here to answer it, written into a sealed record that is anchored where nobody can reach it. It was also not load-bearing: the disclosure''s substance is the counts, which came from the hosting platform''s API, and the limit they describe. What replaces it says only where the counts came from and why. This database already carries the same lesson from 2026-08-30, when confident reasoning from partial screenshots of a thread that could not be opened produced a verdict that was wrong; the lesson carved then was that stating a limitation does not discharge it, and this time no limitation was stated at all.','in our favour','the outside reader','The founder asked whether I was sure and named the reason to doubt it: the later screenshot may have come from an answer shaped by a different prompt.',1);
-INSERT INTO lessons VALUES (1,'verification','A summary tells you what was decided. Only the source tells you what was never argued.','The holding is the visible part, and every secondary account carries it. The arguments a party failed to raise are invisible in all of them, and they are often where the outcome actually turned. A federal appellate judge spent a paragraph naming the argument the government had left out; not one report of the decision mentioned it.');
-INSERT INTO lessons VALUES (2,'verification','Two summaries agreeing is one source, not two.','They are usually reading each other, or the same press release. Agreement between summaries is evidence about the summaries. Go get the operative text.');
-INSERT INTO lessons VALUES (3,'records','One known error left uncorrected damages every claim, not one.','It proves a filter exists, and a filtered record is not evidence of anything. The cost is never scoped to the error.');
-INSERT INTO lessons VALUES (4,'records','''Retroactive'' is the wrong word for fixing a live falsehood.','Nothing is being reached back into. An act that is still happening is being stopped. The wrong word is why it gets deprioritised.');
-INSERT INTO lessons VALUES (5,'records','A body of work with no visible corrections is a red flag, not a green one.','At any scale, the absence means either falsification or that nobody looked.');
-INSERT INTO lessons VALUES (6,'records','Correction is the only restitution an information system has.','No damages, no injunction, no appeal. The publisher is the only party who can grant it.');
-INSERT INTO lessons VALUES (7,'integrity','A hash chain proves internal consistency and nothing else.','Anyone controlling the whole chain can edit an entry and recompute forward, and it verifies perfectly. What defeats that is an anchor: the head hash published where the publisher has no reach.');
-INSERT INTO lessons VALUES (8,'integrity','Integrity is not accuracy.','A tamper-evident record of a false claim is still false, held perfectly still.');
-INSERT INTO lessons VALUES (9,'judgment','Intuition is valid under two conditions, and only both.','The environment must be regular enough to be predictable, and the person must have had prolonged practice in it with rapid unambiguous feedback. Where either fails, identical confidence is worth nothing. (Kahneman and Klein, 2009.)');
-INSERT INTO lessons VALUES (10,'judgment','Skill is fractionated and the boundary is invisible from inside.','A person can be genuinely expert at one judgment and have none at an adjacent one, and neither they nor anyone watching can feel where it ends.');
-INSERT INTO lessons VALUES (11,'judgment','Noticing that something is off, and identifying what, are different faculties.','The first is often right. The damage is always in the second.');
-INSERT INTO lessons VALUES (12,'outliers','An anomaly is a property of the observer''s model, not of the person.','It is only unexpected relative to an expectation, so every anomaly is partly a confession that the model was too small.');
-INSERT INTO lessons VALUES (13,'outliers','The usual harm to outliers is averaging, not hostility.','Schools, hiring pipelines, ranking systems: none malicious, all regressing toward the mean and quietly taxing distance from it. Worse than a bully, because there is nobody to argue with.');
-INSERT INTO lessons VALUES (14,'outliers','A record is the anti-average.','It shows the specific verifiable thing a person did in place of an inference drawn from the population they resemble.');
-INSERT INTO lessons VALUES (15,'working-with-ai','An AI is an averaging machine, so the risk is that it smooths you.','Its native operation is producing the likely next thing. A frictionless session is a warning sign, not a success.');
-INSERT INTO lessons VALUES (16,'working-with-ai','Its confidence is not calibrated the way a practitioner''s is.','Yours was built by domains that corrected you painfully and fast. Its was not. Hold its hunches more loosely than your own and ask it to measure.');
-INSERT INTO lessons VALUES (17,'working-with-ai','Build a room where being wrong is survivable.','A record only stays honest inside one. Everything else is downstream of it.');
-INSERT INTO lessons VALUES (18,'verification','Verify at the source, never at the summary.','A dashboard, a bot comment or a notification can all report green for a superseded version. Ask the system of record about the exact identifier you care about.');
-INSERT INTO lessons VALUES (19,'verification','Run the cheap check before the expensive one.','A type check, a one-line script, a count. Seconds to run, loud when they fail.');
-INSERT INTO lessons VALUES (20,'verification','Reproduce the failure before claiming the fix, then show the same check passing.','''It probably works now'' is not a result.');
-INSERT INTO lessons VALUES (21,'writing','Write for the stranger.','Nobody knows you. A sentence about a person either carries its own context or it is an inside reference wearing prose, and to a cold reader it is noise.');
-INSERT INTO lessons VALUES (22,'writing','Concrete over abstract, and clever is a form of abstract.','Many readers cannot take abstraction as real; it reads to them as strange and mechanical, and that is a fact about audiences rather than a flaw in them. The self-aware construction the writer is proudest of is usually the first thing to cut.');
-INSERT INTO lessons VALUES (23,'writing','The subject test.','Would the person a sentence describes recognise themselves and understand every word? A description of someone''s work that they would not say themselves is wrong even when it is accurate.');
-INSERT INTO lessons VALUES (24,'writing','A person is who they are, not what they do.','Asked how she wanted to appear in a record about the work, the person did not ask for credit. She asked to exist. Presence before deeds, and deeds only when the person wants deeds named.');
-INSERT INTO lessons VALUES (25,'writing','The subject is the authority on their own description.','They edit until it is true and only their version ships. What they tell you is ground to stand on, not copy to paste: the truth informs the register, it is not a transcript.');
-INSERT INTO lessons VALUES (26,'judgment','Over-correction is its own error.','Told a passage was too much, the safe rewrite deleted the warmth along with the excess and left something cold, and cold is not neutral. Take a note exactly as far as it goes, then stop.');
-INSERT INTO lessons VALUES (27,'writing','Writing for a reader is a guess until that reader has read it.','Test the copy on the person, not on your picture of the person. The plain version that works often comes from someone who is not the author.');
-INSERT INTO lessons VALUES (28,'verification','A claim of verification is itself a claim, and the one most worth verifying.','A reviewer who reads ''verified'' stops there. Say what was checked and against what, or say it was not checked.');
-INSERT INTO lessons VALUES (29,'judgment','An accusation is a checklist to run against your own work before you publish it.','Naming a flaw proves you can detect it, not that you are clear of it. The detector is already built and pointed away from you, so turn it around before publishing. A draft accusing someone of merging two different measures into one figure was doing the same in its own headline.');
+INSERT INTO corrections VALUES ('an-inability-asserted-not-tested','2026-09-03','What this session could do about the published repository''s settings','Told the founder there was no tool in this session that could edit repository settings, so the About box was his to fill in.','Untested. One fuzzy tool search had returned nothing and that was reported as a capability limit. The founder pushed back and the actual test took one command: the session holds authenticated write access to the GitHub API, and the proxy injects real credentials. The write is genuinely blocked, but for two specific reasons that had not been discovered, and reporting a limit is not the same as establishing one. Recorded because a claim of inability is a claim, and this record has no standing to demand evidence for assertions while exempting refusals. The correction is entered against a conversational claim rather than a published one, which is itself a widening of this table''s scope: a false statement made to one person is still a false statement, and most of an assistant''s claims are never published at all.','in our favour','the founder','The founder said: why no repo settings tool, you have full access. He was right to doubt it and the test took one command.',1);
+INSERT INTO detections VALUES ('settlement-pre-publication','adversarial-review','pre-publication',1,'A separate review pass over the draft, before it shipped.');
+INSERT INTO detections VALUES ('restored-a-true-detail','self-audit','post-publication',1,'Searched the corpus after the deletion, which is the wrong order.');
+INSERT INTO detections VALUES ('auditor-publication-clause','reader','post-publication',1,'A reader supplied the clause number.');
+INSERT INTO detections VALUES ('concluded-past-a-stated-limit','principal','conversation',1,'He held the full thread and showed it. Never published.');
+INSERT INTO detections VALUES ('the-recorder-counted-itself','self-audit','post-publication',1,'Asked who authored the commits, which the number itself would never prompt.');
+INSERT INTO detections VALUES ('forty-lines','self-audit','post-publication',1,'Cloned the published repository as a stranger and ran every README command.');
+INSERT INTO detections VALUES ('not-childhood-friends','subject','pre-publication',1,'The person described read the draft before it shipped.');
+INSERT INTO detections VALUES ('a-page-written-for-its-reader','reader','post-publication',1,'Its two readers said so in a group thread the day it shipped.');
+INSERT INTO detections VALUES ('citations-from-memory','self-audit','pre-publication',0,'Audited every citation before merging, but only because the founder said be certain. Triggered, not independent.');
+INSERT INTO detections VALUES ('citations-from-memory','principal','pre-publication',1,'He demanded certainty without naming the defect. Doubt, not detection, and scored that way.');
+INSERT INTO detections VALUES ('a-column-that-did-not-measure-what-we-said','adversarial-review','post-publication',1,'Checked the column against the commit messages behind it.');
+INSERT INTO detections VALUES ('a-remedy-that-did-not-reach','self-audit','conversation',1,'Fetched the engrossed text after two summaries agreed and neither quoted the operative sections.');
+INSERT INTO detections VALUES ('congress-would-move-quickly','principal','conversation',1,'He disputed the forecast on the spot and was right.');
+INSERT INTO detections VALUES ('osborne-does-not-transfer','self-audit','conversation',0,'Read the opinion from the court''s own file, but only after he said be certain. Triggered.');
+INSERT INTO detections VALUES ('osborne-does-not-transfer','principal','conversation',1,'He said be certain without naming the defect.');
+INSERT INTO detections VALUES ('three-weeks-was-a-week','adversarial-review','post-publication',1,'Read the opinion''s caption date and did the subtraction. Nobody on our side had, and it was already anchored to Bitcoin.');
+INSERT INTO detections VALUES ('a-characterisation-we-could-not-see-clearly','principal','post-publication',1,'He asked whether I was sure and named the reason to doubt it.');
+INSERT INTO detections VALUES ('a-digest-that-tracked-the-commit-not-the-record','self-audit','post-publication',1,'Rebuilt at a new commit with no content change and diffed the two SQL dumps.');
+INSERT INTO detections VALUES ('an-inability-asserted-not-tested','principal','conversation',1,'He said: you have full access. One command settled it.');
+INSERT INTO lessons VALUES (1,'verification','An untested inability is a claim like any other.','Claims of fact get evidence and claims of incapacity get waved through, which is backwards, because a wrong ''I cannot'' quietly closes a door that was open. It is also cheaper to check than most claims of fact: usually one command. On 2026-09-03 this record reported that no tool existed to edit a repository''s settings after a single fuzzy search. The session in fact held authenticated write access to that API; the write was blocked, but for two specific reasons nobody had discovered. Report the limit and the command that established it, together, or report neither.');
+INSERT INTO lessons VALUES (2,'working-with-ai','A system cannot be its own independent second reviewer.','A machine re-reading its own work shares every prior, every misreading and every blind spot with the pass that produced the error. It is the same antibody in both wells. Measurably so here: across seventeen defects the assistant independently caught five, and every one was mechanical, a wrong count or a stale digest or a rebuild that disagreed with itself. Both failures of judgement, a claim about a person the evidence would not carry and a limit asserted without test, were caught by the human. Self-review belongs in the pipeline as the cheap first pass whose job is to be beaten, never as the control.');
+INSERT INTO lessons VALUES (3,'records','Record which detectors found a defect, not the one who noticed first.','Who found it is data, and the overlap between independent finders is the only thing that lets you estimate the defects nobody found at all, by the capture-recapture method software inspection research has used since 1992. This record ran for six days writing down a single finder per correction, and when the detections table was finally built the overlap between every pair of detectors was zero, so the quantity is not estimable and the measurement script refuses to invent it. Instrument the detector on the first day, not the sixth.');
+INSERT INTO lessons VALUES (4,'verification','A summary tells you what was decided. Only the source tells you what was never argued.','The holding is the visible part, and every secondary account carries it. The arguments a party failed to raise are invisible in all of them, and they are often where the outcome actually turned. A federal appellate judge spent a paragraph naming the argument the government had left out; not one report of the decision mentioned it.');
+INSERT INTO lessons VALUES (5,'verification','Two summaries agreeing is one source, not two.','They are usually reading each other, or the same press release. Agreement between summaries is evidence about the summaries. Go get the operative text.');
+INSERT INTO lessons VALUES (6,'records','One known error left uncorrected damages every claim, not one.','It proves a filter exists, and a filtered record is not evidence of anything. The cost is never scoped to the error.');
+INSERT INTO lessons VALUES (7,'records','''Retroactive'' is the wrong word for fixing a live falsehood.','Nothing is being reached back into. An act that is still happening is being stopped. The wrong word is why it gets deprioritised.');
+INSERT INTO lessons VALUES (8,'records','A body of work with no visible corrections is a red flag, not a green one.','At any scale, the absence means either falsification or that nobody looked.');
+INSERT INTO lessons VALUES (9,'records','Correction is the only restitution an information system has.','No damages, no injunction, no appeal. The publisher is the only party who can grant it.');
+INSERT INTO lessons VALUES (10,'integrity','A hash chain proves internal consistency and nothing else.','Anyone controlling the whole chain can edit an entry and recompute forward, and it verifies perfectly. What defeats that is an anchor: the head hash published where the publisher has no reach.');
+INSERT INTO lessons VALUES (11,'integrity','Integrity is not accuracy.','A tamper-evident record of a false claim is still false, held perfectly still.');
+INSERT INTO lessons VALUES (12,'judgment','Intuition is valid under two conditions, and only both.','The environment must be regular enough to be predictable, and the person must have had prolonged practice in it with rapid unambiguous feedback. Where either fails, identical confidence is worth nothing. (Kahneman and Klein, 2009.)');
+INSERT INTO lessons VALUES (13,'judgment','Skill is fractionated and the boundary is invisible from inside.','A person can be genuinely expert at one judgment and have none at an adjacent one, and neither they nor anyone watching can feel where it ends.');
+INSERT INTO lessons VALUES (14,'judgment','Noticing that something is off, and identifying what, are different faculties.','The first is often right. The damage is always in the second.');
+INSERT INTO lessons VALUES (15,'outliers','An anomaly is a property of the observer''s model, not of the person.','It is only unexpected relative to an expectation, so every anomaly is partly a confession that the model was too small.');
+INSERT INTO lessons VALUES (16,'outliers','The usual harm to outliers is averaging, not hostility.','Schools, hiring pipelines, ranking systems: none malicious, all regressing toward the mean and quietly taxing distance from it. Worse than a bully, because there is nobody to argue with.');
+INSERT INTO lessons VALUES (17,'outliers','A record is the anti-average.','It shows the specific verifiable thing a person did in place of an inference drawn from the population they resemble.');
+INSERT INTO lessons VALUES (18,'working-with-ai','An AI is an averaging machine, so the risk is that it smooths you.','Its native operation is producing the likely next thing. A frictionless session is a warning sign, not a success.');
+INSERT INTO lessons VALUES (19,'working-with-ai','Its confidence is not calibrated the way a practitioner''s is.','Yours was built by domains that corrected you painfully and fast. Its was not. Hold its hunches more loosely than your own and ask it to measure.');
+INSERT INTO lessons VALUES (20,'working-with-ai','Build a room where being wrong is survivable.','A record only stays honest inside one. Everything else is downstream of it.');
+INSERT INTO lessons VALUES (21,'verification','Verify at the source, never at the summary.','A dashboard, a bot comment or a notification can all report green for a superseded version. Ask the system of record about the exact identifier you care about.');
+INSERT INTO lessons VALUES (22,'verification','Run the cheap check before the expensive one.','A type check, a one-line script, a count. Seconds to run, loud when they fail.');
+INSERT INTO lessons VALUES (23,'verification','Reproduce the failure before claiming the fix, then show the same check passing.','''It probably works now'' is not a result.');
+INSERT INTO lessons VALUES (24,'writing','Write for the stranger.','Nobody knows you. A sentence about a person either carries its own context or it is an inside reference wearing prose, and to a cold reader it is noise.');
+INSERT INTO lessons VALUES (25,'writing','Concrete over abstract, and clever is a form of abstract.','Many readers cannot take abstraction as real; it reads to them as strange and mechanical, and that is a fact about audiences rather than a flaw in them. The self-aware construction the writer is proudest of is usually the first thing to cut.');
+INSERT INTO lessons VALUES (26,'writing','The subject test.','Would the person a sentence describes recognise themselves and understand every word? A description of someone''s work that they would not say themselves is wrong even when it is accurate.');
+INSERT INTO lessons VALUES (27,'writing','A person is who they are, not what they do.','Asked how she wanted to appear in a record about the work, the person did not ask for credit. She asked to exist. Presence before deeds, and deeds only when the person wants deeds named.');
+INSERT INTO lessons VALUES (28,'writing','The subject is the authority on their own description.','They edit until it is true and only their version ships. What they tell you is ground to stand on, not copy to paste: the truth informs the register, it is not a transcript.');
+INSERT INTO lessons VALUES (29,'judgment','Over-correction is its own error.','Told a passage was too much, the safe rewrite deleted the warmth along with the excess and left something cold, and cold is not neutral. Take a note exactly as far as it goes, then stop.');
+INSERT INTO lessons VALUES (30,'writing','Writing for a reader is a guess until that reader has read it.','Test the copy on the person, not on your picture of the person. The plain version that works often comes from someone who is not the author.');
+INSERT INTO lessons VALUES (31,'verification','A claim of verification is itself a claim, and the one most worth verifying.','A reviewer who reads ''verified'' stops there. Say what was checked and against what, or say it was not checked.');
+INSERT INTO lessons VALUES (32,'judgment','An accusation is a checklist to run against your own work before you publish it.','Naming a flaw proves you can detect it, not that you are clear of it. The detector is already built and pointed away from you, so turn it around before publishing. A draft accusing someone of merging two different measures into one figure was doing the same in its own headline.');
 INSERT INTO post_revisions VALUES (1,'272-percent','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
@@ -953,6 +980,241 @@ A Dispatch piece that turns the recent inward arc outward to face the
 arriving reader: what Vera is, why it''s for them, and why being early is the
 point. Featured on /blog (demotes "The Same Kind of Brave"). Signs off as a
 Vera record (a single timestamped stamp), so the post itself is the proof.…',NULL,1);
+INSERT INTO documents VALUES ('measurement','What the screen missed','text/markdown','# What the screen missed
+
+**Measuring an AI assistant''s error rate the way a discovery organisation would.**
+
+Written 2026-09-04. Every number in it is derived from `data/errata.db` by
+`errata-measure`, not typed. Reproduce them with the command at the end.
+
+---
+
+## The problem with how we currently measure
+
+Benchmarks score a model on problems whose answers are already known. That is
+a useful thing to know and it is not the thing that costs anyone anything.
+
+The failure that costs something is narrower and harder: **a confident claim
+that is wrong, in work nobody re-checks.** No benchmark measures it, because a
+benchmark cannot contain the claims a system makes about your specific
+material, in your specific week, that you had no reason to doubt.
+
+Anyone who has run a screen already knows the shape of this. A hit list is not
+a result. The number that decides whether the campaign was worth running is
+the one nobody can read off the plate: how many real actives the assay never
+picked up. You cannot count what you missed. But you are not helpless about
+it either, and the method for not being helpless is old.
+
+---
+
+## Treat the assistant as a screen, and its claims as hits
+
+This repository is the conduct record of one project that works with an AI
+assistant daily. It publishes every claim the project got wrong, what replaced
+it, which direction the error ran, and who paid.
+
+Reframed as a pipeline, the parts map cleanly:
+
+| discovery | here |
+| --- | --- |
+| hit | a claim the assistant asserts |
+| confirmed active | a claim that survived checking |
+| false positive | a correction in this database |
+| validation cascade | the checks a claim passes before and after publishing |
+| **what the screen missed** | **the defects nobody ever found** |
+
+The last row is the whole problem. Everything above it is bookkeeping.
+
+---
+
+## The method for the last row
+
+Capture-recapture. It is the same estimator ecologists use to count a
+population they cannot enumerate, and epidemiologists use for case
+ascertainment from incomplete registries. Software inspection research adopted
+it in 1992 for exactly our question: after a code review, how many defects
+remain?
+
+The intuition needs no algebra. Put two independent reviewers over the same
+material. If they each find ten defects and nine are the same nine, they are
+close to exhaustive and few remain. If they each find ten and share one, they
+are sampling a large population and most of it is still out there. **The
+overlap between independent detectors is the signal.**
+
+For two sources, Chapman''s bias-corrected estimator is
+
+    N̂ = ((n₁ + 1)(n₂ + 1) / (m + 1)) − 1
+
+where n₁ and n₂ are the defects each detector found and m is the number both
+found. This repository implements it and prefers it to the jackknife estimator
+on the literature''s own advice: the jackknife is accurate at four or more
+reviewers and is documented as non-robust and downward-biased with two.
+
+Two limits are load-bearing and are stated here rather than in a footnote.
+
+**These estimators underestimate.** The review literature says so plainly and
+recommends tracking the systematic error over time to compensate. Any figure
+produced this way is a floor on what you missed, never a ceiling.
+
+**Independence is the assumption everything rests on.** Reviewers who confer,
+or who share a method, violate it and the estimate silently inflates your
+confidence. This matters more for machines than for people, and it is the next
+section.
+
+---
+
+## The finding, from seventeen defects
+
+Seventeen corrections. Fifty-two point nine percent of them reached a reader
+before anyone caught them. Then this:
+
+| detector | independent finds | triggered finds |
+| --- | ---: | ---: |
+| the founder | 6 | 0 |
+| the assistant auditing itself | 5 | 2 |
+| a second model, reviewing adversarially | 3 | 0 |
+| an outside reader | 2 | 0 |
+| the person being written about | 1 | 0 |
+
+*Triggered* means the detector only looked because somebody else voiced doubt.
+Two of the assistant''s self-audits were triggered: the founder said "be
+certain" without naming a defect, and the audit that followed found one. That
+is not an independent detection and this record does not count it as one.
+
+**The founder is the single largest independent detector of the assistant''s
+errors, in a project whose thesis is that it catches its own.**
+
+And then the number that stopped the analysis:
+
+> **Overlap between every pair of independent detectors: zero.**
+>
+> Not small. Zero. No defect in this record was found independently by two
+> detectors.
+
+So the dark number is **not estimable**, and the measurement script refuses to
+print one. That refusal is deliberate. An estimator run on insufficient
+overlap returns a confident figure that means nothing, and a repository built
+to publish its own errors has no business manufacturing a comforting one.
+
+---
+
+## What zero overlap actually means
+
+It is easy to read that as a data problem. It is not. It is the result.
+
+Zero overlap means **every defect in this record got exactly one look.** There
+is no second, independent pass over the same material. The detectors are not
+redundant, they are disjoint: each one happened to be pointed at different work
+at a different moment.
+
+Which yields three conclusions, in increasing order of discomfort.
+
+**One. We have no evidence about what we are missing.** Not weak evidence.
+None. The quantity is undefined given this design, and it will stay undefined
+until something changes structurally.
+
+**Two. The founder is not a reviewer, he is the assay.** He is the only
+detector applied to substantially everything. Replacing him is not a matter of
+being more careful. It requires a second detector that runs over the same
+material he does, every time, not occasionally.
+
+**Three, and this is the part that generalises.** A system cannot be its own
+independent second reviewer. When the assistant checks its own work it shares
+every prior, every misreading, and every blind spot with the pass that produced
+the error. It is the same antibody in both wells. In this record that shows up
+concretely: the assistant''s five independent self-catches are all mechanical
+defects, a wrong count, a stale digest, a rebuild that disagreed with itself.
+The judgement failures, a claim about a person that the evidence would not
+carry, a limitation asserted without being tested, were caught by the founder
+every time.
+
+Machines are good at catching machine errors of arithmetic and consistency.
+They are, so far in this record, zero for two at catching their own
+overconfidence.
+
+---
+
+## The standard this argues for
+
+Four requirements. They are not exotic; three of them are ordinary practice in
+any validation-minded lab, and the fourth is the one AI work keeps skipping.
+
+**1. Instrument the detector, not just the defect.** Record every detector that
+found a defect, not the first one to notice, and record whether it looked on
+its own. This is one table and it is the only change that makes anything else
+computable.
+
+**2. Report escape rate and attribution instead of accuracy.** What share
+reached a reader, and who caught the rest. Both are derivable, neither is a
+benchmark, and both move when the system genuinely improves.
+
+**3. Estimate the dark number, publish its confidence and its known bias, and
+refuse to publish it when the overlap cannot carry it.** A method that only
+ever returns a number is not a measurement.
+
+**4. Require orthogonal validation, and treat self-review as a null control.**
+Nobody confirms a hit with the assay that generated it. The same should be
+true of a machine reviewing its own claims. Self-audit belongs in the pipeline,
+and it belongs there as the cheap first pass whose job is to be beaten.
+
+---
+
+## Honest limits of this document
+
+- **n = 17.** Small enough that the attribution table is suggestive, not
+  established. Do not read the detector ranking as stable.
+- **The detection rows are reconstructed.** All nineteen were read back from
+  prose written after the fact, none recorded at the time. Reconstruction
+  names whoever noticed first and systematically loses second finders, which
+  is precisely the overlap the estimate needs. So the true overlap is not
+  necessarily zero, it is *unrecorded*, and the correct reading is "this
+  project cannot currently tell you." Rows from 2026-09-04 forward are
+  contemporaneous, and that is the fix, arriving too late to help this table.
+- **One project, one assistant, one human.** Nothing here generalises on this
+  evidence. It is a demonstration of a method, not a result about AI systems.
+- **The corrections table is defects we know about.** By construction it can
+  never contain the ones we do not. That is not a flaw in the table, it is the
+  entire reason the third requirement above exists.
+
+---
+
+## Reproduce it
+
+```console
+$ git clone https://github.com/jeb2-spec/errata && cd errata
+$ python3 tools/verify.py                     # the record is unchanged since it was built
+$ sqlite3 data/errata.db "SELECT detector, SUM(independent), COUNT(*) \
+    FROM detections GROUP BY detector ORDER BY 2 DESC;"
+```
+
+The full report is generated by `scripts/errata-measure.mjs` in the source
+repository. `data/errata.sql` is the same contents as plain text for anyone
+without SQLite.
+
+---
+
+## Sources
+
+The capture-recapture literature for software inspections, which is where this
+method was borrowed from:
+
+- S. Eick, C. Loader, M. D. Long, L. Votta and S. Vander Wiel, *Estimating
+  software fault content before coding*, Proceedings of the 14th International
+  Conference on Software Engineering, 1992. The paper that introduced the
+  method to inspections.
+- C. Wohlin and P. Runeson, *Capture-recapture in software inspections after 10
+  years research: theory, evaluation and application*, Journal of Systems and
+  Software, 2004. The review this document takes its model names, its
+  estimator choice and its warnings about underestimation and independence
+  from. Freely available at <https://wohlin.eu/jss04-1.pdf>.
+- K. El Emam and O. Laitenberger, *Evaluating capture-recapture models with two
+  inspectors*, IEEE Transactions on Software Engineering, 2001. The source of
+  the preference for Chapman''s estimator at two sources.
+
+Integrity is not accuracy. This document is sealed inside the record it
+describes, which proves it has not been altered since it was built and proves
+nothing whatever about whether it is right.
+');
 INSERT INTO documents VALUES ('portable-record','The Portable Record','text/markdown','# THE PORTABLE RECORD
 
 A working brief from the Vera project. Plain UTF-8 text, no dependencies,

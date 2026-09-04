@@ -21,7 +21,7 @@ import sqlite3
 import sys
 from pathlib import Path
 
-TABLES = ["principles", "corrections", "lessons", "post_revisions", "documents"]
+TABLES = ["principles", "corrections", "detections", "lessons", "post_revisions", "documents"]
 
 # An explicit path wins; otherwise verify the copy this repository ships.
 # Silently verifying a different file than the one named on the command

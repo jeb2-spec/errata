@@ -29,9 +29,10 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-02|in our favour|the reader|1
 2026-09-03|in our favour|the reader|1
 2026-09-03|in our favour|the outside reader|1
+2026-09-03|in our favour|the founder|1
 ```
 
-Sixteen errors. Fourteen of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Seventeen errors. Fifteen of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -43,7 +44,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Thirteen principles. Sixteen corrections. Twenty nine lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Thirteen principles. Seventeen corrections. Thirty two lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -61,6 +62,8 @@ What we cannot show you is anybody else doing it. The method has been run on exa
 
 If you build agents, that is the value on offer here, stated as narrowly as we can make it. Not an agent you can trust. An agent you can check.
 
+And once you can check, you can measure. [MEASUREMENT.md](MEASUREMENT.md) is this record turned on itself with the instruments a discovery organisation would use: what share of defects reached a reader, which detector caught each one, and the estimate of the defects nobody found at all. That last figure is the one that matters and this record cannot yet produce it, because no two independent detectors here have ever found the same defect. The paper says so, and says what would have to change.
+
 ---
 
 ## Three ways in
@@ -71,7 +74,7 @@ If you build agents, that is the value on offer here, stated as narrowly as we c
 SELECT author_role, COUNT(*) FROM post_revisions GROUP BY author_role;
 ```
 
-**If you build things.** `tools/verify.py` is ninety nine lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is six tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember, because a record that depends on remembering to keep a record will eventually have gaps. That property is the whole design.
+**If you build things.** `tools/verify.py` is ninety nine lines of standard library Python that recomputes the seal on this file. It is MIT licensed and it is meant to be stolen. The schema is seven tables. The generator reads version control history, so the record is a byproduct of working rather than a discipline anyone has to remember, because a record that depends on remembering to keep a record will eventually have gaps. That property is the whole design.
 
 ```bash
 python3 tools/verify.py
@@ -102,7 +105,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in sixteen rows
+-- the whole argument, in seventeen rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -121,8 +124,8 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 16 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 29 | What generalises past this project |
+| `corrections` | 17 | What was claimed, what it became, which way the error ran, **who paid** |
+| `lessons` | 32 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -156,11 +159,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    90813fffa8903871650c9e1434470d4fd4ea62bf9f25686b053134601f02095c
-  computed  90813fffa8903871650c9e1434470d4fd4ea62bf9f25686b053134601f02095c
+  stored    96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6
+  computed  96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6
 
 OK    contents match the recorded digest.
-      13 principles, 16 corrections, 29 lessons, 117 post_revisions, 1 documents
+      13 principles, 17 corrections, 19 detections, 32 lessons, 117 post_revisions, 2 documents
 ```
 
 Change one word of one correction and it says so:
@@ -168,7 +171,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    90813fffa8903871650c9e1434470d4fd4ea62bf9f25686b053134601f02095c
+  stored    96f933e176c5241c3165b8021b25d7ebbcfece171918175df77ffd83e679f4f6
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -255,4 +258,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected sixteen times in its first six days, fourteen of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected seventeen times in its first six days, fifteen of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
