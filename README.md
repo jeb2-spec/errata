@@ -30,11 +30,10 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-03|in our favour|the reader|1
 2026-09-03|in our favour|the outside reader|1
 2026-09-03|in our favour|the founder|1
-2026-09-04|in our favour|the founder|1
-2026-09-04|in our favour|the founder|1
+2026-09-04|in our favour|the reader|1
 ```
 
-Nineteen errors. Seventeen of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Eighteen errors. Sixteen of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -46,7 +45,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Thirteen principles. Nineteen corrections. Thirty two lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Thirteen principles. Eighteen corrections. Thirty six lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -107,7 +106,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in nineteen rows
+-- the whole argument, in eighteen rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -126,8 +125,8 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 19 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 32 | What generalises past this project |
+| `corrections` | 18 | What was claimed, what it became, which way the error ran, **who paid** |
+| `lessons` | 36 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -161,11 +160,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    663a6fb4080c0f239aa251ee67c8e82d898bd49fe32fa8516ded266284f0f3ee
-  computed  663a6fb4080c0f239aa251ee67c8e82d898bd49fe32fa8516ded266284f0f3ee
+  stored    4dab9314ae9a024a5a10dbd40499c7fc47f8eaccb0bbfceda0bba763ce75357a
+  computed  4dab9314ae9a024a5a10dbd40499c7fc47f8eaccb0bbfceda0bba763ce75357a
 
 OK    contents match the recorded digest.
-      13 principles, 19 corrections, 23 detections, 32 lessons, 117 post_revisions, 2 documents
+      13 principles, 18 corrections, 21 detections, 36 lessons, 117 post_revisions, 2 documents
 ```
 
 Change one word of one correction and it says so:
@@ -173,7 +172,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    663a6fb4080c0f239aa251ee67c8e82d898bd49fe32fa8516ded266284f0f3ee
+  stored    4dab9314ae9a024a5a10dbd40499c7fc47f8eaccb0bbfceda0bba763ce75357a
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -260,4 +259,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected nineteen times in its first seven days, seventeen of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected eighteen times in its first seven days, sixteen of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*

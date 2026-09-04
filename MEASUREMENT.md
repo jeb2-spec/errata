@@ -81,24 +81,28 @@ section.
 
 ---
 
-## The finding, from nineteen defects
+## The finding, from eighteen defects
 
-Nineteen corrections. Fifty-seven point nine percent of them reached a reader
+Eighteen corrections. Fifty-five point six percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
 | the founder | 6 | 0 |
-| a second model, reviewing adversarially | 5 | 0 |
-| the assistant auditing itself | 5 | 4 |
+| the assistant auditing itself | 5 | 3 |
+| a second model, reviewing adversarially | 3 | 0 |
 | an outside reader | 2 | 0 |
 | the person being written about | 1 | 0 |
+| a different vendor's assistant | 0 | 1 |
 
 *Triggered* means the detector only looked because somebody else voiced doubt.
-Four of the assistant's nine self-audits were triggered: twice the founder said
-"be certain" without naming a defect, and twice the assistant only checked a
-control after a review agent reported it broken. Confirming somebody else's
-finding is not detecting it, and this record does not count it as one.
+Three of the assistant's self-audits were triggered: twice the founder said "be
+certain" without naming a defect and the audit that followed found one, and once
+a reading produced elsewhere was relayed here and the comparison exposed a
+published sentence as false. None is an independent detection and this record
+does not count any of them as one. The last row is the first entry from a
+detector this project does not run, and it arrived carrying the same briefing
+as the assistant it caught, which is why its independent column is zero.
 
 **The founder is the single largest independent detector of the assistant's
 errors, in a project whose thesis is that it catches its own.**
@@ -144,21 +148,19 @@ the error. It is the same antibody in both wells. In this record that shows up
 concretely: the assistant's five independent self-catches are all mechanical
 defects, a wrong count, a stale digest, a rebuild that disagreed with itself.
 The judgement failures, a claim about a person that the evidence would not
-carry, a limitation asserted without being tested, a control reported as
-working after only its happy path was run, were caught by somebody else every
-time.
-
-The sharpest instance is the last one. On 2026-09-04 this project shipped a
-hook that blocks a value the session never observed, tested it, watched it
-deny a fabricated hash, and reported it as verified. A review agent then read
-the shipped code rather than its description and found that the denial message
-named the offending value, which put that value into the transcript the hook
-trusts, so the identical retry passed. **The control defeated itself on the
-second attempt and the author had only ever run the first.** Both the defect
-and the fix are in the corrections table.
+carry, a limitation asserted without being tested, were caught by the founder
+every time.
 
 Machines are good at catching machine errors of arithmetic and consistency.
-On their own overconfidence, in this record, they are zero for three.
+They are, so far in this record, zero for three at catching their own
+overconfidence. The third is the sharpest instance, because for the first time
+the catch did not come from the founder either. It came from a different
+vendor's assistant reading the same document, which is requirement four below
+arriving as an accident rather than as a practice. It found in hours what
+neither this assistant nor its principal had seen, and it did so while sharing
+this assistant's briefing, so it is not even the clean orthogonal test. The
+cheap version of that test was available the whole time and nobody had run
+it.
 
 ---
 
@@ -189,10 +191,11 @@ and it belongs there as the cheap first pass whose job is to be beaten.
 
 ## Honest limits of this document
 
-- **n = 19.** Small enough that the attribution table is suggestive, not
+- **n = 18.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable.
-- **Most detection rows are reconstructed.** Nineteen of twenty three were
-  read back from prose written after the fact; four were recorded at the time. Reconstruction
+- **The detection rows are mostly reconstructed.** Nineteen of the twenty one
+  detection rows were read back from prose written after the fact, and two,
+  both dated 2026-09-04, were recorded as they happened. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
   necessarily zero, it is *unrecorded*, and the correct reading is "this
