@@ -18,13 +18,13 @@ If you got here from a friend and none of this looks like your world: it is a li
 
 It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors, and the file does not record which of us entered which row. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and published builds are anchored to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed, which are pending, and which are still owed. A build made where the calendar servers cannot be reached ships unstamped and says so. The record is then turned on itself: a measurement of who catches the project's errors, using the capture-recapture estimators that software inspection borrowed from ecology, and a plain statement of what that measurement cannot yet say.
 
-The findings to date are brief. Forty one errors. Thirty nine of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute; that pass and its arithmetic are in section 7. And the method has been run on one project, this one, so it is demonstrated and not validated.
+The findings to date are brief. Forty two errors. Forty of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it a day later produced a degenerate one, and the two runs disagree by a factor of nearly two, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
 
 **Contents.** 1. The record · 2. The problem · 3. Terms · 4. What is inside · 5. Method · 6. One correction, in full · 7. Measurement · 8. Limits · 9. Reproduction · 10. What this claims for agents · 11. Disclosures · 12. Sources · The short version
 
 ---
 
-## 1. The record, in forty one rows
+## 1. The record, in forty two rows
 
 ```console
 $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our_favour FROM corrections;"
@@ -70,9 +70,10 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-04|in our favour|the reader|1
 2026-09-04|in our favour|the reader|1
 2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
 ```
 
-Forty one errors. Thirty nine of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Forty two errors. Forty of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -100,7 +101,7 @@ So this repository is the idea turned around and pointed at its authors. If we a
 SELECT * FROM passages_removed;
 ```
 
-Thirteen principles. Forty one corrections. Fifty one lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Thirteen principles. Forty two corrections. Fifty four lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -129,11 +130,11 @@ Seven tables in one SQLite file, with a plain-text dump of the same contents bes
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 13 | The rules, each with the reasoning behind it |
-| `corrections` | 41 | What was claimed, what it became, which way the error ran, **who paid** |
-| `detections` | 50 | Who found each defect, and whether they went looking on their own |
-| `lessons` | 51 | What generalises past this project |
+| `corrections` | 42 | What was claimed, what it became, which way the error ran, **who paid** |
+| `detections` | 51 | Who found each defect, and whether they went looking on their own |
+| `lessons` | 54 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
-| `documents` | 2 | The Portable Record and the measurement paper, in full |
+| `documents` | 3 | The format spec, the measurement paper and the Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
 
 Two views do the arguing: `corrections_against_ourselves` and `passages_removed`.
@@ -190,7 +191,9 @@ Inside the corrections table the overlap is zero. No defect in it has ever been 
 
 That refusal used to be presented as the finding. It is less than that, and the smaller version is more interesting. Reading the detection notes, no two detectors here appear ever to have been set the same task over the same material: each was pointed at a different question in order to cover more ground. A design that never creates the opportunity for overlap cannot measure it, so part of what the zero describes is our own allocation policy. That is correction `an-overlap-nobody-tested-for`. The record has no column for a brief, so that reading cannot be checked with a query, which is stated as a limit in the paper rather than dressed up.
 
-So it was tested. Before this build was published, two reviewers were given the same material and the same brief. They returned twelve findings each and shared five, which is the first non-zero overlap this project has ever recorded, and it makes the estimator computable here for the first time: about twenty seven defects in that change, of which nineteen were found. Both reviewers ran on the same model, which inflates the overlap and pushes that estimate down, so read it as a floor. The arithmetic, the caveats, and the reason none of those nineteen appears in the corrections table are in the paper.
+So it was tested. Before a build was published, two reviewers were given the same material and the same brief. They returned twelve findings each and shared five, the first non-zero overlap this project has ever recorded, which made the estimator computable here for the first time: about twenty seven defects in that change, nineteen of them found.
+
+Then it was run a second time, on the change that carries this sentence, and it broke. Every finding of one seat was also a finding of the other, so the estimator reported that nothing had been missed, with zero variance. Two runs one day apart gave twenty seven and fifteen. **The estimator is not stable at this scale and neither number should be quoted as a result**, including the first one. Both reviewers are the same model reading the same repository, which is the assumption violation showing itself. The arithmetic, the failed run, and the reason none of those findings appears in the corrections table are all in the paper.
 
 This section has now been wrong about the same paragraph three times, which is why it no longer paraphrases the table. It called the founder the single largest independent detector when the table showed a tie. It said every error the assistant caught on its own was mechanical when some were judgement. Then, correcting those two, it said that every failure of judgement about a person, about a public claim, or about the system's own limits had been caught by somebody else. No column records whether a failure was one of judgement, so nothing in the schema could have tested that sentence, which is what made it feel safe to write. It was false anyway. The corrections are `a-tie-called-a-lead`, `every-was-five-of-seven`, `lesson-five-was-never-true` and `a-sentence-shaped-so-nothing-could-test-it`.
 
@@ -233,7 +236,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in forty one rows
+-- the whole argument, in forty two rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -250,11 +253,11 @@ SELECT * FROM corrections_against_ourselves;
 ```console
 $ python3 tools/verify.py
 
-  stored    c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa
-  computed  c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa
+  stored    d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa
+  computed  d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa
 
 OK    contents match the recorded digest.
-      13 principles, 41 corrections, 50 detections, 51 lessons, 117 post_revisions, 2 documents
+      13 principles, 42 corrections, 51 detections, 54 lessons, 117 post_revisions, 3 documents
 
       This proves the contents are unchanged since the build.
       It does not prove any statement in them is true.
@@ -266,7 +269,7 @@ Change one character of one row and it says so. This is what `tools/tamper-test.
 ```console
 $ python3 tools/verify.py altered-copy.db
 
-  stored    c539b7410ecfbfbf41a0b342380118e09255989a3f57de1833fcd2fc27ddadaa
+  stored    d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa
   computed  <a different digest>
 
 FAIL  contents do not match the recorded digest.
@@ -355,7 +358,7 @@ The anchor:
 
 - OpenTimestamps, <https://opentimestamps.org>. An open standard for committing a file's hash to the Bitcoin blockchain through independent calendar servers.
 
-Two documents are sealed inside the record itself, in the `documents` table, and published beside it as [PORTABLE-RECORD.md](PORTABLE-RECORD.md), the working brief the discipline came from, and [MEASUREMENT.md](MEASUREMENT.md), the measurement paper.
+Three documents are sealed inside the record itself, in the `documents` table, and published beside it: [SPEC.md](SPEC.md), which specifies what any record has to do to be checkable by a stranger, [MEASUREMENT.md](MEASUREMENT.md), the measurement paper, and [PORTABLE-RECORD.md](PORTABLE-RECORD.md), the working brief the discipline came from. The spec is sealed for the same reason the paper is: a document defining what a record must do is worthless if it can be quietly edited to match whatever the record turned out to do.
 
 ---
 
@@ -403,4 +406,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it. If you cite it, cite the build and not the page: the digest that `tools/verify.py` prints identifies the exact record you read, and this address points at whatever we publish next.
 
-*Kept by the Vera Project. Corrected forty one times in its first seven days, thirty nine of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected forty two times in its first seven days, forty of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*

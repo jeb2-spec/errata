@@ -81,15 +81,15 @@ section.
 
 ---
 
-## The finding, from forty one defects
+## The finding, from forty two defects
 
-Forty one corrections. Eighty point five percent of them reached a reader
+Forty two corrections. Eighty one point zero percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
 | a second model, reviewing adversarially | 19 | 0 |
-| the assistant auditing itself | 10 | 9 |
+| the assistant auditing itself | 11 | 9 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
 | the person being written about | 1 | 0 |
@@ -245,8 +245,53 @@ printed here rather than described.
 caught *before* publication, so not one of them appears in the corrections
 table, and none of them moves the escape rate on this page. This record has
 counted defects for a week under a process where review happened after
-publishing. It says the escape rate is 80.5 percent. What that figure actually
-measures is the publishing order, not the assistant.
+publishing. The escape rate at the top of this page is what that process
+produces. What it measures is the publishing order, not the assistant. The
+figure is not restated here, because the last time this paragraph restated it
+the number went stale within one build.
+
+---
+
+## The second run, which broke the estimator
+
+The pass above was run again the same day, identical briefs, on the change that
+carried this section. It is the reason nothing above should be read as settled.
+
+| | run 1 | run 2 |
+| --- | ---: | ---: |
+| findings, seat A | 12 | 9 |
+| findings, seat B | 12 | 15 |
+| found by both | 5 | **9** |
+| distinct defects | 19 | 15 |
+| Chapman estimate | 27.2 | **15.0** |
+| standard deviation | 5.7 | **0** |
+
+**In run 2 every finding of seat A was also a finding of seat B.** Complete
+containment. Chapman's estimator, handed that, reports that nothing was missed,
+with a variance of exactly zero: perfect confidence, arrived at because one
+reviewer added nothing the other lacked. That is a confident figure which means
+nothing, and this paper exists to refuse those. It is reported rather than
+dropped because dropping the run that disagrees is how a method becomes a
+belief.
+
+Two runs one day apart, same design, same material class, gave 27 and 15. **The
+estimator is not stable at this scale**, and a single run of it should not be
+quoted as a result, including the one above.
+
+The likely mechanism is the one already disclosed: the two seats are the same
+model reading the same repository with the same tools. Correlated reviewers
+share blind spots, and the more thorough one tends to contain the other rather
+than differ from it. Capture-recapture assumes the reviewers are independent;
+containment is what a violated assumption looks like when it is severe. The
+first run's overlap of five was low enough to hide that. The second run made it
+unmissable.
+
+**What that means for the number this paper now carries.** The 27 in the
+previous section is not retracted, because it is what the data said. It should
+be read as one draw from an estimator this record has now seen fail, and not as
+an estimate of anything. The experiment that would fix it is the same one as
+before with a different second seat: another vendor's model, or a person.
+Neither has been run.
 
 ---
 
@@ -378,7 +423,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 41.** Small enough that the attribution table is suggestive, not
+- **n = 42.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -390,8 +435,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the fifty
-  detection rows were read back from prose written after the fact; thirty one
+- **Most detection rows are reconstructed.** Nineteen of the fifty one
+  detection rows were read back from prose written after the fact; thirty two
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
