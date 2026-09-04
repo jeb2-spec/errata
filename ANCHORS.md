@@ -36,6 +36,16 @@ A stamp verifies against the file it was made for. To check an archived
 stamp, check out the commit that carried that build, or compare the stamp's
 file hash with the table below.
 
+**To regenerate an anchored file byte for byte, build at the commit it
+names.** A stamp binds the file's hash, and the file carries a
+`meta.source_commit` row recording the commit that produced it. That row is
+deliberately outside the digest, so the internal seal survives a rebuild
+anywhere while the file's own hash does not: rebuild at a different commit
+and every row is identical but the bytes differ by that one value. Check out
+the commit the file names, rebuild there, and the hash comes back. Verified
+2026-09-04 by rebuilding this record on a merge commit: same digest,
+different file.
+
 While a stamp is still waiting for Bitcoin aggregation (usually less than a
 day), `ots info` shows pending commitments from the calendar servers rather
 than a block. After aggregation, `ots upgrade` completes the proof and the
