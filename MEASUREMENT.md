@@ -2,8 +2,66 @@
 
 **Measuring an AI assistant's error rate the way a discovery organisation would.**
 
-Written 2026-09-04. Every number in it is derived from `data/errata.db` by
-`errata-measure`, not typed. Reproduce them with the command at the end.
+Written 2026-09-04. Every number drawn from the record is derived from
+`data/errata.db` by `errata-measure`, not typed. Reproduce them with the
+command at the end.
+
+**One class of figure on this page is an exception and is labelled wherever it
+appears: the review-pass tallies.** Those count findings by seats that reviewed
+a change before publication, so the defects never became corrections and no
+table in this record holds them. They were counted by hand. `errata-measure`
+cannot produce them and no gate checks them, which means they are exactly the
+kind of number this project has been bitten by six times. Until the record has
+a table for a review pass, they are hand tallies presented as hand tallies.
+
+---
+
+## What this paper concludes, stated before the method that failed to get there
+
+**This repository has no working measurement of how much its assistant got
+wrong that nobody caught.** Three attempts on 4 September 2026, described in
+the sections below:
+
+1. The overlap between independent detectors was zero, so the estimator was
+   not computable. That was published as a finding about detection. Reading
+   the detection notes, it appears to be substantially an artefact of our own
+   allocation, because nothing in the record describes two detectors set the
+   same task over the same material. The record has no column for a brief, so
+   that remains a reading rather than a query. Correction
+   `an-overlap-nobody-tested-for`.
+2. Two seats were then given identical briefs over the same material. Overlap
+   appeared and the estimator ran.
+3. Sixty eight minutes later the same design was run again on the next change
+   and **degenerated**: one seat's findings were entirely contained in the
+   other's, so the estimator returned zero missed with zero variance. A third
+   run added a seat on different model weights and produced three pairwise
+   estimates from one set of reviewers on one document, one of which is
+   falsified by the third reviewer's own findings.
+
+**The figures from those runs are hand tallies and are labelled as such.** No
+table in this record holds them and `errata-measure` cannot emit them, so they
+carry none of the protection every other number here has. Building that table
+is the next change to this record, and until it exists the most interesting
+thing this paper has done is also the least checkable thing on the page.
+
+What does survive is qualitative and stated at that size. Reviewers drawn from
+the same model can produce a containment pattern, where one adds nothing the
+other lacked, and an estimator handed containment reports perfect confidence in
+a meaningless answer. That happened once here. It did not happen on the run
+before it, where fourteen of nineteen defects were found by exactly one seat.
+So this is a failure mode observed once, not a law, and the sample is one
+project, one document class, and one pair of weights.
+
+One result did come out clean, because it is a count and not an estimate: the
+seat running on different weights found a defect that neither same-weights seat
+found, in the oldest claim in this record. Correction
+`the-exact-prose-that-was-truncated`. That is an argument for varying the
+reviewer, and it is not an argument about how many defects remain.
+
+The escape rate and the attribution table on this page are counts from the
+database and stand regardless of any of the above. The three conclusions and
+the four requirements below are estimator claims and should be read against
+this section.
 
 ---
 
@@ -81,14 +139,14 @@ section.
 
 ---
 
-## The finding, from forty two defects
+## The finding, from forty three defects
 
-Forty two corrections. Eighty one point zero percent of them reached a reader
+Forty three corrections. Eighty one point four percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| a second model, reviewing adversarially | 19 | 0 |
+| a second model, reviewing adversarially | 20 | 0 |
 | the assistant auditing itself | 11 | 9 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
@@ -257,6 +315,8 @@ the number went stale within one build.
 The pass above was run again the same day, identical briefs, on the change that
 carried this section. It is the reason nothing above should be read as settled.
 
+Both tables in this section are hand tallies. See the note under the title.
+
 | | run 1 | run 2 |
 | --- | ---: | ---: |
 | findings, seat A | 12 | 9 |
@@ -274,7 +334,7 @@ nothing, and this paper exists to refuse those. It is reported rather than
 dropped because dropping the run that disagrees is how a method becomes a
 belief.
 
-Two runs one day apart, same design, same material class, gave 27 and 15. **The
+Two runs sixty eight minutes apart, same design, same material class, disagreed by nearly a factor of two. **The
 estimator is not stable at this scale**, and a single run of it should not be
 quoted as a result, including the one above.
 
@@ -423,7 +483,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 42.** Small enough that the attribution table is suggestive, not
+- **n = 43.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -435,8 +495,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the fifty one
-  detection rows were read back from prose written after the fact; thirty two
+- **Most detection rows are reconstructed.** Nineteen of the fifty two
+  detection rows were read back from prose written after the fact; thirty three
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not

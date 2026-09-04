@@ -34,7 +34,7 @@ CREATE VIEW passages_removed AS
 INSERT INTO meta VALUES ('title','The Vera Record');
 INSERT INTO meta VALUES ('what_this_is','The conduct record of a project that argues a record beats a reputation, applied to itself. Principles, every correction made and which direction each error ran, transferable lessons, and the full revision history of every published article including the prose removed.');
 INSERT INTO meta VALUES ('built_on','2026-09-04');
-INSERT INTO meta VALUES ('source_commit','857b972b');
+INSERT INTO meta VALUES ('source_commit','c1ea783f');
 INSERT INTO meta VALUES ('format','SQLite 3. Public domain file format, no server required. A plain-text errata.sql dump ships alongside for any reader without SQLite.');
 INSERT INTO meta VALUES ('how_to_open','sqlite3 errata.db  then  .tables  and  SELECT * FROM corrections;  Or open it in any SQLite browser, or read errata.sql in a text editor.');
 INSERT INTO meta VALUES ('start_here','SELECT * FROM corrections ORDER BY occurred_on; then SELECT * FROM passages_removed;');
@@ -44,8 +44,8 @@ INSERT INTO meta VALUES ('disclosure_redaction','Personal names are replaced wit
 INSERT INTO meta VALUES ('disclosure_scope','Contains no personal identifiers, no family information, and nothing about private individuals. All article text reproduced here was already published publicly.');
 INSERT INTO meta VALUES ('integrity_note','SHA-256 over a canonical serialisation of every row in every table, including this meta table, with three rows excluded: the digest row itself, because it cannot contain its own hash, and the two provenance rows built_on and source_commit, because they describe the build and not the record, and including them meant every commit to the source repository moved the seal with nothing in the record changed (corrected 2026-09-03, see the corrections table). Covering the rest of meta matters: without it the disclosures below could be edited and the file would still verify. It proves the contents are unchanged since the build. It does not, and cannot, prove any statement in it is true. Integrity is not accuracy.');
 INSERT INTO meta VALUES ('license','The contents may be quoted and redistributed freely with attribution to the Vera Project.');
-INSERT INTO meta VALUES ('counts','13 principles, 42 corrections, 54 lessons, 117 article revisions across 37 articles');
-INSERT INTO meta VALUES ('integrity_sha256','d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa');
+INSERT INTO meta VALUES ('counts','14 principles, 43 corrections, 55 lessons, 117 article revisions across 37 articles');
+INSERT INTO meta VALUES ('integrity_sha256','bd91b6315b29461185a4acf4716b80e489b8f0a68c6982600dba72bf6547e780');
 INSERT INTO principles VALUES ('ground-truth-or-silence','Ground truth or silence','If you cannot show it, do not claim it. Sourced to the record, or unsaid.','Governs publication, not belief. It says nothing about what anyone may know, notice, or act on. Reading it as a theory of reality would make it false.');
 INSERT INTO principles VALUES ('presence-is-not-proof','Presence is not proof','A true fact framed as a verdict becomes a lie about a person. Describe, never condemn.','Something being present is not evidence it was used for harm. Plenty of honest software looks exactly like the thing someone is afraid of.');
 INSERT INTO principles VALUES ('the-practical-thing','The practical thing at the end','Every piece of work leaves the reader something they can actually do.','A diagnosis with no next step is entertainment. The reader came with a problem.');
@@ -59,6 +59,7 @@ INSERT INTO principles VALUES ('unverified-deletion','An unverified deletion is 
 INSERT INTO principles VALUES ('stating-a-limit','Stating a limitation does not discharge it','When you cannot reach the evidence, the honest output is ''I cannot judge this'', not a verdict with a caveat attached.','A disclaimer buys credibility for the conclusion that follows it, which makes it worse than saying nothing.');
 INSERT INTO principles VALUES ('nerve-is-not-evidence','Being willing to disagree is not the same as being right','Never let the courage of a disagreement launder the quality of its evidence.','The willingness can be correct while the confidence is miscalibrated.');
 INSERT INTO principles VALUES ('experience-and-connections','Experience and connections are the variables','An agent gets better the way a person does: by the experience it keeps and by the people who correct it. The record is the kept experience. The ecosystem is the correction.','Set down 2026-09-03 at the founder''s word, as the value this repository claims for agents: not that an agent can be trusted, but that it can be checked. The assistant''s own caught errors are in this database, entered by the assistant, with direction and cost, sealed so they cannot be backdated. That closes a trust gap by inspection rather than assurance, and it is a tool, not the trust. Integrity is not accuracy.');
+INSERT INTO principles VALUES ('the-foundation-is-not-the-frontier','The foundation must not depend on the frontier','Build so your most ambitious claim can fail without falsifying your most basic one, and say plainly which is which.','Set down 2026-09-04, the day this record''s most ambitious instrument failed three times. What the seal proves, that these rows are unchanged since the build, did not become less true when the estimate of undiscovered defects fell apart, because it never depended on it. That is the property worth building for, and this record only partly has it. Two of the digest''s own boundaries were set by corrections the day before this principle was written, the seal once failed to cover its own disclosures, and the same week produced every-build-is-stamped and a-check-that-could-not-go-red, which are both a lower layer claiming more than it could show. So this is a rule aimed at, evidenced by our own failures to hold it, and not an architecture to take credit for. The reason it matters outside this repository: no record of any person is complete, and one that had to be would be a promise nobody could keep. What can be kept is narrower. What is here is unchanged since it was built, it says which way each error ran, and the passage a page used to carry is still beside the one that replaced it.');
 INSERT INTO corrections VALUES ('settlement-pre-publication','2026-08-29','A post analysing a corporate settlement','Draft misstated the money, the term, the court status, and printed every remedy without its exclusion.','Rewritten against the filed agreement before publication. The published post discloses that its earlier draft was wrong.','in the company''s favour','us','Caught by an adversarial review pass before it shipped.',0);
 INSERT INTO corrections VALUES ('restored-a-true-detail','2026-08-29','A biographical detail on an unlisted page','Flagged as unsourced and deleted.','Restored. It was true, and the source was in previously published writing all along.','against ourselves','the subject','Found by searching the corpus after the deletion, which is the wrong order.',0);
 INSERT INTO corrections VALUES ('auditor-publication-clause','2026-08-29','The same settlement post, after publication','Claimed an independent auditor''s reports carried no requirement that any of it be published.','The filing requires a public executive summary of every final report, including whether the company adopted the auditor''s recommendations. Corrected live with a dated note.','against the company','the company we were writing about','A reader supplied a clause number; we read the clause.',1);
@@ -101,6 +102,7 @@ INSERT INTO corrections VALUES ('an-ok-line-that-dropped-a-category','2026-09-04
 INSERT INTO corrections VALUES ('a-sentence-shaped-so-nothing-could-test-it','2026-09-04','The paragraph on self review in the measurement paper, and the section of the README that summarises it','Said the failures that needed judgement about a person, about a public claim, or about the system''s own limits were caught by somebody else every time.','It is false, and it was built so that nothing could show it. No column anywhere records whether a failure was one of judgement, so no reader could run the query that would test it; the sentence replaced two false superlatives with one nothing could come back at, which is a worse repair than a smaller claim would have been. Read against the table it summarises it fails anyway: two of the assistant''s independent self-catches are judgement failures, one about a person and one about a public claim, and the same paragraph names both of them seven lines earlier. The replacement carries no count and points at the query instead.','in our favour','the reader','An adversarial review named the sentence unfalsifiable. Reading the paragraph against the detections table then showed it was also false, and contradicted by its own paragraph.',1);
 INSERT INTO corrections VALUES ('an-overlap-nobody-tested-for','2026-09-04','The measurement paper, on what its central refusal means','Said the zero overlap between independent detectors is not a data problem but the result, and that the detectors each happened to be pointed at different work at a different moment.','It is substantially a property of how this project allocates its detectors. The record contains no instance of two detectors being given the same material with the same brief, and the two seats convened on 4 September were briefed differently on purpose, one for facts and one for whether the document lands. A design that never creates the opportunity for overlap cannot observe it, so a refusal to estimate that follows from the design was published as a finding about detection. The paper now says so and names the experiment that would settle it, which costs one review pass.','in our favour','the reader','Reading the day''s two reviews as a study afterwards, and asking why every pair of detectors in the whole record is disjoint.',1);
 INSERT INTO corrections VALUES ('a-check-that-could-not-go-red','2026-09-04','The anchor check inside scripts/errata-doctor.mjs, the tool this project runs before every publish','Printed a note when the OpenTimestamps client was absent, and carried on to report errata-doctor OK.','The check that opens each proof and tests whether a row''s confirmed or pending claim is true was skipped wherever that client was absent, and the tool then said OK. What actually hid behind the note is one thing, not three: five proofs submitted to the calendars and never upgraded, so five rows kept saying pending after they were confirmed. Two other defects found the same day, a published build with no anchor and a published anchor command needing a Bitcoin node, were NOT behind this note. The first is caught by a check that needs no client and was already running; the second is tested by nothing in this tool at all, and was found by a person setting a machine up and running the README. An earlier draft of this row claimed all three, which was a more flattering story about the fix than the evidence supports. A skip is now a failure unless the operator sets ERRATA_NO_OTS=1 to declare that this environment cannot check anchors, and a row that says pending over an upgraded proof now fails rather than notes. The new gate was broken deliberately and watched go red before this row was written.','in our favour','the reader','Setting up a machine that had neither the client nor Python. The note fired, and reproducing the other configuration, Python present and the client absent, produced errata-doctor OK with the anchor check disabled.',1);
+INSERT INTO corrections VALUES ('the-exact-prose-that-was-truncated','2026-09-04','The README''s description of the passages this record preserves, standing since the first publication','Said forty nine revisions carry the exact prose that was removed, and that the surviving prior states prove nothing was quietly tidied.','Twenty six of the forty nine are cut. The page-history builder caps a removed passage at seven hundred characters, the longest stored value is 711, and no flag recording that a value was truncated reaches the database, so a reader of the sealed record cannot tell a complete passage from a clipped one. The word exact was wrong for more than half of them from the first build onward. This is the oldest false claim found in this record and it sits in the layer the same build''s new principle calls the foundation, which is the more useful half of the finding. Marking truncation in the record is the fix and it is not yet made; until it is, the README says the passages are capped and says where.','in our favour','the reader','An adversarial seat running on different model weights, given the identical brief as two others reviewing the same change. Neither of the others found it, and it is the only finding unique to that seat.',1);
 INSERT INTO detections VALUES ('settlement-pre-publication','adversarial-review','pre-publication',1,'A separate review pass over the draft, before it shipped.');
 INSERT INTO detections VALUES ('restored-a-true-detail','self-audit','post-publication',1,'Searched the corpus after the deletion, which is the wrong order.');
 INSERT INTO detections VALUES ('auditor-publication-clause','reader','post-publication',1,'A reader supplied the clause number.');
@@ -152,6 +154,7 @@ INSERT INTO detections VALUES ('a-sentence-shaped-so-nothing-could-test-it','sel
 INSERT INTO detections VALUES ('anchor-commands-nobody-ran','self-audit','post-publication',1,'Set a machine up from the README''s own instructions and ran every command in it, including the two nobody had ever run. Nothing had prompted it. Contemporaneous.');
 INSERT INTO detections VALUES ('an-overlap-nobody-tested-for','self-audit','post-publication',1,'Read the day''s two reviews as a study and asked why every pair of detectors in the record is disjoint. Contemporaneous.');
 INSERT INTO detections VALUES ('a-check-that-could-not-go-red','self-audit','post-publication',1,'Set up a machine that had none of the tooling and watched which checks the doctor skipped rather than failed. Nothing had prompted it. Contemporaneous.');
+INSERT INTO detections VALUES ('the-exact-prose-that-was-truncated','adversarial-review','post-publication',1,'A seat running on different model weights, reading the removed-prose claim against the page-history builder''s character cap. Two seats on the same weights as the author, given the identical brief over the identical material, did not find it. Contemporaneous.');
 INSERT INTO lessons VALUES (1,'verification','A gate built from a hand kept list of claims inherits the omissions of the hand.','The list is the weak part, not the checking. This project''s build fails when the README stops describing the database, which is the right design, and the list of things it compared was typed: it covered four of the six tables the README tabulates and neither of the two whose counts had gone stale. Derive what must be checked from the structure being described, so a new table or a new claim is covered the moment it exists rather than the moment somebody remembers it.');
 INSERT INTO lessons VALUES (2,'design','Type is geometry or it is a request, and a request has no measurable width.','Asking for a font by name means no dimension exists until a renderer picks a face, so nothing that depends on the width of the words can be checked before it ships, and the same file renders differently on two machines. Set outlines when a layout has to be provable. Then a check can assert that a word clears what it sits in without rendering anything at all, which is what caught this one.');
 INSERT INTO lessons VALUES (3,'verification','A generated thing has to be checked across the states it will reach, not the state it is in.','A figure sized by eye against one state of the data is correct by coincidence and fails silently when the data moves, and the check that only ever runs against today''s data passes every day while it does. Sweep the parameter space: this record''s mark is now struck against eight digests and record sizes from one correction to four hundred before any of them is written, and the first sweep caught the same defect reappearing inside its own repair.');
@@ -204,8 +207,9 @@ INSERT INTO lessons VALUES (49,'integrity','A seal reads as a warrant about cont
 INSERT INTO lessons VALUES (50,'verification','A published command is a claim that it runs.','The anchor check this record handed its readers could not be executed by almost any of them: it needs a local Bitcoin node, which was never mentioned, and the archived example named a target file that has never existed. Neither had been run on a clean machine, because the person who wrote them already had the answer the commands were meant to produce. A command block is a promise about somebody else''s machine. Set one up from your own instructions, starting at the first line, and run every line before publishing it.');
 INSERT INTO lessons VALUES (51,'records','A proof the reader cannot run is a reputation.','This repository published a command for checking its own anchor that requires a local Bitcoin node. Almost no reader has one, so for the audience it was written for the anchor was not proof, it was a claim of proof, which is the thing this project exists to replace. It stood for three days and nobody here noticed, because everybody who wrote about it already knew the answer the command was meant to produce. The test a verification path has to pass is this: the person who doubts you can finish it themselves, on the device they are arguing on, without installing anything, ending somewhere neither of you controls. Every clause carries weight, and the way to check it is to hand the path to somebody who does not want it to be true and watch where they stop.');
 INSERT INTO lessons VALUES (52,'verification','A skipped check is more dangerous than a failed one.','A failure is loud and stops the work. A skip prints a note, and a note beside the word OK reads as OK. In this record a whole check was skipped wherever one tool was missing, and five anchor rows went on claiming pending after their proofs had been confirmed while the instrument reported success. Make an unrunnable check fail by default and require the operator to declare the gap deliberately, so the absence of verification is recorded in the place the verification would have been. Note also what this does not fix: two other defects found the same day were not behind that skip, and an early account of this lesson blamed the skip for all three, which is the pleasing version. A skipped check is dangerous enough without borrowing other failures to make the point.');
-INSERT INTO lessons VALUES (53,'verification','Two reviewers who share a model do not give you two looks.','Pointing two independent seats at the same material with the same brief made this record''s overlap non-zero for the first time and produced an estimate of what both had missed. Run again a day later, one seat''s findings were a complete subset of the other''s, and the estimator returned zero missed with zero variance: perfect confidence, because the second reviewer added nothing. Two runs, one day apart, gave answers differing by nearly a factor of two. Capture-recapture assumes reviewers are independent, and containment is what a badly violated assumption looks like, so the correlation between reviewers is not a caveat on the estimate, it is the thing that decides whether the estimate exists. Vary the reviewer, not just the brief, and treat a single run as a draw and never as a result.');
-INSERT INTO lessons VALUES (54,'records','Zero overlap between detectors can describe your allocation policy rather than your detectors.','This record''s central measurement is a refusal: overlap between independent detectors is zero, so the number of defects nobody found is not estimable. That was published as a finding about detection. But the record holds no instance of two detectors ever being given the same material with the same brief, because every seat was pointed at a different question in order to maximise coverage. A design that never creates the opportunity for overlap cannot observe it. Before reporting a quantity as unmeasurable, check whether your own allocation is what made it unmeasurable, and if it is, say so and run the cheap experiment.');
+INSERT INTO lessons VALUES (53,'records','Layer your claims so the frontier can fail without taking the floor.','This record''s most ambitious instrument failed twice in one week: an overlap of zero that turned out to describe our own allocation policy, then an estimator that degenerated on its second run. Neither failure touched the seal, the direction column, or the surviving prior states, because none of them was ever load-bearing for the others. That was built in rather than lucky. Say what each layer proves and nothing above it, keep the ambitious claim clearly separated from the basic one, and a collapse at the top stays at the top. The failure mode to avoid is a foundation quietly resting on your newest and least tested idea, which is where most projects put the weight because that is where the excitement is.');
+INSERT INTO lessons VALUES (54,'verification','Two reviewers who share a model do not give you two looks.','Pointing two independent seats at the same material with the same brief made this record''s overlap non-zero for the first time and produced an estimate of what both had missed. Run again sixty eight minutes later, one seat''s findings were a complete subset of the other''s, and the estimator returned zero missed with zero variance: perfect confidence, because the second reviewer added nothing. Two runs, sixty eight minutes apart, gave answers differing by nearly a factor of two, and a third run with a seat on different weights produced a pairwise estimate that the third reviewer''s own findings falsify. Capture-recapture assumes reviewers are independent, and containment is what a badly violated assumption looks like, so the correlation between reviewers is not a caveat on the estimate, it is the thing that decides whether the estimate exists. Vary the reviewer, not just the brief, and treat a single run as a draw and never as a result.');
+INSERT INTO lessons VALUES (55,'records','Zero overlap between detectors can describe your allocation policy rather than your detectors.','This record''s central measurement is a refusal: overlap between independent detectors is zero, so the number of defects nobody found is not estimable. That was published as a finding about detection. But the record holds no instance of two detectors ever being given the same material with the same brief, because every seat was pointed at a different question in order to maximise coverage. A design that never creates the opportunity for overlap cannot observe it. Before reporting a quantity as unmeasurable, check whether your own allocation is what made it unmeasurable, and if it is, say so and run the cheap experiment.');
 INSERT INTO post_revisions VALUES (1,'272-percent','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
@@ -1063,8 +1067,66 @@ INSERT INTO documents VALUES ('measurement','What the screen missed','text/markd
 
 **Measuring an AI assistant''s error rate the way a discovery organisation would.**
 
-Written 2026-09-04. Every number in it is derived from `data/errata.db` by
-`errata-measure`, not typed. Reproduce them with the command at the end.
+Written 2026-09-04. Every number drawn from the record is derived from
+`data/errata.db` by `errata-measure`, not typed. Reproduce them with the
+command at the end.
+
+**One class of figure on this page is an exception and is labelled wherever it
+appears: the review-pass tallies.** Those count findings by seats that reviewed
+a change before publication, so the defects never became corrections and no
+table in this record holds them. They were counted by hand. `errata-measure`
+cannot produce them and no gate checks them, which means they are exactly the
+kind of number this project has been bitten by six times. Until the record has
+a table for a review pass, they are hand tallies presented as hand tallies.
+
+---
+
+## What this paper concludes, stated before the method that failed to get there
+
+**This repository has no working measurement of how much its assistant got
+wrong that nobody caught.** Three attempts on 4 September 2026, described in
+the sections below:
+
+1. The overlap between independent detectors was zero, so the estimator was
+   not computable. That was published as a finding about detection. Reading
+   the detection notes, it appears to be substantially an artefact of our own
+   allocation, because nothing in the record describes two detectors set the
+   same task over the same material. The record has no column for a brief, so
+   that remains a reading rather than a query. Correction
+   `an-overlap-nobody-tested-for`.
+2. Two seats were then given identical briefs over the same material. Overlap
+   appeared and the estimator ran.
+3. Sixty eight minutes later the same design was run again on the next change
+   and **degenerated**: one seat''s findings were entirely contained in the
+   other''s, so the estimator returned zero missed with zero variance. A third
+   run added a seat on different model weights and produced three pairwise
+   estimates from one set of reviewers on one document, one of which is
+   falsified by the third reviewer''s own findings.
+
+**The figures from those runs are hand tallies and are labelled as such.** No
+table in this record holds them and `errata-measure` cannot emit them, so they
+carry none of the protection every other number here has. Building that table
+is the next change to this record, and until it exists the most interesting
+thing this paper has done is also the least checkable thing on the page.
+
+What does survive is qualitative and stated at that size. Reviewers drawn from
+the same model can produce a containment pattern, where one adds nothing the
+other lacked, and an estimator handed containment reports perfect confidence in
+a meaningless answer. That happened once here. It did not happen on the run
+before it, where fourteen of nineteen defects were found by exactly one seat.
+So this is a failure mode observed once, not a law, and the sample is one
+project, one document class, and one pair of weights.
+
+One result did come out clean, because it is a count and not an estimate: the
+seat running on different weights found a defect that neither same-weights seat
+found, in the oldest claim in this record. Correction
+`the-exact-prose-that-was-truncated`. That is an argument for varying the
+reviewer, and it is not an argument about how many defects remain.
+
+The escape rate and the attribution table on this page are counts from the
+database and stand regardless of any of the above. The three conclusions and
+the four requirements below are estimator claims and should be read against
+this section.
 
 ---
 
@@ -1142,14 +1204,14 @@ section.
 
 ---
 
-## The finding, from forty two defects
+## The finding, from forty three defects
 
-Forty two corrections. Eighty one point zero percent of them reached a reader
+Forty three corrections. Eighty one point four percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| a second model, reviewing adversarially | 19 | 0 |
+| a second model, reviewing adversarially | 20 | 0 |
 | the assistant auditing itself | 11 | 9 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
@@ -1318,6 +1380,8 @@ the number went stale within one build.
 The pass above was run again the same day, identical briefs, on the change that
 carried this section. It is the reason nothing above should be read as settled.
 
+Both tables in this section are hand tallies. See the note under the title.
+
 | | run 1 | run 2 |
 | --- | ---: | ---: |
 | findings, seat A | 12 | 9 |
@@ -1335,7 +1399,7 @@ nothing, and this paper exists to refuse those. It is reported rather than
 dropped because dropping the run that disagrees is how a method becomes a
 belief.
 
-Two runs one day apart, same design, same material class, gave 27 and 15. **The
+Two runs sixty eight minutes apart, same design, same material class, disagreed by nearly a factor of two. **The
 estimator is not stable at this scale**, and a single run of it should not be
 quoted as a result, including the one above.
 
@@ -1484,7 +1548,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 42.** Small enough that the attribution table is suggestive, not
+- **n = 43.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -1496,8 +1560,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the fifty one
-  detection rows were read back from prose written after the fact; thirty two
+- **Most detection rows are reconstructed.** Nineteen of the fifty two
+  detection rows were read back from prose written after the fact; thirty three
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not

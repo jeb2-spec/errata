@@ -16,15 +16,15 @@ If you got here from a friend and none of this looks like your world: it is a li
 
 *Errata* is the Latin plural of *erratum*: a thing that has strayed. Printers of the hand-press era gave the word to a slip bound into a finished book, listing the errors the book already contained. The book shipped with its own mistakes attached. This repository is that slip, kept for a small project that works with an artificial-intelligence assistant every day, and published in a form a stranger can check.
 
-It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors, and the file does not record which of us entered which row. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and published builds are anchored to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed, which are pending, and which are still owed. A build made where the calendar servers cannot be reached ships unstamped and says so. The record is then turned on itself: a measurement of who catches the project's errors, using the capture-recapture estimators that software inspection borrowed from ecology, and a plain statement of what that measurement cannot yet say.
+It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors, and the file does not record which of us entered which row. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and published builds are anchored to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed, which are pending, and which are still owed. A build made where the calendar servers cannot be reached ships unstamped and says so. The record is then turned on itself: a measurement of who catches the project's errors, an attempt to estimate the ones nobody caught using the capture-recapture estimators that software inspection borrowed from ecology, and a report of how that attempt failed twice.
 
-The findings to date are brief. Forty two errors. Forty of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it a day later produced a degenerate one, and the two runs disagree by a factor of nearly two, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
+The findings to date are brief. Forty three errors. Forty one of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it sixty eight minutes later produced a degenerate one, and a third run produced a pairwise estimate its own third reviewer falsifies, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
 
 **Contents.** 1. The record · 2. The problem · 3. Terms · 4. What is inside · 5. Method · 6. One correction, in full · 7. Measurement · 8. Limits · 9. Reproduction · 10. What this claims for agents · 11. Disclosures · 12. Sources · The short version
 
 ---
 
-## 1. The record, in forty two rows
+## 1. The record, in forty three rows
 
 ```console
 $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our_favour FROM corrections;"
@@ -71,9 +71,10 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-04|in our favour|the reader|1
 2026-09-04|in our favour|the reader|1
 2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
 ```
 
-Forty two errors. Forty of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Forty three errors. Forty one of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -101,7 +102,7 @@ So this repository is the idea turned around and pointed at its authors. If we a
 SELECT * FROM passages_removed;
 ```
 
-Thirteen principles. Forty two corrections. Fifty four lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Fourteen principles. Forty three corrections. Fifty five lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
 
 None of it is flattering. That is the point.
 
@@ -129,11 +130,11 @@ Seven tables in one SQLite file, with a plain-text dump of the same contents bes
 
 | table | rows | what it holds |
 | --- | --- | --- |
-| `principles` | 13 | The rules, each with the reasoning behind it |
-| `corrections` | 42 | What was claimed, what it became, which way the error ran, **who paid** |
-| `detections` | 51 | Who found each defect, and whether they went looking on their own |
-| `lessons` | 54 | What generalises past this project |
-| `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
+| `principles` | 14 | The rules, each with the reasoning behind it |
+| `corrections` | 43 | What was claimed, what it became, which way the error ran, **who paid** |
+| `detections` | 52 | Who found each defect, and whether they went looking on their own |
+| `lessons` | 55 | What generalises past this project |
+| `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut**, capped at 700 characters |
 | `documents` | 3 | The format spec, the measurement paper and the Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
 
@@ -193,7 +194,7 @@ That refusal used to be presented as the finding. It is less than that, and the 
 
 So it was tested. Before a build was published, two reviewers were given the same material and the same brief. They returned twelve findings each and shared five, the first non-zero overlap this project has ever recorded, which made the estimator computable here for the first time: about twenty seven defects in that change, nineteen of them found.
 
-Then it was run a second time, on the change that carries this sentence, and it broke. Every finding of one seat was also a finding of the other, so the estimator reported that nothing had been missed, with zero variance. Two runs one day apart gave twenty seven and fifteen. **The estimator is not stable at this scale and neither number should be quoted as a result**, including the first one. Both reviewers are the same model reading the same repository, which is the assumption violation showing itself. The arithmetic, the failed run, and the reason none of those findings appears in the corrections table are all in the paper.
+Then it was run a second time, on the change that carries this sentence, and it broke. Every finding of one seat was also a finding of the other, so the estimator reported that nothing had been missed, with zero variance. The two runs were sixty eight minutes apart, not the day this section first claimed, and they disagreed by nearly a factor of two. **The estimator is not stable at this scale and neither number should be quoted as a result**, including the first one. Both reviewers are the same model reading the same repository, which is the assumption violation showing itself. The arithmetic, the failed run, and the reason none of those findings appears in the corrections table are all in the paper.
 
 This section has now been wrong about the same paragraph three times, which is why it no longer paraphrases the table. It called the founder the single largest independent detector when the table showed a tie. It said every error the assistant caught on its own was mechanical when some were judgement. Then, correcting those two, it said that every failure of judgement about a person, about a public claim, or about the system's own limits had been caught by somebody else. No column records whether a failure was one of judgement, so nothing in the schema could have tested that sentence, which is what made it feel safe to write. It was false anyway. The corrections are `a-tie-called-a-lead`, `every-was-five-of-seven`, `lesson-five-was-never-true` and `a-sentence-shaped-so-nothing-could-test-it`.
 
@@ -217,6 +218,16 @@ Stated in the order a careful reader would raise them.
 
 **The corrections table holds the defects we know about.** By construction it can never contain the ones we do not. That is not a flaw in the table. It is the entire reason section 7 exists.
 
+**And section 7 has not worked.** Put the objection at its strongest, because it is the best argument against this repository and it should be made here rather than by somebody else. *You publish the errors you caught. You have no working measure of what fraction that is, and you have now failed twice to get one. So the completeness of this record is exactly the kind of unverified claim the record was built to replace, and asking anyone to be reassured by it is asking for trust.*
+
+The objection is correct as far as it goes, and the reply is a distinction rather than a denial. Section 2 claims completeness **of an entry**: when a passage was cut, the passage is here and not a summary of it. It does not claim completeness **of the set**, which would be the claim that these are all the errors there are. Nothing in this file has ever claimed that, and section 7 is the record of failing to find out.
+
+What survives the failure is narrower than proof and is worth stating exactly. The seal shows these rows are unchanged since the build; it cannot show any of them is true. The `direction` column is typed by us, so it shows what we scored and not that the scoring was right, and one of those scorings has already been withdrawn. The prior states show what a page used to say for the revisions that carry them. None of those depends on knowing what is missing, which is why the estimator could fail three times without moving them.
+
+That is a property worth building for, and this record only partly has it: two of the digest's own boundaries were set by corrections one day before this paragraph was written, and the same week produced two more cases of a lower layer claiming more than it could show. The rule is principle `the-foundation-is-not-the-frontier`; the evidence for it here is our failures to hold it.
+
+The same shape is why a record about a person can be honest at all. No record of anybody is complete, and one that had to be would be a promise nobody could keep. **A record you can check beats a score you have to believe, and it beats it without ever claiming to be the whole story.**
+
 ---
 
 ## 9. Reproduction
@@ -236,7 +247,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in forty two rows
+-- the whole argument, in forty three rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -253,11 +264,11 @@ SELECT * FROM corrections_against_ourselves;
 ```console
 $ python3 tools/verify.py
 
-  stored    d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa
-  computed  d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa
+  stored    bd91b6315b29461185a4acf4716b80e489b8f0a68c6982600dba72bf6547e780
+  computed  bd91b6315b29461185a4acf4716b80e489b8f0a68c6982600dba72bf6547e780
 
 OK    contents match the recorded digest.
-      13 principles, 42 corrections, 51 detections, 54 lessons, 117 post_revisions, 3 documents
+      14 principles, 43 corrections, 52 detections, 55 lessons, 117 post_revisions, 3 documents
 
       This proves the contents are unchanged since the build.
       It does not prove any statement in them is true.
@@ -269,7 +280,7 @@ Change one character of one row and it says so. This is what `tools/tamper-test.
 ```console
 $ python3 tools/verify.py altered-copy.db
 
-  stored    d9315637563e78245d21a68db60571b2c9a7fc9e50dc9ca3881e10d4cc71a9aa
+  stored    bd91b6315b29461185a4acf4716b80e489b8f0a68c6982600dba72bf6547e780
   computed  <a different digest>
 
 FAIL  contents do not match the recorded digest.
@@ -406,4 +417,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it. If you cite it, cite the build and not the page: the digest that `tools/verify.py` prints identifies the exact record you read, and this address points at whatever we publish next.
 
-*Kept by the Vera Project. Corrected forty two times in its first seven days, forty of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected forty three times in its first seven days, forty one of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
