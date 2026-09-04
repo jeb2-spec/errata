@@ -34,7 +34,7 @@ CREATE VIEW passages_removed AS
 INSERT INTO meta VALUES ('title','The Vera Record');
 INSERT INTO meta VALUES ('what_this_is','The conduct record of a project that argues a record beats a reputation, applied to itself. Principles, every correction made and which direction each error ran, transferable lessons, and the full revision history of every published article including the prose removed.');
 INSERT INTO meta VALUES ('built_on','2026-09-04');
-INSERT INTO meta VALUES ('source_commit','f63ffa78');
+INSERT INTO meta VALUES ('source_commit','a6a4e2f');
 INSERT INTO meta VALUES ('format','SQLite 3. Public domain file format, no server required. A plain-text errata.sql dump ships alongside for any reader without SQLite.');
 INSERT INTO meta VALUES ('how_to_open','sqlite3 errata.db  then  .tables  and  SELECT * FROM corrections;  Or open it in any SQLite browser, or read errata.sql in a text editor.');
 INSERT INTO meta VALUES ('start_here','SELECT * FROM corrections ORDER BY occurred_on; then SELECT * FROM passages_removed;');
@@ -44,8 +44,8 @@ INSERT INTO meta VALUES ('disclosure_redaction','Personal names are replaced wit
 INSERT INTO meta VALUES ('disclosure_scope','Contains no personal identifiers, no family information, and nothing about private individuals. All article text reproduced here was already published publicly.');
 INSERT INTO meta VALUES ('integrity_note','SHA-256 over a canonical serialisation of every row in every table, including this meta table, with three rows excluded: the digest row itself, because it cannot contain its own hash, and the two provenance rows built_on and source_commit, because they describe the build and not the record, and including them meant every commit to the source repository moved the seal with nothing in the record changed (corrected 2026-09-03, see the corrections table). Covering the rest of meta matters: without it the disclosures below could be edited and the file would still verify. It proves the contents are unchanged since the build. It does not, and cannot, prove any statement in it is true. Integrity is not accuracy.');
 INSERT INTO meta VALUES ('license','The contents may be quoted and redistributed freely with attribution to the Vera Project.');
-INSERT INTO meta VALUES ('counts','13 principles, 17 corrections, 33 lessons, 117 article revisions across 37 articles');
-INSERT INTO meta VALUES ('integrity_sha256','f6c1f1f53e4913d611a38af1edc91d50b640a4c8c44225b55e3e056780e9c2b6');
+INSERT INTO meta VALUES ('counts','13 principles, 19 corrections, 32 lessons, 117 article revisions across 37 articles');
+INSERT INTO meta VALUES ('integrity_sha256','663a6fb4080c0f239aa251ee67c8e82d898bd49fe32fa8516ded266284f0f3ee');
 INSERT INTO principles VALUES ('ground-truth-or-silence','Ground truth or silence','If you cannot show it, do not claim it. Sourced to the record, or unsaid.','Governs publication, not belief. It says nothing about what anyone may know, notice, or act on. Reading it as a theory of reality would make it false.');
 INSERT INTO principles VALUES ('presence-is-not-proof','Presence is not proof','A true fact framed as a verdict becomes a lie about a person. Describe, never condemn.','Something being present is not evidence it was used for harm. Plenty of honest software looks exactly like the thing someone is afraid of.');
 INSERT INTO principles VALUES ('the-practical-thing','The practical thing at the end','Every piece of work leaves the reader something they can actually do.','A diagnosis with no next step is entertainment. The reader came with a problem.');
@@ -76,6 +76,8 @@ INSERT INTO corrections VALUES ('a-column-that-did-not-measure-what-we-said','20
 INSERT INTO corrections VALUES ('a-digest-that-tracked-the-commit-not-the-record','2026-09-03','The anchors table of this record','Said the digest moved after a merge because the post_revisions table is built from the commit graph, and called that the record working rather than drifting.','The post_revisions rows were identical. The digest moved because the meta table carried the hash of the commit that ran the build and the day it ran, and meta is inside the digest. So every commit to the source repository, and every rebuild on a new day, moved the seal with nothing in the record changed, and four anchors were struck for no other reason. The two provenance rows stay in meta for the reader and are now excluded from the digest, so the seal tracks the record''s content and nothing else. The wrong sentence stands in the anchors table with the correction beside it.','in our favour','the reader','Rebuilt the record at a new commit with no content change and diffed the two SQL dumps. One row differed, and it was not in post_revisions.',1);
 INSERT INTO corrections VALUES ('a-characterisation-we-could-not-see-clearly','2026-09-03','The adoption disclosure in this record''s own meta table','Said the outside reader whose question prompted that disclosure had stated this repository''s counts twice and differently.','Withdrawn, and the clause is gone. Two different figures do appear across two screenshots of that reader''s answers, but the earlier one is partly covered by the application''s own input box, the order of the two was inferred from scroll position, and neither the conversation nor the prompts that shaped it were ours to read. That is a conclusion carried past the edge of the evidence, about a third party who is not here to answer it, written into a sealed record that is anchored where nobody can reach it. It was also not load-bearing: the disclosure''s substance is the counts, which came from the hosting platform''s API, and the limit they describe. What replaces it says only where the counts came from and why. This database already carries the same lesson from 2026-08-30, when confident reasoning from partial screenshots of a thread that could not be opened produced a verdict that was wrong; the lesson carved then was that stating a limitation does not discharge it, and this time no limitation was stated at all.','in our favour','the outside reader','The founder asked whether I was sure and named the reason to doubt it: the later screenshot may have come from an answer shaped by a different prompt.',1);
 INSERT INTO corrections VALUES ('an-inability-asserted-not-tested','2026-09-03','What this session could do about the published repository''s settings','Told the founder there was no tool in this session that could edit repository settings, so the About box was his to fill in.','Untested. One fuzzy tool search had returned nothing and that was reported as a capability limit. The founder pushed back and the actual test took one command: the session holds authenticated write access to the GitHub API, and the proxy injects real credentials. The write is genuinely blocked, but for two specific reasons that had not been discovered, and reporting a limit is not the same as establishing one. Recorded because a claim of inability is a claim, and this record has no standing to demand evidence for assertions while exempting refusals. The correction is entered against a conversational claim rather than a published one, which is itself a widening of this table''s scope: a false statement made to one person is still a false statement, and most of an assistant''s claims are never published at all.','in our favour','the founder','The founder said: why no repo settings tool, you have full access. He was right to doubt it and the test took one command.',1);
+INSERT INTO corrections VALUES ('a-control-that-laundered-itself','2026-09-04','The pre-write hook this project shipped to stop fabricated values, and the claim made for it','Reported to the founder and in a commit message that the hook was verified live rather than argued, on the evidence that it denied a fabricated hash when this session attempted one.','It denied the first attempt and would have allowed the second. The deny message named the offending value, that denial landed in the transcript as a non-assistant line, and the hook trusts non-assistant lines as things the session observed. So being blocked put the fabricated value into the observed set and the identical retry passed silently. Reproduced against the real transcript within the hour. A control that stops you once and waves the retry through is worse than no control, because it certifies. Fixed by fingerprinting the value into the log instead of printing it, quarantining anything once refused so quarantine beats the observed set, and naming only an eight character prefix in the message. Both attempts now deny and a genuinely observed digest still passes. The claim was not false about what was tested, it was false about what was concluded: only the happy path had been run.','in our favour','the founder','An adversarial review agent, reading the shipped code rather than the description of it, and it was right.',1);
+INSERT INTO corrections VALUES ('a-metric-that-measured-proximity','2026-09-04','The count of memory claims that record how a limitation was established','Reported that 49 sentences in memory assert a limit and 14 record the probe that established them.','It measured proximity, not probing. A command-shaped backtick or an HTTP status within two lines of a limit sentence scored it as probed, so the number rose passively as ordinary writing accumulated around a claim. Worse, it awarded full marks to vera-prod-db.md, the one file whose AWS free-plan blocker was false for nine weeks precisely because nobody re-ran it: that file is dense with aws commands, so every limit sentence in it read as probed. The metric gave its highest score to the exact failure it was built to detect. Replaced by claim age from git blame, which needs no seeding, cannot be satisfied by writing near a sentence, and distinguishes a stale line from a fresh edit in the same file, which is what the nine week failure actually required. It now reports 49 limit sentences, 19 untouched for sixty days or more, oldest seventy one.','in our favour','the founder','The same adversarial review agent. It overstated the mechanism, claiming any nearby backtick counted, which testing disproved. The substance held and the narrower reading was worse.',1);
 INSERT INTO detections VALUES ('settlement-pre-publication','adversarial-review','pre-publication',1,'A separate review pass over the draft, before it shipped.');
 INSERT INTO detections VALUES ('restored-a-true-detail','self-audit','post-publication',1,'Searched the corpus after the deletion, which is the wrong order.');
 INSERT INTO detections VALUES ('auditor-publication-clause','reader','post-publication',1,'A reader supplied the clause number.');
@@ -95,6 +97,10 @@ INSERT INTO detections VALUES ('three-weeks-was-a-week','adversarial-review','po
 INSERT INTO detections VALUES ('a-characterisation-we-could-not-see-clearly','principal','post-publication',1,'He asked whether I was sure and named the reason to doubt it.');
 INSERT INTO detections VALUES ('a-digest-that-tracked-the-commit-not-the-record','self-audit','post-publication',1,'Rebuilt at a new commit with no content change and diffed the two SQL dumps.');
 INSERT INTO detections VALUES ('an-inability-asserted-not-tested','principal','conversation',1,'He said: you have full access. One command settled it.');
+INSERT INTO detections VALUES ('a-control-that-laundered-itself','adversarial-review','post-publication',1,'A review agent read the shipped code, not its description, and reproduced the retry against the real transcript. Contemporaneous.');
+INSERT INTO detections VALUES ('a-control-that-laundered-itself','self-audit','post-publication',0,'Verified the agent''s claim before believing it. Confirmation, not detection, and triggered. Scored that way.');
+INSERT INTO detections VALUES ('a-metric-that-measured-proximity','adversarial-review','post-publication',1,'Same agent. It overstated the mechanism and the substance survived testing anyway. Contemporaneous.');
+INSERT INTO detections VALUES ('a-metric-that-measured-proximity','self-audit','post-publication',0,'Tested whether an unrelated backtick satisfied the pattern; it did not, so the agent''s stated mechanism was wrong and its conclusion was right. Triggered.');
 INSERT INTO lessons VALUES (1,'verification','An untested inability is a claim like any other.','Claims of fact get evidence and claims of incapacity get waved through, which is backwards, because a wrong ''I cannot'' quietly closes a door that was open. It is also cheaper to check than most claims of fact: usually one command. On 2026-09-03 this record reported that no tool existed to edit a repository''s settings after a single fuzzy search. The session in fact held authenticated write access to that API; the write was blocked, but for two specific reasons nobody had discovered. Report the limit and the command that established it, together, or report neither.');
 INSERT INTO lessons VALUES (2,'working-with-ai','A system cannot be its own independent second reviewer.','A machine re-reading its own work shares every prior, every misreading and every blind spot with the pass that produced the error. It is the same antibody in both wells. Measurably so here: across seventeen defects the assistant independently caught five, and every one was mechanical, a wrong count or a stale digest or a rebuild that disagreed with itself. Both failures of judgement, a claim about a person the evidence would not carry and a limit asserted without test, were caught by the human. Self-review belongs in the pipeline as the cheap first pass whose job is to be beaten, never as the control.');
 INSERT INTO lessons VALUES (3,'records','Record which detectors found a defect, not the one who noticed first.','Who found it is data, and the overlap between independent finders is the only thing that lets you estimate the defects nobody found at all, by the capture-recapture method software inspection research has used since 1992. This record ran for six days writing down a single finder per correction, and when the detections table was finally built the overlap between every pair of detectors was zero, so the quantity is not estimable and the measurement script refuses to invent it. Instrument the detector on the first day, not the sixth.');
@@ -127,7 +133,6 @@ INSERT INTO lessons VALUES (29,'judgment','Over-correction is its own error.','T
 INSERT INTO lessons VALUES (30,'writing','Writing for a reader is a guess until that reader has read it.','Test the copy on the person, not on your picture of the person. The plain version that works often comes from someone who is not the author.');
 INSERT INTO lessons VALUES (31,'verification','A claim of verification is itself a claim, and the one most worth verifying.','A reviewer who reads ''verified'' stops there. Say what was checked and against what, or say it was not checked.');
 INSERT INTO lessons VALUES (32,'judgment','An accusation is a checklist to run against your own work before you publish it.','Naming a flaw proves you can detect it, not that you are clear of it. The detector is already built and pointed away from you, so turn it around before publishing. A draft accusing someone of merging two different measures into one figure was doing the same in its own headline.');
-INSERT INTO lessons VALUES (33,'working-with-ai','A kept record can put an assistant in the seat of the person it serves. Only that person can say whether it did.','2026-09-04. The founder sent the assistant something public that someone in his life had written, and asked for the reading a person in his position would give, since the assistant knows him. The assistant read it against the record it keeps of him and answered. He judged that the reading matched his own, and said so. One instance, scored by its subject: it shows the reading matched him, not that it was right, and the scorer is the person the record is about. Entered because it is the first test of the thirteenth principle in this record where the only possible judge was the person the record is about: the kept experience produced a reading only he could check, and he did. Nothing about the writing, its author, or the reading is here. The test is, and its result.');
 INSERT INTO post_revisions VALUES (1,'272-percent','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
@@ -1064,23 +1069,24 @@ section.
 
 ---
 
-## The finding, from seventeen defects
+## The finding, from nineteen defects
 
-Seventeen corrections. Fifty-two point nine percent of them reached a reader
+Nineteen corrections. Fifty-seven point nine percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
 | the founder | 6 | 0 |
-| the assistant auditing itself | 5 | 2 |
-| a second model, reviewing adversarially | 3 | 0 |
+| a second model, reviewing adversarially | 5 | 0 |
+| the assistant auditing itself | 5 | 4 |
 | an outside reader | 2 | 0 |
 | the person being written about | 1 | 0 |
 
 *Triggered* means the detector only looked because somebody else voiced doubt.
-Two of the assistant''s self-audits were triggered: the founder said "be
-certain" without naming a defect, and the audit that followed found one. That
-is not an independent detection and this record does not count it as one.
+Four of the assistant''s nine self-audits were triggered: twice the founder said
+"be certain" without naming a defect, and twice the assistant only checked a
+control after a review agent reported it broken. Confirming somebody else''s
+finding is not detecting it, and this record does not count it as one.
 
 **The founder is the single largest independent detector of the assistant''s
 errors, in a project whose thesis is that it catches its own.**
@@ -1126,12 +1132,21 @@ the error. It is the same antibody in both wells. In this record that shows up
 concretely: the assistant''s five independent self-catches are all mechanical
 defects, a wrong count, a stale digest, a rebuild that disagreed with itself.
 The judgement failures, a claim about a person that the evidence would not
-carry, a limitation asserted without being tested, were caught by the founder
-every time.
+carry, a limitation asserted without being tested, a control reported as
+working after only its happy path was run, were caught by somebody else every
+time.
+
+The sharpest instance is the last one. On 2026-09-04 this project shipped a
+hook that blocks a value the session never observed, tested it, watched it
+deny a fabricated hash, and reported it as verified. A review agent then read
+the shipped code rather than its description and found that the denial message
+named the offending value, which put that value into the transcript the hook
+trusts, so the identical retry passed. **The control defeated itself on the
+second attempt and the author had only ever run the first.** Both the defect
+and the fix are in the corrections table.
 
 Machines are good at catching machine errors of arithmetic and consistency.
-They are, so far in this record, zero for two at catching their own
-overconfidence.
+On their own overconfidence, in this record, they are zero for three.
 
 ---
 
@@ -1162,10 +1177,10 @@ and it belongs there as the cheap first pass whose job is to be beaten.
 
 ## Honest limits of this document
 
-- **n = 17.** Small enough that the attribution table is suggestive, not
+- **n = 19.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable.
-- **The detection rows are reconstructed.** All nineteen were read back from
-  prose written after the fact, none recorded at the time. Reconstruction
+- **Most detection rows are reconstructed.** Nineteen of twenty three were
+  read back from prose written after the fact; four were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
   necessarily zero, it is *unrecorded*, and the correct reading is "this

@@ -81,23 +81,24 @@ section.
 
 ---
 
-## The finding, from seventeen defects
+## The finding, from nineteen defects
 
-Seventeen corrections. Fifty-two point nine percent of them reached a reader
+Nineteen corrections. Fifty-seven point nine percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
 | the founder | 6 | 0 |
-| the assistant auditing itself | 5 | 2 |
-| a second model, reviewing adversarially | 3 | 0 |
+| a second model, reviewing adversarially | 5 | 0 |
+| the assistant auditing itself | 5 | 4 |
 | an outside reader | 2 | 0 |
 | the person being written about | 1 | 0 |
 
 *Triggered* means the detector only looked because somebody else voiced doubt.
-Two of the assistant's self-audits were triggered: the founder said "be
-certain" without naming a defect, and the audit that followed found one. That
-is not an independent detection and this record does not count it as one.
+Four of the assistant's nine self-audits were triggered: twice the founder said
+"be certain" without naming a defect, and twice the assistant only checked a
+control after a review agent reported it broken. Confirming somebody else's
+finding is not detecting it, and this record does not count it as one.
 
 **The founder is the single largest independent detector of the assistant's
 errors, in a project whose thesis is that it catches its own.**
@@ -143,12 +144,21 @@ the error. It is the same antibody in both wells. In this record that shows up
 concretely: the assistant's five independent self-catches are all mechanical
 defects, a wrong count, a stale digest, a rebuild that disagreed with itself.
 The judgement failures, a claim about a person that the evidence would not
-carry, a limitation asserted without being tested, were caught by the founder
-every time.
+carry, a limitation asserted without being tested, a control reported as
+working after only its happy path was run, were caught by somebody else every
+time.
+
+The sharpest instance is the last one. On 2026-09-04 this project shipped a
+hook that blocks a value the session never observed, tested it, watched it
+deny a fabricated hash, and reported it as verified. A review agent then read
+the shipped code rather than its description and found that the denial message
+named the offending value, which put that value into the transcript the hook
+trusts, so the identical retry passed. **The control defeated itself on the
+second attempt and the author had only ever run the first.** Both the defect
+and the fix are in the corrections table.
 
 Machines are good at catching machine errors of arithmetic and consistency.
-They are, so far in this record, zero for two at catching their own
-overconfidence.
+On their own overconfidence, in this record, they are zero for three.
 
 ---
 
@@ -179,10 +189,10 @@ and it belongs there as the cheap first pass whose job is to be beaten.
 
 ## Honest limits of this document
 
-- **n = 17.** Small enough that the attribution table is suggestive, not
+- **n = 19.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable.
-- **The detection rows are reconstructed.** All nineteen were read back from
-  prose written after the fact, none recorded at the time. Reconstruction
+- **Most detection rows are reconstructed.** Nineteen of twenty three were
+  read back from prose written after the fact; four were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
   necessarily zero, it is *unrecorded*, and the correct reading is "this
