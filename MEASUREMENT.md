@@ -81,16 +81,16 @@ section.
 
 ---
 
-## The finding, from twenty four defects
+## The finding, from thirty defects
 
-Twenty four corrections. Sixty six point seven percent of them reached a reader
+Thirty corrections. Seventy three point three percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| the assistant auditing itself | 7 | 7 |
+| a second model, reviewing adversarially | 10 | 0 |
+| the assistant auditing itself | 8 | 7 |
 | the founder | 7 | 0 |
-| a second model, reviewing adversarially | 5 | 0 |
 | an outside reader | 3 | 0 |
 | the person being written about | 1 | 0 |
 | a different vendor's assistant | 0 | 1 |
@@ -106,8 +106,17 @@ none of them as detection. The bottom row is the first entry from a detector
 this project does not run. It arrived carrying the same briefing as the
 assistant it caught, which is why its independent column is zero.
 
-**The founder is the single largest independent detector of the assistant's
-errors, in a project whose thesis is that it catches its own.**
+Until 4 September 2026 the next sentence of this paper read: *the founder is
+the single largest independent detector of the assistant's errors, in a
+project whose thesis is that it catches its own.* The table above it showed a
+tie at seven, and the sentence stood for a day before a second model read the
+table against it. That is correction `a-tie-called-a-lead`, and it is the
+shape this paper is about: a superlative nobody had run the query for. The
+six rows that review added are the reason the adversarial column now leads,
+and every one of them is a defect in this paper or in the README that
+summarises it. **The table above is derived from the database by the build,
+and the build fails if this page disagrees with it.** The sentence it
+replaced was typed.
 
 And then the number that stopped the analysis:
 
@@ -147,11 +156,18 @@ material he does, every time, not occasionally.
 independent second reviewer. When the assistant checks its own work it shares
 every prior, every misreading, and every blind spot with the pass that produced
 the error. It is the same antibody in both wells. In this record that shows up
-concretely: every independent self-catch here is mechanical. A wrong count, a
-stale digest, a rebuild that disagreed with itself, a published table whose
-arithmetic did not add up, a publish that shipped fewer rows than the one
-before it. The failures that needed
-judgement, or needed somebody to look, were caught by somebody else every time:
+concretely, though not as cleanly as this paper first said. Most of the
+independent self-catches are mechanical: a wrong count, a stale digest, a
+rebuild that disagreed with itself, a published table whose arithmetic did not
+add up, a publish that shipped fewer rows than the one before it, a line count
+retyped without being recounted. Two are judgement, and both were found the
+same way, by going to a primary source after a summary had been trusted: a
+remedy recommended from two agreeing summaries, and a true detail deleted as
+unsourced. Until 4 September 2026 this paragraph said *every* self-catch was
+mechanical. That was true at seventeen defects, was sealed with the word every,
+and was false at twenty four; correction `every-was-five-of-seven`. The
+failures that needed judgement about a person, about a public claim, or about
+the system's own limits were caught by somebody else every time:
 a claim about a person that the evidence would not carry, a limitation asserted
 without being tested, a control reported as working after only its happy path
 was run, and an image whose type was running off the edge of itself.
@@ -174,10 +190,12 @@ and the fix are in the corrections table.
 
 Machines are good at catching machine errors of arithmetic and consistency. On
 their own overconfidence, and on work they never went back to look at, they
-have caught nothing here. Not one judgement failure was found by the system
+have caught nothing here. Not one failure of that kind was found by the system
 that made it. They were reported by the founder, by a review agent, or by a
 different vendor's assistant reading the same document and finding in hours
-what neither this assistant nor its principal had seen. That last one is
+what neither this assistant nor its principal had seen. This paper is the
+latest instance: sealed on 4 September with two false sentences about its own
+table, and corrected the same day by a second model that read the table. That last one is
 requirement four below arriving by accident rather than as practice, and it was
 not even the clean orthogonal test, because that reader shared this assistant's
 briefing. The cheap version was available the whole time and nobody had run
@@ -219,8 +237,9 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 24.** Small enough that the attribution table is suggestive, not
-  established. Do not read the detector ranking as stable.
+- **n = 30.** Small enough that the attribution table is suggestive, not
+  established. Do not read the detector ranking as stable: one review pass
+  over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
   the escape rate overstates how bad things are and understates what a second
   detector is worth.** A defect caught before anything is claimed for the
@@ -230,9 +249,9 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the thirty one
-  detection rows were read back from prose written after the fact; twelve were
-  recorded at the time. Reconstruction
+- **Most detection rows are reconstructed.** Nineteen of the thirty seven
+  detection rows were read back from prose written after the fact; eighteen
+  were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
   necessarily zero, it is *unrecorded*, and the correct reading is "this
