@@ -37,9 +37,17 @@ DB = (
 def digest(conn):
     rows = []
     for table in TABLES:
-        for row in conn.execute(f"SELECT * FROM {table} ORDER BY 1"):
-            values = "\x1f".join("" if v is None else str(v) for v in row)
-            rows.append(f"{table}\x1f{values}")
+        # Row order comes from sorting the serialised rows as UTF-8 bytes,
+        # not from asking the database to sort them. `ORDER BY 1` left tied
+        # rows to the query plan, which is written down nowhere and cannot be
+        # reproduced from the text dump by anyone without this exact SQLite.
+        # Correction an-order-the-text-could-not-reproduce, 2026-09-04.
+        serialised = [
+            f"{table}\x1f" + "\x1f".join("" if v is None else str(v) for v in row)
+            for row in conn.execute(f"SELECT * FROM {table}")
+        ]
+        serialised.sort(key=lambda s: s.encode("utf-8"))
+        rows.extend(serialised)
 
     # meta is covered too. Without it, the disclosures could be rewritten
     # and the file would still verify. Excluded: the digest row, because a

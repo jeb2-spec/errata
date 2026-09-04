@@ -31,9 +31,13 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-03|in our favour|the outside reader|1
 2026-09-03|in our favour|the founder|1
 2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the founder|1
+2026-09-04|in our favour|the founder|1
+2026-09-04|in our favour|the reader|1
+2026-09-04|in our favour|the reader|1
 ```
 
-Eighteen errors. Sixteen of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Twenty two errors. Twenty of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -45,7 +49,7 @@ Vera is built on one idea: **a record beats a reputation.** A reputation is an i
 
 It is easy to say that on a website and never be held to it. So this repository is the idea turned around and pointed at us. If we are going to ask anyone to be checkable instead of believed, we hand over something checkable first.
 
-Thirteen principles. Eighteen corrections. Thirty six lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
+Thirteen principles. Twenty two corrections. Thirty nine lessons. One hundred and seventeen revisions across thirty seven published articles, forty nine of which carry the exact prose that was removed.
 
 None of it is flattering. That is the point.
 
@@ -106,7 +110,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in eighteen rows
+-- the whole argument, in twenty two rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -125,8 +129,8 @@ SELECT * FROM corrections_against_ourselves;
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 12 | The rules, each with the reasoning behind it |
-| `corrections` | 18 | What was claimed, what it became, which way the error ran, **who paid** |
-| `lessons` | 36 | What generalises past this project |
+| `corrections` | 22 | What was claimed, what it became, which way the error ran, **who paid** |
+| `lessons` | 39 | What generalises past this project |
 | `post_revisions` | 117 | Every revision of 37 articles, **49 carrying the prose that was cut** |
 | `documents` | 1 | The Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -160,11 +164,11 @@ Do not take our word for the contents. That would be the exact mistake this repo
 ```console
 $ python3 tools/verify.py
 
-  stored    4dab9314ae9a024a5a10dbd40499c7fc47f8eaccb0bbfceda0bba763ce75357a
-  computed  4dab9314ae9a024a5a10dbd40499c7fc47f8eaccb0bbfceda0bba763ce75357a
+  stored    e630d389156afbc31a42dbcc84825659fefba0ffe37b7f7ab5bf41e353569b0d
+  computed  e630d389156afbc31a42dbcc84825659fefba0ffe37b7f7ab5bf41e353569b0d
 
 OK    contents match the recorded digest.
-      13 principles, 18 corrections, 21 detections, 36 lessons, 117 post_revisions, 2 documents
+      13 principles, 22 corrections, 28 detections, 39 lessons, 117 post_revisions, 2 documents
 ```
 
 Change one word of one correction and it says so:
@@ -172,7 +176,7 @@ Change one word of one correction and it says so:
 ```console
 $ python3 tools/verify.py
 
-  stored    4dab9314ae9a024a5a10dbd40499c7fc47f8eaccb0bbfceda0bba763ce75357a
+  stored    e630d389156afbc31a42dbcc84825659fefba0ffe37b7f7ab5bf41e353569b0d
   computed  3f664f77c02fbdffaa2e5d3c1ad96dadc205b9b802c07cbf500cc76627a2a674
 
 FAIL  contents do not match the recorded digest.
@@ -180,6 +184,20 @@ FAIL  contents do not match the recorded digest.
 ```
 
 The seal covers the `meta` table too, disclosures included. An earlier build did not, which meant the redaction notice could have been rewritten while the file still verified clean. A verifier that cannot protect its own disclosures is a decoration. That gap is in the history of this repository, because of course it is.
+
+### Test the promise, not the description
+
+Reading the verifier tells you what it intends to do. Running this tells you what it does.
+
+```bash
+python3 tools/tamper-test.py
+```
+
+Three checks. It alters one character in one row of a throwaway copy and requires the verifier to reject it. It runs the verifier against the shipped file and requires a pass, because a checker that rejects everything is not a checker. Then it recomputes the digest from `data/errata.sql`, the plain-text dump, using a parser written for that file alone, sharing no code with the builder or the verifier.
+
+The third check is the one that is not circular. Reading the same database with the same library proves the library agrees with itself. Rebuilding the number from the published text proves the bytes you can read carry the record, and that somebody who distrusts us and has no SQLite can reach the same number alone.
+
+It was proposed by an outside reader who had inspected this repository but could not execute anything, and who said so rather than implying otherwise. Its first run failed. The order of rows inside the digest turned out to depend on a database tie-break nobody had written down, so the published text could not reproduce it. That is correction `an-order-the-text-could-not-reproduce`, and the rule is now a byte sort that needs no database.
 
 ### What this does not prove
 
@@ -259,4 +277,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it.
 
-*Kept by the Vera Project. Corrected eighteen times in its first seven days, sixteen of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected twenty two times in its first seven days, twenty of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
