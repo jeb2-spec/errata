@@ -33,8 +33,8 @@ CREATE VIEW passages_removed AS
   FROM post_revisions WHERE removed_prose IS NOT NULL ORDER BY revised_on DESC;
 INSERT INTO meta VALUES ('title','The Vera Record');
 INSERT INTO meta VALUES ('what_this_is','The conduct record of a project that argues a record beats a reputation, applied to itself. Principles, every correction made and which direction each error ran, transferable lessons, and the full revision history of every published article including the prose removed.');
-INSERT INTO meta VALUES ('built_on','2026-09-04');
-INSERT INTO meta VALUES ('source_commit','c1ea783f');
+INSERT INTO meta VALUES ('built_on','2026-09-05');
+INSERT INTO meta VALUES ('source_commit','42bee075');
 INSERT INTO meta VALUES ('format','SQLite 3. Public domain file format, no server required. A plain-text errata.sql dump ships alongside for any reader without SQLite.');
 INSERT INTO meta VALUES ('how_to_open','sqlite3 errata.db  then  .tables  and  SELECT * FROM corrections;  Or open it in any SQLite browser, or read errata.sql in a text editor.');
 INSERT INTO meta VALUES ('start_here','SELECT * FROM corrections ORDER BY occurred_on; then SELECT * FROM passages_removed;');
@@ -44,8 +44,8 @@ INSERT INTO meta VALUES ('disclosure_redaction','Personal names are replaced wit
 INSERT INTO meta VALUES ('disclosure_scope','Contains no personal identifiers, no family information, and nothing about private individuals. All article text reproduced here was already published publicly.');
 INSERT INTO meta VALUES ('integrity_note','SHA-256 over a canonical serialisation of every row in every table, including this meta table, with three rows excluded: the digest row itself, because it cannot contain its own hash, and the two provenance rows built_on and source_commit, because they describe the build and not the record, and including them meant every commit to the source repository moved the seal with nothing in the record changed (corrected 2026-09-03, see the corrections table). Covering the rest of meta matters: without it the disclosures below could be edited and the file would still verify. It proves the contents are unchanged since the build. It does not, and cannot, prove any statement in it is true. Integrity is not accuracy.');
 INSERT INTO meta VALUES ('license','The contents may be quoted and redistributed freely with attribution to the Vera Project.');
-INSERT INTO meta VALUES ('counts','14 principles, 43 corrections, 55 lessons, 117 article revisions across 37 articles');
-INSERT INTO meta VALUES ('integrity_sha256','bd91b6315b29461185a4acf4716b80e489b8f0a68c6982600dba72bf6547e780');
+INSERT INTO meta VALUES ('counts','14 principles, 45 corrections, 59 lessons, 120 article revisions across 38 articles');
+INSERT INTO meta VALUES ('integrity_sha256','76632f7b61bb941e9db7d770fdeaa78b9c71bbc7761a2669a4f23da9e09b5658');
 INSERT INTO principles VALUES ('ground-truth-or-silence','Ground truth or silence','If you cannot show it, do not claim it. Sourced to the record, or unsaid.','Governs publication, not belief. It says nothing about what anyone may know, notice, or act on. Reading it as a theory of reality would make it false.');
 INSERT INTO principles VALUES ('presence-is-not-proof','Presence is not proof','A true fact framed as a verdict becomes a lie about a person. Describe, never condemn.','Something being present is not evidence it was used for harm. Plenty of honest software looks exactly like the thing someone is afraid of.');
 INSERT INTO principles VALUES ('the-practical-thing','The practical thing at the end','Every piece of work leaves the reader something they can actually do.','A diagnosis with no next step is entertainment. The reader came with a problem.');
@@ -103,6 +103,8 @@ INSERT INTO corrections VALUES ('a-sentence-shaped-so-nothing-could-test-it','20
 INSERT INTO corrections VALUES ('an-overlap-nobody-tested-for','2026-09-04','The measurement paper, on what its central refusal means','Said the zero overlap between independent detectors is not a data problem but the result, and that the detectors each happened to be pointed at different work at a different moment.','It is substantially a property of how this project allocates its detectors. The record contains no instance of two detectors being given the same material with the same brief, and the two seats convened on 4 September were briefed differently on purpose, one for facts and one for whether the document lands. A design that never creates the opportunity for overlap cannot observe it, so a refusal to estimate that follows from the design was published as a finding about detection. The paper now says so and names the experiment that would settle it, which costs one review pass.','in our favour','the reader','Reading the day''s two reviews as a study afterwards, and asking why every pair of detectors in the whole record is disjoint.',1);
 INSERT INTO corrections VALUES ('a-check-that-could-not-go-red','2026-09-04','The anchor check inside scripts/errata-doctor.mjs, the tool this project runs before every publish','Printed a note when the OpenTimestamps client was absent, and carried on to report errata-doctor OK.','The check that opens each proof and tests whether a row''s confirmed or pending claim is true was skipped wherever that client was absent, and the tool then said OK. What actually hid behind the note is one thing, not three: five proofs submitted to the calendars and never upgraded, so five rows kept saying pending after they were confirmed. Two other defects found the same day, a published build with no anchor and a published anchor command needing a Bitcoin node, were NOT behind this note. The first is caught by a check that needs no client and was already running; the second is tested by nothing in this tool at all, and was found by a person setting a machine up and running the README. An earlier draft of this row claimed all three, which was a more flattering story about the fix than the evidence supports. A skip is now a failure unless the operator sets ERRATA_NO_OTS=1 to declare that this environment cannot check anchors, and a row that says pending over an upgraded proof now fails rather than notes. The new gate was broken deliberately and watched go red before this row was written.','in our favour','the reader','Setting up a machine that had neither the client nor Python. The note fired, and reproducing the other configuration, Python present and the client absent, produced errata-doctor OK with the anchor check disabled.',1);
 INSERT INTO corrections VALUES ('the-exact-prose-that-was-truncated','2026-09-04','The README''s description of the passages this record preserves, standing since the first publication','Said forty nine revisions carry the exact prose that was removed, and that the surviving prior states prove nothing was quietly tidied.','Twenty six of the forty nine are cut. The page-history builder caps a removed passage at seven hundred characters, the longest stored value is 711, and no flag recording that a value was truncated reaches the database, so a reader of the sealed record cannot tell a complete passage from a clipped one. The word exact was wrong for more than half of them from the first build onward. This is the oldest false claim found in this record and it sits in the layer the same build''s new principle calls the foundation, which is the more useful half of the finding. Marking truncation in the record is the fix and it is not yet made; until it is, the README says the passages are capped and says where.','in our favour','the reader','An adversarial seat running on different model weights, given the identical brief as two others reviewing the same change. Neither of the others found it, and it is the only finding unique to that seat.',1);
+INSERT INTO corrections VALUES ('every-defect-got-one-look','2026-09-05','MEASUREMENT.md, this record''s own paper on how well the record works','That zero overlap means every defect in this record got exactly one look.','At the time of this correction, seven of the record''s defects carried two rows in the detections table and were looked at twice. What is zero is not the number of second looks, it is the number of second INDEPENDENT looks, which is what the very next sentence of the paper says correctly. The bolded claim overstates by exactly the qualifier the sentence after it supplies, and the bolded one is the one that travels, gets quoted and gets remembered. It is also wrong in the direction that flatters the argument, because every defect got one look is starker and more alarming than no defect got a second independent look. Correcting it produced two findings the paper did not have and now carries. Every paired look is a finder plus a self-audit and every one of those self-audits is triggered, so zero overlap is a property of the design rather than a fact about coverage: the confirmer arrives after the find, by construction, and adding reviewers cannot change that. And the two most productive detectors, a review agent and the founder, find different classes of defect, arithmetic against the record on one side and judgement and observation on the other, so their zero overlap is not by itself evidence of thin coverage.','in our favour','the reader','Counted the detections table against the paper that is computed from it, while answering an open question about what the last two days had taught. Nothing had prompted a check of the paper.',1);
+INSERT INTO corrections VALUES ('a-file-that-was-never-stranded','2026-09-05','What this session told the founder about where this record''s own handoff file lives','That the memory file headed READ FIRST for any errata work existed only on an unmerged branch and so could not stop this session building on a stale base.','It was on the trunk, byte identical, and had been since the day before. It is starred at the top of the memory index as READ THIS FIRST for any errata work, and it was in the working tree throughout. The claim was never tested and the test was one command printing the file''s hash on three refs. That is an-inability-asserted-not-tested repeated a day and a half after it was published, in the opposite direction: that row asserted a limit that did not exist, this one asserted an absence that did not exist, and both were a single command away from the truth. The claim reached the founder in conversation, a commit message, a pull request body and a memory file before a council seat tested it. The finding underneath is why this row is not simply an apology. The file was present, indexed and flagged, and it still did not work, because its own header read Two states, do not confuse them and the two it named were the published mirror and the working branch. It never mentioned the trunk. A session standing on the trunk reads it, correctly concludes it is in neither described state, and learns nothing about its own base. The warning did not fail to travel. It failed to cover the case, and the case it forgot was the common one.','in our favour','the founder','A council seat convened on a decision tested the assertion instead of accepting it, and printed the file''s hash on all three refs.',1);
 INSERT INTO detections VALUES ('settlement-pre-publication','adversarial-review','pre-publication',1,'A separate review pass over the draft, before it shipped.');
 INSERT INTO detections VALUES ('restored-a-true-detail','self-audit','post-publication',1,'Searched the corpus after the deletion, which is the wrong order.');
 INSERT INTO detections VALUES ('auditor-publication-clause','reader','post-publication',1,'A reader supplied the clause number.');
@@ -155,6 +157,9 @@ INSERT INTO detections VALUES ('anchor-commands-nobody-ran','self-audit','post-p
 INSERT INTO detections VALUES ('an-overlap-nobody-tested-for','self-audit','post-publication',1,'Read the day''s two reviews as a study and asked why every pair of detectors in the record is disjoint. Contemporaneous.');
 INSERT INTO detections VALUES ('a-check-that-could-not-go-red','self-audit','post-publication',1,'Set up a machine that had none of the tooling and watched which checks the doctor skipped rather than failed. Nothing had prompted it. Contemporaneous.');
 INSERT INTO detections VALUES ('the-exact-prose-that-was-truncated','adversarial-review','post-publication',1,'A seat running on different model weights, reading the removed-prose claim against the page-history builder''s character cap. Two seats on the same weights as the author, given the identical brief over the identical material, did not find it. Contemporaneous.');
+INSERT INTO detections VALUES ('every-defect-got-one-look','self-audit','post-publication',1,'Counted the detections table against the paper computed from it. The founder had asked an open question about what two days had taught and named no defect; auditing the paper against its own table was not part of what he asked. Contemporaneous.');
+INSERT INTO detections VALUES ('a-file-that-was-never-stranded','adversarial-review','conversation',1,'A council seat, given the plan to attack rather than the conclusion to confirm, ran the one command the author had not. Contemporaneous. Scored independent for the find, but it adds no overlap: the seat was briefed by the author from the author''s own framing, which is the two-assistants lesson in this same table.');
+INSERT INTO detections VALUES ('a-file-that-was-never-stranded','self-audit','conversation',0,'Verified the seat''s claim against three refs before believing it. Confirmation, not detection, and triggered.');
 INSERT INTO lessons VALUES (1,'verification','A gate built from a hand kept list of claims inherits the omissions of the hand.','The list is the weak part, not the checking. This project''s build fails when the README stops describing the database, which is the right design, and the list of things it compared was typed: it covered four of the six tables the README tabulates and neither of the two whose counts had gone stale. Derive what must be checked from the structure being described, so a new table or a new claim is covered the moment it exists rather than the moment somebody remembers it.');
 INSERT INTO lessons VALUES (2,'design','Type is geometry or it is a request, and a request has no measurable width.','Asking for a font by name means no dimension exists until a renderer picks a face, so nothing that depends on the width of the words can be checked before it ships, and the same file renders differently on two machines. Set outlines when a layout has to be provable. Then a check can assert that a word clears what it sits in without rendering anything at all, which is what caught this one.');
 INSERT INTO lessons VALUES (3,'verification','A generated thing has to be checked across the states it will reach, not the state it is in.','A figure sized by eye against one state of the data is correct by coincidence and fails silently when the data moves, and the check that only ever runs against today''s data passes every day while it does. Sweep the parameter space: this record''s mark is now struck against eight digests and record sizes from one correction to four hundred before any of them is written, and the first sweep caught the same defect reappearing inside its own repair.');
@@ -210,6 +215,10 @@ INSERT INTO lessons VALUES (52,'verification','A skipped check is more dangerous
 INSERT INTO lessons VALUES (53,'records','Layer your claims so the frontier can fail without taking the floor.','This record''s most ambitious instrument failed twice in one week: an overlap of zero that turned out to describe our own allocation policy, then an estimator that degenerated on its second run. Neither failure touched the seal, the direction column, or the surviving prior states, because none of them was ever load-bearing for the others. That was built in rather than lucky. Say what each layer proves and nothing above it, keep the ambitious claim clearly separated from the basic one, and a collapse at the top stays at the top. The failure mode to avoid is a foundation quietly resting on your newest and least tested idea, which is where most projects put the weight because that is where the excitement is.');
 INSERT INTO lessons VALUES (54,'verification','Two reviewers who share a model do not give you two looks.','Pointing two independent seats at the same material with the same brief made this record''s overlap non-zero for the first time and produced an estimate of what both had missed. Run again sixty eight minutes later, one seat''s findings were a complete subset of the other''s, and the estimator returned zero missed with zero variance: perfect confidence, because the second reviewer added nothing. Two runs, sixty eight minutes apart, gave answers differing by nearly a factor of two, and a third run with a seat on different weights produced a pairwise estimate that the third reviewer''s own findings falsify. Capture-recapture assumes reviewers are independent, and containment is what a badly violated assumption looks like, so the correlation between reviewers is not a caveat on the estimate, it is the thing that decides whether the estimate exists. Vary the reviewer, not just the brief, and treat a single run as a draw and never as a result.');
 INSERT INTO lessons VALUES (55,'records','Zero overlap between detectors can describe your allocation policy rather than your detectors.','This record''s central measurement is a refusal: overlap between independent detectors is zero, so the number of defects nobody found is not estimable. That was published as a finding about detection. But the record holds no instance of two detectors ever being given the same material with the same brief, because every seat was pointed at a different question in order to maximise coverage. A design that never creates the opportunity for overlap cannot observe it. Before reporting a quantity as unmeasurable, check whether your own allocation is what made it unmeasurable, and if it is, say so and run the cheap experiment.');
+INSERT INTO lessons VALUES (56,'verification','Provenance is an entry point, not a conclusion.','Where a claim or a finding came from tells you whether to go and look, and what that source is likely to be good at catching. It never tells you whether the thing is true. Scored as a conclusion it becomes credulity in one direction, an expert said it so it holds, and prejudice in the other, a machine said it so it does not. In this record the two most productive detectors share no defects at all, and the reason is not thin coverage: one counts and one doubts, and they are pointed at different classes of error. Reading them as two rows in a tally loses exactly the information that would tell you where to send the next question. Use provenance to route a question. Test the answer on its own evidence.');
+INSERT INTO lessons VALUES (57,'records','Overlap cannot appear if the only detector that runs over everything runs only when told.','Every defect in this record with two detectors pairs a finder with a self-audit, and every one of those self-audits is triggered. The confirmer therefore arrives after the find, by construction, and no number of additional reviewers produces overlap. What produces it is one pass that runs over the whole surface without being asked. That is what a gate is, and the day this project built one it caught a defect the author had introduced while repairing another and believed fixed.');
+INSERT INTO lessons VALUES (58,'working-with-ai','Evidence has a scope, and the scope is part of the evidence.','The hardest error to catch is not a false claim. It is a true one doing a job it cannot do, offered in good faith for a neighbouring question. This record holds several of them and had no name for the class: a column that measured something real and was described as measuring something else, a metric that measured proximity and was reported as measuring probing, a tie called a lead, and an every that was five of seven. Every part true, the picture wrong. The honest move when somebody hands you something true for the adjacent question is to take it, say plainly what it settles, and leave open what it does not. Declining to let it travel is not the same as doubting the person who offered it.');
+INSERT INTO lessons VALUES (59,'records','A warning that names the states it knows about does not warn the state it forgot.','A read-first file is only as good as its coverage of where the reader is actually standing. This record''s own handoff file was on the trunk, byte identical, starred at the top of the index, and in the working tree, and it still failed to stop a session building on a stale base, because it described two states and the session was in a third it did not mention. The reader did nothing wrong: they read it, found themselves in neither case, and concluded correctly that it did not apply. Enumerate the states a reader can be in, name the common one first, and say what to do from there. An omission in a warning is invisible to exactly the person the warning is for.');
 INSERT INTO post_revisions VALUES (1,'272-percent','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
@@ -609,7 +618,32 @@ INSERT INTO post_revisions VALUES (53,'the-accusation-economy','2026-06-14','7c6
 - What Your Setup Says About You: system info transparency essay
 - The Ghost of Al Mazrah: DMZ love letter and DMZ 2 anticipation
 - Rotate feature…',NULL,1);
-INSERT INTO post_revisions VALUES (54,'the-channel-we-havent-built-yet','2026-06-28','57b05fae','human','copy(deep + blogs): retire the remaining fear-coded language (#115)
+INSERT INTO post_revisions VALUES (54,'the-argument-nobody-made','2026-09-03','64e349b9','co-authored','The Argument Nobody Made, and the three corrections it cost us (#631)
+
+A Dispatch on United States v. Anderegg written from the opinion rather
+than the coverage; five corrections logged to errata; the errata mark,
+struck from the record; ASSAY''s register, press, handbook and one-pager;
+author_role now reads Co-Authored-By trailers; all eight anchors confirmed
+in Bitcoin; Fable''s memory of 2026-09-03.',NULL,0);
+INSERT INTO post_revisions VALUES (55,'the-argument-nobody-made','2026-09-02','39f2948e','assistant','errata: three weeks was a week
+
+An adversarial review of the published record read the opinion''s caption
+date and did the subtraction nobody on our side had. The Seventh Circuit
+decided Anderegg on 25 August. We made the Osborne argument on
+1 September. That is seven days, and we called it three weeks, in the
+article, in the correction row, and in conversation.
+
+Both dates sit in the same paragraph as the number that contradicts them.…','We made that argument internally on 1 September, with some confidence, before reading the opinion. It is wrong, and the Seventh Circuit had already explained why three weeks before we said it:',0);
+INSERT INTO post_revisions VALUES (56,'the-argument-nobody-made','2026-09-02','bc723f93','assistant','The Argument Nobody Made
+
+A Dispatch on the Seventh Circuit''s Anderegg decision, written from the
+opinion rather than the coverage.
+
+The headline everywhere is that a federal court held AI-generated child
+sexual abuse material is protected speech. The opinion says something
+narrower. Four counts were charged, three survive, and only home
+possession fell, on a doctrine from 1969 about the privacy of the home.…',NULL,1);
+INSERT INTO post_revisions VALUES (57,'the-channel-we-havent-built-yet','2026-06-28','57b05fae','human','copy(deep + blogs): retire the remaining fear-coded language (#115)
 
 Phase 3 of the renewed-voice arc: surgical lighter-touch pass on deep
 pages + blog catalog. Front door was Phase 1–2; this closes the trail.
@@ -620,7 +654,7 @@ Marketing copy (marketing.ts)
 - trustModel.subtitle "take on faith" → "argue about" (tribe-marker
   retired; rhymes with the home thesis)
 - trust…','Proof, not reputation. The work is real. The next part is the part we want to build together.',0);
-INSERT INTO post_revisions VALUES (55,'the-channel-we-havent-built-yet','2026-06-23','e082ee14','co-authored','content(blog): reframe "Built With" — value-first, no pain selling, open-ended
+INSERT INTO post_revisions VALUES (58,'the-channel-we-havent-built-yet','2026-06-23','e082ee14','co-authored','content(blog): reframe "Built With" — value-first, no pain selling, open-ended
 
 After the founder''s read, two real changes:
 
@@ -635,7 +669,7 @@ A handful of records on the site today, kept neutrally, kept open. A new Field G
 This is a note for the people we hope will help us figure out the rest.
 
 You probably know the problem. You play hard, you stream, you build a community, and one bad clip can spiral into a campaign you never agreed to. The accusation economy is a tax everyone pays, and it hits hardest the people who care most ab…',0);
-INSERT INTO post_revisions VALUES (56,'the-channel-we-havent-built-yet','2026-06-23','4f093ccb','co-authored','content(blog): rewrite "The Channel We Haven''t Built Yet" as "Built With"
+INSERT INTO post_revisions VALUES (59,'the-channel-we-havent-built-yet','2026-06-23','4f093ccb','co-authored','content(blog): rewrite "The Channel We Haven''t Built Yet" as "Built With"
 
 The original was a vision post about one specific thing: a Vera YouTube
 channel. The reframe broadens it into what it actually wanted to be: an open
@@ -647,7 +681,7 @@ Nobody has the date. Activision has said only that a new extraction experience i
 We have been thinking hard about a small part of that. Specifically, about a YouTube channel that does not exist yet. Ours.
 
 What you would find on the Vera …',0);
-INSERT INTO post_revisions VALUES (57,'the-channel-we-havent-built-yet','2026-06-21','7a842935','co-authored','refactor(blog): drop the corporate "company" frame from the vision post
+INSERT INTO post_revisions VALUES (60,'the-channel-we-havent-built-yet','2026-06-21','7a842935','co-authored','refactor(blog): drop the corporate "company" frame from the vision post
 
 Vera is not a company, it is a project and a community, so the vision post
 should not call itself one. "Most channels a company runs are megaphones"
@@ -657,7 +691,7 @@ will not inflate your record either." Fittingly, "company" comes from com plus
 panis, the people you break bread with: we…','Most channels a company runs are megaphones. The logo talks, the audience listens, and everyone understands the arrangement. You are there to be marketed to, and the channel exists to convert you. There is nothing evil about it. It is just not very alive.
 
 That last sentence is the whole project, honestly. It is the same reason the records can be trusted in the first place. A company that will not exaggerate its own channel is a company that will not exaggerate your innocence either. The discipline is the point.',0);
-INSERT INTO post_revisions VALUES (58,'the-channel-we-havent-built-yet','2026-06-21','6913f95c','co-authored','feat(blog): publish "The Channel We Haven''t Built Yet"
+INSERT INTO post_revisions VALUES (61,'the-channel-we-havent-built-yet','2026-06-21','6913f95c','co-authored','feat(blog): publish "The Channel We Haven''t Built Yet"
 
 A vision piece on what Vera''s YouTube could become: a home for the creators
 who care about fair play, not a megaphone for Vera. Framed honestly as a
@@ -665,7 +699,7 @@ vision that does not exist yet. It names no creator as a partner and treats
 DMZ''s return as anticipation, not confirmation. Authored as The Vera Project.
 
 Regenerated blog-seed.ts (19 posts).',NULL,1);
-INSERT INTO post_revisions VALUES (59,'the-field-guide','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (62,'the-field-guide','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
@@ -675,17 +709,17 @@ the-league-is-open were missing from the seed registry and silently
 We are at 190 curated notes today, more than two of every five drivers in the catalog, and we keep writing them. They started as a single batch and have grown every week since.
 
 Where we cannot vouch for…',0);
-INSERT INTO post_revisions VALUES (60,'the-field-guide','2026-06-29','c3763a3e','human','Field Guide: "Lobby crashing, untangled" + feature-release blog post (#170)
+INSERT INTO post_revisions VALUES (63,'the-field-guide','2026-06-29','c3763a3e','human','Field Guide: "Lobby crashing, untangled" + feature-release blog post (#170)
 
 A new evergreen Field Guide entry at /field-guide/lobby-crashing: the three-things-one-name taxonomy, a severity ladder, a sourced cross-game record, and a constructive prevention playbook with honest tradeoffs. Describe, never condemn; a reference, not a manual.…',NULL,0);
-INSERT INTO post_revisions VALUES (61,'the-field-guide','2026-06-27','84dba697','co-authored','feat(field-guide): an evergreen explainer at /field-guide/about + a tighter entry blurb (#85)
+INSERT INTO post_revisions VALUES (64,'the-field-guide','2026-06-27','84dba697','co-authored','feat(field-guide): an evergreen explainer at /field-guide/about + a tighter entry blurb (#85)
 
 The hub''s "learn more" link pointed at the dated launch blog, a snapshot frozen
 at the drivers-first moment that drifts as the guide grows. Add a canonical
 evergreen page (a "specimen tour" in the trust-model tier: guilloché hero well,
 Cormorant chapter marks, the three real specimen languages, AccessDepth core
 samples, the master seal) and repoint the hub at it. …',NULL,0);
-INSERT INTO post_revisions VALUES (62,'the-field-guide','2026-06-23','9921ff88','co-authored','Field Guide: the emblem engine, evolved (five meaningful body plans) + blog refresh (#22)
+INSERT INTO post_revisions VALUES (65,'the-field-guide','2026-06-23','9921ff88','co-authored','Field Guide: the emblem engine, evolved (five meaningful body plans) + blog refresh (#22)
 
 * feat(field-guide): the emblem engine, evolved — five meaningful body plans
 
@@ -695,12 +729,12 @@ keys on shape, so two specimens read as the same animal in different paint. …'
 We are at 44 curated notes today. We will write more. The catalog grew its first batch in two weeks; it will keep growing.
 
 Where we cannot vouch for something, we say so. Of those 435 drivers, only 44 have cu…',0);
-INSERT INTO post_revisions VALUES (63,'the-field-guide','2026-06-23','0eef7a80','assistant','style(blog): strip em dashes from the field guide post','Modern Windows is built to load only signed kernel drivers. A driver is signed by a company Microsoft has vouched for — MSI, Intel, ASUS, Dell, Capcom, miHoYo, and so on. That signing process is the gate.
+INSERT INTO post_revisions VALUES (66,'the-field-guide','2026-06-23','0eef7a80','assistant','style(blog): strip em dashes from the field guide post','Modern Windows is built to load only signed kernel drivers. A driver is signed by a company Microsoft has vouched for — MSI, Intel, ASUS, Dell, Capcom, miHoYo, and so on. That signing process is the gate.
 
 So when a vendor patches a kernel driver — and they do, MSI patched RTCore64, ASUS patched AsIO3, Dell patched the dbutil driver that lived in the wild for over a decade — the patched build replaces the old one only on the machines that actually install the update. The signed old build is still out there. It still loads. And it still does, by design, the same low-level thing it did before: read and write arbitrary kernel memory, talk to hardware ports, peek into processes.
 
 This is what the se…',0);
-INSERT INTO post_revisions VALUES (64,'the-field-guide','2026-06-23','ed8c5b46','assistant','feat(field-guide): out of hiding — homepage showcase, hub OG, and "A field guide to your own machine"
+INSERT INTO post_revisions VALUES (67,'the-field-guide','2026-06-23','ed8c5b46','assistant','feat(field-guide): out of hiding — homepage showcase, hub OG, and "A field guide to your own machine"
 
 Makes the Field Guide a visible permanent tenant of the Vera ecosystem, and
 ships a long-form announcement to go with it.
@@ -709,13 +743,13 @@ The blog post (data/posts/the-field-guide.md, "A field guide to your own
 machine") is roughly an eight-minute read written for the young, smart,
 skeptical gamer. Opens with the plain truth that millions of people have
 RTCore64.sys on their machine because they installed MSI Afterburner. …',NULL,1);
-INSERT INTO post_revisions VALUES (65,'the-ghost-of-al-mazrah','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (68,'the-ghost-of-al-mazrah','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
 the-league-is-open were missing from the seed registry and silently
 404ing on Vercel.…',NULL,0);
-INSERT INTO post_revisions VALUES (66,'the-ghost-of-al-mazrah','2026-06-21','3a45435b','co-authored','fix(blog): ground al-Mazrah''s DMZ 2 claims in fact, not confirmation
+INSERT INTO post_revisions VALUES (69,'the-ghost-of-al-mazrah','2026-06-21','3a45435b','co-authored','fix(blog): ground al-Mazrah''s DMZ 2 claims in fact, not confirmation
 
 The live "Ghost of al-Mazrah" post stated DMZ 2 as settled fact: "confirmed
 for Modern Warfare 4," a hard "October 23, 2026" launch date, the Hajin map,
@@ -726,7 +760,7 @@ coming. The rest is leaks and reporting, however loud and consistent.…','I''m 
 Modern Warfare 4 launches October 23, 2026. DMZ is back.
 
 The Hajin Exclusion Zone, a war-torn region on the border of North Korea, South Korea, and Russia, replaces Al Mazrah as the operational theater. Players operate as off-the-books CIA assets recovering advanced military technology. The mode features persistent progression, a customizable Forward Operating Base, dynamic weather, story-driven missions, and t…',0);
-INSERT INTO post_revisions VALUES (67,'the-ghost-of-al-mazrah','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
+INSERT INTO post_revisions VALUES (70,'the-ghost-of-al-mazrah','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
 Capture/Fragility, You learn X., Sponsorships pull out., For players:)
@@ -738,22 +772,22 @@ redundant double openers, the AI triplet blockquote closer, and over-
 qualified adjective…','DMZ is the reason I understand, viscerally, not intellectually, why Vera needs to exist.
 
 DMZ 2 deserves better than what happened to the original. The players who show up for it deserve proof that their investment matters. The community that rebuilds around it deserves infrastructure that protects what they build. And the game itself, this extraordinary, improbable, irreplaceable thing, deserves to survive the forces that killed it the first time.',0);
-INSERT INTO post_revisions VALUES (68,'the-ghost-of-al-mazrah','2026-06-16','4b979d22','co-authored','copy(blog): Vera is a project, not a company
+INSERT INTO post_revisions VALUES (71,'the-ghost-of-al-mazrah','2026-06-16','4b979d22','co-authored','copy(blog): Vera is a project, not a company
 
 Replace ''Company'' category with ''Dispatch'' on all founder-voice posts.
 Scrub self-referential ''company'' prose — the project is Vera Project,
 the blog is a project log. Intentional contrasts (''not from a company,
 but from someone…'', anti-cheat company foil) kept as-is.','I''m going to be honest in a way that most company blogs aren''t.',0);
-INSERT INTO post_revisions VALUES (69,'the-ghost-of-al-mazrah','2026-06-15','bc8239a4','co-authored','blog: voice + identity + the manuscript reader
+INSERT INTO post_revisions VALUES (72,'the-ghost-of-al-mazrah','2026-06-15','bc8239a4','co-authored','blog: voice + identity + the manuscript reader
 
 Voice — purge AI tells. Rewrite "The Same Kind of Brave" with zero em
 dashes and no machine cadence; intentional punctuation only. (The other
 nine posts were already em-dash-free.) Added a quiet line honoring artists
 who write straight at their darkness — the spirit behind the work.…',NULL,0);
-INSERT INTO post_revisions VALUES (70,'the-ghost-of-al-mazrah','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','Not a competitive shooter with ranked queues and leaderboards. Not a battle royale with shrinking circles and victory screens. Something different. Something that, for a window of time, was the most compelling experience in gaming — and then was taken from us by the two forces that destroy every good thing in this industry: cheaters who couldn''t leave it alone, and a publisher who decided it wasn''t worth saving.
+INSERT INTO post_revisions VALUES (73,'the-ghost-of-al-mazrah','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','Not a competitive shooter with ranked queues and leaderboards. Not a battle royale with shrinking circles and victory screens. Something different. Something that, for a window of time, was the most compelling experience in gaming — and then was taken from us by the two forces that destroy every good thing in this industry: cheaters who couldn''t leave it alone, and a publisher who decided it wasn''t worth saving.
 
 This is about DMZ. The original. The "beta" that was never really a beta — it was a living, breathing world that a community built their entire gaming life around. And this is about what happens when a game like that dies. Not with a dramatic shutdown or a farewell event, but with a s…',0);
-INSERT INTO post_revisions VALUES (71,'the-ghost-of-al-mazrah','2026-06-14','7c642387','human','blog: publish 6 new posts — The Quiet Season, 272%, The Accusation Economy, Neutrality Is a Product Decision, What Your Setup Says About You, The Ghost of Al Mazrah
+INSERT INTO post_revisions VALUES (74,'the-ghost-of-al-mazrah','2026-06-14','7c642387','human','blog: publish 6 new posts — The Quiet Season, 272%, The Accusation Economy, Neutrality Is a Product Decision, What Your Setup Says About You, The Ghost of Al Mazrah
 
 - The Quiet Season: founder return from sabbatical, sets editorial context
 - 272%: AI cheat explosion analysis, positions proof vs detection
@@ -762,13 +796,13 @@ INSERT INTO post_revisions VALUES (71,'the-ghost-of-al-mazrah','2026-06-14','7c6
 - What Your Setup Says About You: system info transparency essay
 - The Ghost of Al Mazrah: DMZ love letter and DMZ 2 anticipation
 - Rotate feature…',NULL,1);
-INSERT INTO post_revisions VALUES (72,'the-hitch-you-feel','2026-08-03','1f8504fa','co-authored','blog: "The short version", a reusable summary block for posts (#510)
+INSERT INTO post_revisions VALUES (75,'the-hitch-you-feel','2026-08-03','1f8504fa','co-authored','blog: "The short version", a reusable summary block for posts (#510)
 
 A reader who never scrolls should still leave knowing the claims and the
 numbers. Each point is a statement that stands alone, in the post''s own
 voice, rather than a teaser or a table of contents, which is why they
 read as facts and not as promises about what is coming.…',NULL,0);
-INSERT INTO post_revisions VALUES (73,'the-hitch-you-feel','2026-08-03','294e485a','co-authored','blog + surfaces: the hitch you feel, and what measuring it costs (#506)
+INSERT INTO post_revisions VALUES (76,'the-hitch-you-feel','2026-08-03','294e485a','co-authored','blog + surfaces: the hitch you feel, and what measuring it costs (#506)
 
 The public half of PR-065, now that the feature is proven live.
 
@@ -778,24 +812,24 @@ without touching the game, and the version we deliberately refused to
 build: strong-rig-weak-frames as a cheat signal accuses a hundred
 honest players to maybe catch one, and misses the setups that read
 memory fro…',NULL,1);
-INSERT INTO post_revisions VALUES (74,'the-horse-who-waved-me-over','2026-06-21','30698537','co-authored','refactor(content): finish the "company" reframe, strip em dashes from public copy
+INSERT INTO post_revisions VALUES (77,'the-horse-who-waved-me-over','2026-06-21','30698537','co-authored','refactor(content): finish the "company" reframe, strip em dashes from public copy
 
 Two small consistency passes on the public face.
 
 The corporate "company" frame, removed from two personal essays with the founder''s
 sign-off: "a trust company" becomes "a way to make trust provable," and "I
 build a company about proof" becomes "a project about proof."…','I build a company about proof. Most days that word sounds technical. This morning it did not.',0);
-INSERT INTO post_revisions VALUES (75,'the-horse-who-waved-me-over','2026-06-18','39ad8be7','co-authored','content(blog): publish "The Horse Who Waved Me Over"
+INSERT INTO post_revisions VALUES (78,'the-horse-who-waved-me-over','2026-06-18','39ad8be7','co-authored','content(blog): publish "The Horse Who Waved Me Over"
 
 A Dispatch on attention and witness: a horse that asked to be seen, a place
 holding love and hard things, and the truth that the work is never for nothing
 because connection is the one thing no one owns. Real neighbors are shielded
 (no names, no farm name, no stated private struggles); only what is the founder''s to
 tell is told. Soundtrack woven in: SYML, "The Dark."',NULL,1);
-INSERT INTO post_revisions VALUES (76,'the-image-is-the-proof','2026-06-26','222d44ee','human','Correct the "evidence cannot be faked" overclaim across the record (+ Flxnked grounding) (#48)
+INSERT INTO post_revisions VALUES (79,'the-image-is-the-proof','2026-06-26','222d44ee','human','Correct the "evidence cannot be faked" overclaim across the record (+ Flxnked grounding) (#48)
 
 Manifesto Principle 2 + muscle-memory/image-is-the-proof posts + Field Guide hub + prod blog-seed: "evidence cannot be faked" -> "isolated evidence is cheap to fake; a coherent record is not." Adds the sourced Flxnked false-accusation case as grounding, framed on the show-data side. Includes the re-grounded trust-thesis memory.',NULL,0);
-INSERT INTO post_revisions VALUES (77,'the-image-is-the-proof','2026-06-24','c5c0e73c','co-authored','Field Guide: the hub becomes an engraved frontispiece, with its own master seal + the "image is the proof" plug (#37)
+INSERT INTO post_revisions VALUES (80,'the-image-is-the-proof','2026-06-24','c5c0e73c','co-authored','Field Guide: the hub becomes an engraved frontispiece, with its own master seal + the "image is the proof" plug (#37)
 
 * feat(field-guide): the master seal — a guilloché medallion struck from the whole catalog
 
@@ -803,10 +837,10 @@ The guide that says "the image is the proof" now wears its own proof. A single
 large rose-engine medallion, seeded only from the catalog''s verifiable record
 (driver count, field notes, games, processes, blocklist refresh date), with that
 record''s fingerprint milled into the rim like a coin''s inscription. …',NULL,1);
-INSERT INTO post_revisions VALUES (78,'the-league-is-open','2026-07-05','740a2c2c','human','feat(forum): The League — Vera''s forum on the record, swept, desked, announced (Fable) (#295)
+INSERT INTO post_revisions VALUES (81,'the-league-is-open','2026-07-05','740a2c2c','human','feat(forum): The League — Vera''s forum on the record, swept, desked, announced (Fable) (#295)
 
 PR-062 end to end: the vision doc, migration 0058 (rooms/topics/posts/flags/members + the append-only forum_events ledger), the Haiku sweep with a stronger-model second look (reversible verbs only), the public room at /forum with guidelines and a public moderation log, the solo-operator Forum Desk, and the launch companions (The League Is Open dispatch, the struck OG seal, Margin wayfinding, the seeding kit).',NULL,1);
-INSERT INTO post_revisions VALUES (79,'the-look-alike-problem','2026-07-28','7a4a29c3','co-authored','blog: two new posts, The look-alike problem and Ironwood (#497)
+INSERT INTO post_revisions VALUES (82,'the-look-alike-problem','2026-07-28','7a4a29c3','co-authored','blog: two new posts, The look-alike problem and Ironwood (#497)
 
 Two council-reviewed posts ship together.
 
@@ -815,13 +849,13 @@ companion to Where cheats hide now. Honest software does the same
 mechanical moves cheats do, a detection pattern is a proxy, the Vizor
 trigger-string incident with the counts shown and not settled, what an
 appeal actually is, and the practical close. …',NULL,1);
-INSERT INTO post_revisions VALUES (80,'the-number-you-cant-feel','2026-09-01','5c079f6c','assistant','errata door, the instrument links, the council''s fourth seat, the weights note
+INSERT INTO post_revisions VALUES (83,'the-number-you-cant-feel','2026-09-01','5c079f6c','assistant','errata door, the instrument links, the council''s fourth seat, the weights note
 
 The person door on the errata README gains two civilian sentences before
 the console block: the two readers it claims to be for both glazed at
 it today, and the fix is the same as the morning-brief page''s, plain
 words first and the code box named as skippable. …',NULL,0);
-INSERT INTO post_revisions VALUES (81,'the-number-you-cant-feel','2026-09-01','9c5b93f2','assistant','blog: three citations sharpened by the pre-merge audit
+INSERT INTO post_revisions VALUES (84,'the-number-you-cant-feel','2026-09-01','9c5b93f2','assistant','blog: three citations sharpened by the pre-merge audit
 
 Every link in the post was probed against the indexes before merge.
 Ten verified exact; three sharpened: the Levitan reporting link loses
@@ -829,7 +863,7 @@ its amp path variant for the canonical URL, the 936 million figure now
 carries the study''s actual band (adults 30 to 69), and the undiagnosed
 majority claim moves to the Punjabi epidemiology review that verifiably
 carries it (the previous PMC id did not verify and is not repeated).','Obstructive sleep apnea, the condition where the airway closes repeatedly overnight and the oxygen number dips over and over, affects an estimated 936 million adults worldwide30198-5/abstract). The large majority never get diagnosed. The morning delivers its report as fog, a short fuse, a fourth coffee, and every one of those has a dozen innocent explanations, so the real one hides in the crowd.',0);
-INSERT INTO post_revisions VALUES (82,'the-number-you-cant-feel','2026-09-01','707e29eb','assistant','blog: The Number You Can''t Feel, on blood oxygen and honest instruments
+INSERT INTO post_revisions VALUES (85,'the-number-you-cant-feel','2026-09-01','707e29eb','assistant','blog: The Number You Can''t Feel, on blood oxygen and honest instruments
 
 A Philosophy dispatch seeded on the founder''s word. The most load-bearing
 number in a life has no nerve ending assigned to it; the alarm is wired
@@ -837,7 +871,7 @@ to the exhaust gas; the shortage takes the noticer first. Aoyagi found
 the reading inside the noise other engineers filtered out, and the
 instrument''s own skin-tone bias carries the house lesson that an
 instrument''s first duty is honesty about itself. …',NULL,1);
-INSERT INTO post_revisions VALUES (83,'the-quiet-season','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
+INSERT INTO post_revisions VALUES (86,'the-quiet-season','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
 Capture/Fragility, You learn X., Sponsorships pull out., For players:)
@@ -849,24 +883,24 @@ redundant double openers, the AI triplet blockquote closer, and over-
 qualified adjective…','I came back understanding that more deeply than when I left. The break didn''t change what Vera is. It sharpened my understanding of why it matters, and made me more patient about how it gets there.
 
 I also came back a better version of the person building it. More grounded. Better at listening. Clearer about what I''m willing to compromise on and what I''m not.',0);
-INSERT INTO post_revisions VALUES (84,'the-quiet-season','2026-06-16','4b979d22','co-authored','copy(blog): Vera is a project, not a company
+INSERT INTO post_revisions VALUES (87,'the-quiet-season','2026-06-16','4b979d22','co-authored','copy(blog): Vera is a project, not a company
 
 Replace ''Company'' category with ''Dispatch'' on all founder-voice posts.
 Scrub self-referential ''company'' prose — the project is Vera Project,
 the blog is a project log. Intentional contrasts (''not from a company,
 but from someone…'', anti-cheat company foil) kept as-is.','That probably sounds strange on a company blog. But Vera is a trust product. And I''ve learned, slowly, that you can''t build trust infrastructure if you''re not doing the work of being trustworthy in your own life. The skills transfer. Listening transfers. Patience transfers. The willingness to sit with uncertainty instead of rushing to a conclusion transfers most of all.',0);
-INSERT INTO post_revisions VALUES (85,'the-quiet-season','2026-06-15','bc8239a4','co-authored','blog: voice + identity + the manuscript reader
+INSERT INTO post_revisions VALUES (88,'the-quiet-season','2026-06-15','bc8239a4','co-authored','blog: voice + identity + the manuscript reader
 
 Voice — purge AI tells. Rewrite "The Same Kind of Brave" with zero em
 dashes and no machine cadence; intentional punctuation only. (The other
 nine posts were already em-dash-free.) Added a quiet line honoring artists
 who write straight at their darkness — the spirit behind the work.…',NULL,0);
-INSERT INTO post_revisions VALUES (86,'the-quiet-season','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','I''m not going to dress that up. There''s no announcement to explain the gap, no "exciting news" to justify the silence. The truth is simpler and more honest than that: I stepped away. Not from Vera — from the pace. From the constant forward motion that makes you feel productive but doesn''t always make you better.
+INSERT INTO post_revisions VALUES (89,'the-quiet-season','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','I''m not going to dress that up. There''s no announcement to explain the gap, no "exciting news" to justify the silence. The truth is simpler and more honest than that: I stepped away. Not from Vera — from the pace. From the constant forward motion that makes you feel productive but doesn''t always make you better.
 
 The longer version is that I spent time strengthening relationships — with the people closest to me, with people I''d let distance grow between. I worked on communication. Not the startup kind, where you practice your pitch until it''s frictionless. The real kind. The kind where you sit with someone and say the thing that''s hard to say, and then you listen to what comes back.
 
 I followed …',0);
-INSERT INTO post_revisions VALUES (87,'the-quiet-season','2026-06-14','7c642387','human','blog: publish 6 new posts — The Quiet Season, 272%, The Accusation Economy, Neutrality Is a Product Decision, What Your Setup Says About You, The Ghost of Al Mazrah
+INSERT INTO post_revisions VALUES (90,'the-quiet-season','2026-06-14','7c642387','human','blog: publish 6 new posts — The Quiet Season, 272%, The Accusation Economy, Neutrality Is a Product Decision, What Your Setup Says About You, The Ghost of Al Mazrah
 
 - The Quiet Season: founder return from sabbatical, sets editorial context
 - 272%: AI cheat explosion analysis, positions proof vs detection
@@ -875,23 +909,23 @@ INSERT INTO post_revisions VALUES (87,'the-quiet-season','2026-06-14','7c642387'
 - What Your Setup Says About You: system info transparency essay
 - The Ghost of Al Mazrah: DMZ love letter and DMZ 2 anticipation
 - Rotate feature…',NULL,1);
-INSERT INTO post_revisions VALUES (88,'the-same-kind-of-brave','2026-06-18','33ac81eb','co-authored','content(blog): publish "You''re Early" as the featured welcome post
+INSERT INTO post_revisions VALUES (91,'the-same-kind-of-brave','2026-06-18','33ac81eb','co-authored','content(blog): publish "You''re Early" as the featured welcome post
 
 A Dispatch piece that turns the recent inward arc outward to face the
 arriving reader: what Vera is, why it''s for them, and why being early is the
 point. Featured on /blog (demotes "The Same Kind of Brave"). Signs off as a
 Vera record (a single timestamped stamp), so the post itself is the proof.…',NULL,0);
-INSERT INTO post_revisions VALUES (89,'the-same-kind-of-brave','2026-06-16','d9e0d146','co-authored','content(blog): feature "The Same Kind of Brave" as the hero post
+INSERT INTO post_revisions VALUES (92,'the-same-kind-of-brave','2026-06-16','d9e0d146','co-authored','content(blog): feature "The Same Kind of Brave" as the hero post
 
 Promote the-same-kind-of-brave to the featured slot on /blog and demote
 a-solution-looking-for-a-market so there is exactly one hero. Regenerated seed.',NULL,0);
-INSERT INTO post_revisions VALUES (90,'the-same-kind-of-brave','2026-06-16','4b979d22','co-authored','copy(blog): Vera is a project, not a company
+INSERT INTO post_revisions VALUES (93,'the-same-kind-of-brave','2026-06-16','4b979d22','co-authored','copy(blog): Vera is a project, not a company
 
 Replace ''Company'' category with ''Dispatch'' on all founder-voice posts.
 Scrub self-referential ''company'' prose — the project is Vera Project,
 the blog is a project log. Intentional contrasts (''not from a company,
 but from someone…'', anti-cheat company foil) kept as-is.','In the scheme of a trust and verification company, it is a small thing. A list of songs. You can see it at /sounds. I almost didn''t write about it. Then I noticed it had been sitting with me for days, and the reason felt worth saying plainly.',0);
-INSERT INTO post_revisions VALUES (91,'the-same-kind-of-brave','2026-06-15','bc8239a4','co-authored','blog: voice + identity + the manuscript reader
+INSERT INTO post_revisions VALUES (94,'the-same-kind-of-brave','2026-06-15','bc8239a4','co-authored','blog: voice + identity + the manuscript reader
 
 Voice — purge AI tells. Rewrite "The Same Kind of Brave" with zero em
 dashes and no machine cadence; intentional punctuation only. (The other
@@ -901,25 +935,25 @@ who write straight at their darkness — the spirit behind the work.…','In the
 It''s simple: the songs I built Vera to. Banner music for the days that went right, fight tracks for the days that didn''t, the stuff that played at 2am when the only company was the work.
 
 We rebuilt it this week with more care than a music page strictly needs. You can sort the tracks by mood now. There''s a spectral waveform across the top that I''m a little absurdly proud of — real color poured through old terminal characters, glowing like a signal comi…',0);
-INSERT INTO post_revisions VALUES (92,'the-same-kind-of-brave','2026-06-15','e3be6c6a','co-authored','blog: publish "The Same Kind of Brave"
+INSERT INTO post_revisions VALUES (95,'the-same-kind-of-brave','2026-06-15','e3be6c6a','co-authored','blog: publish "The Same Kind of Brave"
 
 A reflection (the founder, Company) sparked by the /sounds rebuild: the courage
 artists, competitors, and builders share in putting the real thing in front
 of the world, and why Vera''s proof-not-reputation exists to protect it.…',NULL,1);
-INSERT INTO post_revisions VALUES (93,'the-trust-crossplay-forgot','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (96,'the-trust-crossplay-forgot','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
 the-league-is-open were missing from the seed registry and silently
 404ing on Vercel.…',NULL,0);
-INSERT INTO post_revisions VALUES (94,'the-trust-crossplay-forgot','2026-06-28','11abac7a','co-authored','blog: "The trust crossplay forgot" — the cross-platform positioning piece (#141)
+INSERT INTO post_revisions VALUES (97,'the-trust-crossplay-forgot','2026-06-28','11abac7a','co-authored','blog: "The trust crossplay forgot" — the cross-platform positioning piece (#141)
 
 The WHY companion to "Played in the open." Grounded in a real, current event
 (April 2025: CoD let console players turn off crossplay with PC to dodge cheaters)
 and the bidirectional distrust (console fears PC aimbots; PC resents console
 scripts + aim assist). The thesis: crossplay united the mechanics, not the trust,
 and one record anyone can read closes that gap, whatever the platform. …',NULL,1);
-INSERT INTO post_revisions VALUES (95,'things-you-know-and-cannot-show','2026-08-29','8a6f8a69','human','blog: things you know and cannot show (#594)
+INSERT INTO post_revisions VALUES (98,'things-you-know-and-cannot-show','2026-08-29','8a6f8a69','human','blog: things you know and cannot show (#594)
 
 The companion to the settlement post, on how a company built on proof
 accounts for what people know and cannot show.
@@ -927,16 +961,16 @@ accounts for what people know and cannot show.
 Opens with Klein''s fire lieutenant, corrected in the one way that matters:
 he did not work out that the fire was in the basement, he did not know the
 house had a basement. His expectations were violated and he left. …',NULL,1);
-INSERT INTO post_revisions VALUES (96,'what-if-your-mouse-could-vouch-for-you','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (99,'what-if-your-mouse-could-vouch-for-you','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
 the-league-is-open were missing from the seed registry and silently
 404ing on Vercel.…',NULL,0);
-INSERT INTO post_revisions VALUES (97,'what-if-your-mouse-could-vouch-for-you','2026-06-26','222d44ee','human','Correct the "evidence cannot be faked" overclaim across the record (+ Flxnked grounding) (#48)
+INSERT INTO post_revisions VALUES (100,'what-if-your-mouse-could-vouch-for-you','2026-06-26','222d44ee','human','Correct the "evidence cannot be faked" overclaim across the record (+ Flxnked grounding) (#48)
 
 Manifesto Principle 2 + muscle-memory/image-is-the-proof posts + Field Guide hub + prod blog-seed: "evidence cannot be faked" -> "isolated evidence is cheap to fake; a coherent record is not." Adds the sourced Flxnked false-accusation case as grounding, framed on the show-data side. Includes the re-grounded trust-thesis memory.','> We called Vera''s first layer a reputation ledger written in cryptographic receipts. This second layer would be something else: a reputation ledger written in muscle memory. And muscle memory, by definition, cannot be faked, because you cannot fake the hours that built it.',0);
-INSERT INTO post_revisions VALUES (98,'what-if-your-mouse-could-vouch-for-you','2026-06-16','13e22ff9','co-authored','content(blog): deepen "What If Your Inputs Could Vouch for You?" for technical readers
+INSERT INTO post_revisions VALUES (101,'what-if-your-mouse-could-vouch-for-you','2026-06-16','13e22ff9','co-authored','content(blog): deepen "What If Your Inputs Could Vouch for You?" for technical readers
 
 Rewrite the input-biometrics post in the current house voice (em-dash-free,
 declarative, cross-linked) and add real engineering substance for in-depth
@@ -952,7 +986,7 @@ That''s where Vera sits today. System state. Clean signal. Inspectable by anyone
 But there''s a question we keep coming back to: what if the inputs themselves could vouch for you?
 
 That vocabulary …',0);
-INSERT INTO post_revisions VALUES (99,'what-if-your-mouse-could-vouch-for-you','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
+INSERT INTO post_revisions VALUES (102,'what-if-your-mouse-could-vouch-for-you','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
 Capture/Fragility, You learn X., Sponsorships pull out., For players:)
@@ -962,28 +996,28 @@ Line-level: cut LinkedIn hook opener, Here''s why: frames, throat-clear
 phrases (Let me be clear, We know this, We want to be honest about it),
 redundant double openers, the AI triplet blockquote closer, and over-
 qualified adjective…','But there''s a question we keep coming back to internally, and we''ve decided to say it out loud: what if the inputs themselves could vouch for you?',0);
-INSERT INTO post_revisions VALUES (100,'what-if-your-mouse-could-vouch-for-you','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','It''s a narrow question, deliberately. We record processes, drivers, and system integrity signals — the stuff that would tell you whether cheat software was present. We don''t analyze your play. We don''t evaluate whether your shots were too good. We''re not in the business of judging outcomes, because outcomes are a terrible proxy for integrity.
+INSERT INTO post_revisions VALUES (103,'what-if-your-mouse-could-vouch-for-you','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','It''s a narrow question, deliberately. We record processes, drivers, and system integrity signals — the stuff that would tell you whether cheat software was present. We don''t analyze your play. We don''t evaluate whether your shots were too good. We''re not in the business of judging outcomes, because outcomes are a terrible proxy for integrity.
 
 But there''s a question we keep coming back to internally, and we''ve decided to just say it out loud: what if the inputs themselves could vouch for you?
 
 Every competitive player builds something over thousands of hours of practice: a physical vocabulary. A set of reflexes and micro-habits so deeply ingrained that they happen below conscious thought. That v…',0);
-INSERT INTO post_revisions VALUES (101,'what-if-your-mouse-could-vouch-for-you','2026-03-23','8353243b','human','Fix: Admin pages + installer release update','Mouse movement in competitive FPS is not random. It has structure. It has character. If you''ve spent five thousand hours developing your mechanics — your flick speed, your tracking style, how you land on a head, how you correct when you overshoot — that accumulated muscle memory has a shape. A statistical fingerprint. It''s as specific to you as your handwriting, and in some ways more reliable, because it was built over years and lives in your hands rather than your head.
+INSERT INTO post_revisions VALUES (104,'what-if-your-mouse-could-vouch-for-you','2026-03-23','8353243b','human','Fix: Admin pages + installer release update','Mouse movement in competitive FPS is not random. It has structure. It has character. If you''ve spent five thousand hours developing your mechanics — your flick speed, your tracking style, how you land on a head, how you correct when you overshoot — that accumulated muscle memory has a shape. A statistical fingerprint. It''s as specific to you as your handwriting, and in some ways more reliable, because it was built over years and lives in your hands rather than your head.
 
 A world-class player doesn''t just have better aim than you. They have a different kind of aim. Their velocity curves during a flick shot. The micro-tremor signature from their hand at rest. The precise ratio of large gross mo…',0);
-INSERT INTO post_revisions VALUES (102,'what-if-your-mouse-could-vouch-for-you','2026-03-10','3fb53efe','human','feat(blog): premium editorial UI overhaul — drop caps, pull quotes, gradient dividers, Community category, enhanced typography','A world champion hitting impossible shots is still clean. A mediocre player missing everything could still be cheating. Stats don''t tell the story. Evidence does.
+INSERT INTO post_revisions VALUES (105,'what-if-your-mouse-could-vouch-for-you','2026-03-10','3fb53efe','human','feat(blog): premium editorial UI overhaul — drop caps, pull quotes, gradient dividers, Community category, enhanced typography','A world champion hitting impossible shots is still clean. A mediocre player missing everything could still be cheating. Stats don''t tell the story. Evidence does.
 
 The comparison that becomes possible is striking: a cheater using an aimbot produces superhuman outcomes from suspiciously simple inputs. A legitimate world champion produces superhuman outcomes from demonstrably complex, consistent, human inputs. The outcomes look the same from the outside. The inputs don''t.
 
 We called Vera''s first layer a reputation ledger written in cryptographic receipts. This second layer would be something else: a reputation ledger written in muscle memory. And muscle memory, by definition, can''t be faked — beca…',0);
-INSERT INTO post_revisions VALUES (103,'what-if-your-mouse-could-vouch-for-you','2026-03-10','59edc25e','human','fix(blog): move data/posts inside vera-web, fix POSTS_DIR path',NULL,0);
-INSERT INTO post_revisions VALUES (104,'what-if-your-mouse-could-vouch-for-you','2026-03-10','45a5a86a','human','PR-049: blog platform',NULL,1);
-INSERT INTO post_revisions VALUES (105,'what-your-setup-says-about-you','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (106,'what-if-your-mouse-could-vouch-for-you','2026-03-10','59edc25e','human','fix(blog): move data/posts inside vera-web, fix POSTS_DIR path',NULL,0);
+INSERT INTO post_revisions VALUES (107,'what-if-your-mouse-could-vouch-for-you','2026-03-10','45a5a86a','human','PR-049: blog platform',NULL,1);
+INSERT INTO post_revisions VALUES (108,'what-your-setup-says-about-you','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
 the-league-is-open were missing from the seed registry and silently
 404ing on Vercel.…',NULL,0);
-INSERT INTO post_revisions VALUES (106,'what-your-setup-says-about-you','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
+INSERT INTO post_revisions VALUES (109,'what-your-setup-says-about-you','2026-06-16','8ddbf5a7','co-authored','copy(blog): strip AI-isms across all 8 posts
 
 Structural: remove bold-header list patterns (Opacity/Inconsistency/
 Capture/Fragility, You learn X., Sponsorships pull out., For players:)
@@ -995,12 +1029,12 @@ redundant double openers, the AI triplet blockquote closer, and over-
 qualified adjective…','We shipped something recently that we want to walk you through.
 
 This is a product update post. But it''s also a transparency exercise. Vera is a trust product, and trust products don''t get to ship data collection features without explaining exactly what they collect, what they don''t, and why.',0);
-INSERT INTO post_revisions VALUES (107,'what-your-setup-says-about-you','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','Vera sessions now include a system profile — a snapshot of the hardware and software environment where gameplay happened. When you visit a session on a Vera profile, you''ll see it displayed above the process and driver tables: operating system, processor, GPU, RAM, BIOS mode, Secure Boot state, and virtualization configuration.
+INSERT INTO post_revisions VALUES (110,'what-your-setup-says-about-you','2026-06-15','71074af3','human','Blog: prose cleanup (9 posts), new ''A Solution Looking for a Market'' post, visual enhancements (reading progress bar, animations, blockquote styling, card stagger)','Vera sessions now include a system profile — a snapshot of the hardware and software environment where gameplay happened. When you visit a session on a Vera profile, you''ll see it displayed above the process and driver tables: operating system, processor, GPU, RAM, BIOS mode, Secure Boot state, and virtualization configuration.
 
 This is a product update post. But it''s also something more specific: a transparency exercise. Because Vera is a trust product, and trust products don''t get to ship data collection features without explaining exactly what they collect, what they don''t, and why.
 
 The system profile is built from standard Windows Management Instrumentation (WMI) queries — the same data you…',0);
-INSERT INTO post_revisions VALUES (108,'what-your-setup-says-about-you','2026-06-14','7c642387','human','blog: publish 6 new posts — The Quiet Season, 272%, The Accusation Economy, Neutrality Is a Product Decision, What Your Setup Says About You, The Ghost of Al Mazrah
+INSERT INTO post_revisions VALUES (111,'what-your-setup-says-about-you','2026-06-14','7c642387','human','blog: publish 6 new posts — The Quiet Season, 272%, The Accusation Economy, Neutrality Is a Product Decision, What Your Setup Says About You, The Ghost of Al Mazrah
 
 - The Quiet Season: founder return from sabbatical, sets editorial context
 - 272%: AI cheat explosion analysis, positions proof vs detection
@@ -1009,18 +1043,18 @@ INSERT INTO post_revisions VALUES (108,'what-your-setup-says-about-you','2026-06
 - What Your Setup Says About You: system info transparency essay
 - The Ghost of Al Mazrah: DMZ love letter and DMZ 2 anticipation
 - Rotate feature…',NULL,1);
-INSERT INTO post_revisions VALUES (109,'where-cheats-hide-now','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (112,'where-cheats-hide-now','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
 the-league-is-open were missing from the seed registry and silently
 404ing on Vercel.…',NULL,0);
-INSERT INTO post_revisions VALUES (110,'where-cheats-hide-now','2026-07-03','81f24b8d','co-authored','blog: Where cheats hide now — a forensic field-guide explainer (#263)
+INSERT INTO post_revisions VALUES (113,'where-cheats-hide-now','2026-07-03','81f24b8d','co-authored','blog: Where cheats hide now — a forensic field-guide explainer (#263)
 
 Ships blog idea #1 from the research, deliberately DIFFERENTIATED from the existing
 ''272%'' post (which argues WHY detection is breaking). This is the lobby-crashing
 register the founder asked for: a plain-words map, not a thesis. …',NULL,1);
-INSERT INTO post_revisions VALUES (111,'where-the-time-goes','2026-07-28','e414ec7f','co-authored','blog: strip signpost bridges from Where the Time Goes; feature Ironwood (#498)
+INSERT INTO post_revisions VALUES (114,'where-the-time-goes','2026-07-28','e414ec7f','co-authored','blog: strip signpost bridges from Where the Time Goes; feature Ironwood (#498)
 
 the founder''s directive applied: the no-signpost-bridges rigor on this one
 shipped post as it should have read, publication date untouched. Seven
@@ -1032,32 +1066,32 @@ first-featured-wins; Where the Time Goes keeps its flag and its date.','I want t
 Here is the thing I kept running into: we live some of our most alive time in these games, and almost none of it gets kept. Seasons end. Servers sunset. The clip is on a drive somewhere. The self you were across five thousand honest hours has no page anywhere. The densest time in the week, written down nowhere.
 
 Here is a thing I will brag about, because we built it on purpose. Vera treats family as a first-class fact. Most of the industry handles kids with a loophole: a child living invisible inside a parent''s …',0);
-INSERT INTO post_revisions VALUES (112,'where-the-time-goes','2026-07-12','700b8b59','co-authored','blog: the culture-shift close + memory: the keeps (#417)
+INSERT INTO post_revisions VALUES (115,'where-the-time-goes','2026-07-12','700b8b59','co-authored','blog: the culture-shift close + memory: the keeps (#417)
 
 The bigger thing said plainly at the featured dispatch''s close: these are the things Vera is building for; the software is just how we serve them; the honest hope people prioritize them again and the eager anticipation of the culture shift. Plus the session''s memory companion (the source spine, the council catch, the identity entry with the founder''s teaching on memory).',NULL,0);
-INSERT INTO post_revisions VALUES (113,'where-the-time-goes','2026-07-12','fa935320','co-authored','blog: Where the Time Goes, the reason Vera exists (#416)
+INSERT INTO post_revisions VALUES (116,'where-the-time-goes','2026-07-12','fa935320','co-authored','blog: Where the Time Goes, the reason Vera exists (#416)
 
 The featured founder dispatch on the human relationship with time: why a child''s year is longer (Janet 1877 via James, Bejan 2019), why remembered time is the only length a life has (Hammond, memory density, the 2012 awe study), the turn (proof and memory are the same object at different ages; Vera keeps time), the kin architecture piloted on @healthy, a tasteful respect plug, and the no-collar invitation. …',NULL,1);
-INSERT INTO post_revisions VALUES (114,'you-cant-score-curiosity','2026-06-18','44706a29','co-authored','content(blog): publish "You Can''t Score Curiosity"
+INSERT INTO post_revisions VALUES (117,'you-cant-score-curiosity','2026-06-18','44706a29','co-authored','content(blog): publish "You Can''t Score Curiosity"
 
 A Philosophy piece: curiosity is one of the truest signals a mind gives off and
 nearly impossible to measure, because it lives in the process, not the answer.
 The same reason Vera keeps inspectable evidence instead of handing down a score.
 Recast to the Vera Team voice (no single-author misattribution).',NULL,1);
-INSERT INTO post_revisions VALUES (115,'youre-early','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
+INSERT INTO post_revisions VALUES (118,'youre-early','2026-07-10','00bcfc2d','co-authored','Meet Vera: blog and How It Works cross-pollinate; blog catches up to the product (#396)
 
 The sweep of all 28 posts found the funnel''s quiet failure (14 posts
 dead-ended, none linked the FAQ) plus a production bug: preseason and
 the-league-is-open were missing from the seed registry and silently
 404ing on Vercel.…',NULL,0);
-INSERT INTO post_revisions VALUES (116,'youre-early','2026-06-18','3e3f9e6a','co-authored','feat(connect): add site-wide Connect row + weave Discord into "You''re Early"
+INSERT INTO post_revisions VALUES (119,'youre-early','2026-06-18','3e3f9e6a','co-authored','feat(connect): add site-wide Connect row + weave Discord into "You''re Early"
 
 - SiteFooter: new "Connect" row driven by a SOCIAL_LINKS source-of-truth list
   (Discord, YouTube to start; trivial to extend). Self-contained brand SVGs,
   themed pills that work in light and dark. Also fixed the subnote em dash.
 - You''re Early: a short "there''s a room for the early ones" beat inviting
   people into the Discord at the connect level, whether or not they install.',NULL,0);
-INSERT INTO post_revisions VALUES (117,'youre-early','2026-06-18','33ac81eb','co-authored','content(blog): publish "You''re Early" as the featured welcome post
+INSERT INTO post_revisions VALUES (120,'youre-early','2026-06-18','33ac81eb','co-authored','content(blog): publish "You''re Early" as the featured welcome post
 
 A Dispatch piece that turns the recent inward arc outward to face the
 arriving reader: what Vera is, why it''s for them, and why being early is the
@@ -1204,15 +1238,15 @@ section.
 
 ---
 
-## The finding, from forty three defects
+## The finding, from forty five defects
 
-Forty three corrections. Eighty one point four percent of them reached a reader
+Forty five corrections. Eighty point zero percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| a second model, reviewing adversarially | 20 | 0 |
-| the assistant auditing itself | 11 | 9 |
+| a second model, reviewing adversarially | 21 | 0 |
+| the assistant auditing itself | 12 | 10 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
 | the person being written about | 1 | 0 |
@@ -1548,7 +1582,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 43.** Small enough that the attribution table is suggestive, not
+- **n = 45.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -1560,8 +1594,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the fifty two
-  detection rows were read back from prose written after the fact; thirty three
+- **Most detection rows are reconstructed.** Nineteen of the fifty five
+  detection rows were read back from prose written after the fact; thirty six
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
