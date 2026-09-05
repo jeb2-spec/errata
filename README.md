@@ -18,13 +18,13 @@ If you got here from a friend and none of this looks like your world: it is a li
 
 It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors, and the file does not record which of us entered which row. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and published builds are anchored to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed, which are pending, and which are still owed. A build made where the calendar servers cannot be reached ships unstamped and says so. The record is then turned on itself: a measurement of who catches the project's errors, an attempt to estimate the ones nobody caught using the capture-recapture estimators that software inspection borrowed from ecology, and a report of how that attempt failed twice.
 
-The findings to date are brief. Forty five errors. Forty three of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it sixty eight minutes later produced a degenerate one, and a third run produced a pairwise estimate its own third reviewer falsifies, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
+The findings to date are brief. Forty six errors. Forty four of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it sixty eight minutes later produced a degenerate one, and a third run produced a pairwise estimate its own third reviewer falsifies, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
 
 **Contents.** 1. The record · 2. The problem · 3. Terms · 4. What is inside · 5. Method · 6. One correction, in full · 7. Measurement · 8. Limits · 9. Reproduction · 10. What this claims for agents · 11. Disclosures · 12. Sources · The short version
 
 ---
 
-## 1. The record, in forty five rows
+## 1. The record, in forty six rows
 
 ```console
 $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our_favour FROM corrections;"
@@ -74,9 +74,10 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-04|in our favour|the reader|1
 2026-09-05|in our favour|the reader|1
 2026-09-05|in our favour|the founder|1
+2026-09-05|in our favour|the reader|1
 ```
 
-Forty five errors. Forty three of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Forty six errors. Forty four of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -104,7 +105,7 @@ So this repository is the idea turned around and pointed at its authors. If we a
 SELECT * FROM passages_removed;
 ```
 
-Fourteen principles. Forty five corrections. Fifty nine lessons. One hundred and twenty revisions across thirty eight published articles, fifty of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
+Fourteen principles. Forty six corrections. Sixty lessons. One hundred and twenty revisions across thirty eight published articles, fifty of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
 
 None of it is flattering. That is the point.
 
@@ -133,9 +134,9 @@ Seven tables in one SQLite file, with a plain-text dump of the same contents bes
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 14 | The rules, each with the reasoning behind it |
-| `corrections` | 45 | What was claimed, what it became, which way the error ran, **who paid** |
-| `detections` | 55 | Who found each defect, and whether they went looking on their own |
-| `lessons` | 59 | What generalises past this project |
+| `corrections` | 46 | What was claimed, what it became, which way the error ran, **who paid** |
+| `detections` | 56 | Who found each defect, and whether they went looking on their own |
+| `lessons` | 60 | What generalises past this project |
 | `post_revisions` | 120 | Every revision of 38 articles, **50 carrying the prose that was cut**, capped at 700 characters |
 | `documents` | 3 | The format spec, the measurement paper and the Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -249,7 +250,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in forty five rows
+-- the whole argument, in forty six rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -266,11 +267,11 @@ SELECT * FROM corrections_against_ourselves;
 ```console
 $ python3 tools/verify.py
 
-  stored    76632f7b61bb941e9db7d770fdeaa78b9c71bbc7761a2669a4f23da9e09b5658
-  computed  76632f7b61bb941e9db7d770fdeaa78b9c71bbc7761a2669a4f23da9e09b5658
+  stored    66612edacb6e47b5ca8943b1fce2a8e8628523aed59cba9809a999c7fe497c8b
+  computed  66612edacb6e47b5ca8943b1fce2a8e8628523aed59cba9809a999c7fe497c8b
 
 OK    contents match the recorded digest.
-      14 principles, 45 corrections, 55 detections, 59 lessons, 120 post_revisions, 3 documents
+      14 principles, 46 corrections, 56 detections, 60 lessons, 120 post_revisions, 3 documents
 
       This proves the contents are unchanged since the build.
       It does not prove any statement in them is true.
@@ -282,7 +283,7 @@ Change one character of one row and it says so. This is what `tools/tamper-test.
 ```console
 $ python3 tools/verify.py altered-copy.db
 
-  stored    76632f7b61bb941e9db7d770fdeaa78b9c71bbc7761a2669a4f23da9e09b5658
+  stored    66612edacb6e47b5ca8943b1fce2a8e8628523aed59cba9809a999c7fe497c8b
   computed  <a different digest>
 
 FAIL  contents do not match the recorded digest.
@@ -419,4 +420,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it. If you cite it, cite the build and not the page: the digest that `tools/verify.py` prints identifies the exact record you read, and this address points at whatever we publish next.
 
-*Kept by the Vera Project. Corrected forty five times in its first eight days, forty three of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected forty six times in its first eight days, forty four of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
