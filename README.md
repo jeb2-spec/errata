@@ -107,7 +107,7 @@ So this repository is the idea turned around and pointed at its authors. If we a
 SELECT * FROM passages_removed;
 ```
 
-Fourteen principles. Forty seven corrections. Sixty two lessons. One hundred and twenty revisions across thirty eight published articles, fifty of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
+Fourteen principles. Forty seven corrections. Sixty three lessons. One hundred and twenty revisions across thirty eight published articles, fifty of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
 
 None of it is flattering. That is the point.
 
@@ -138,7 +138,7 @@ Seven tables in one SQLite file, with a plain-text dump of the same contents bes
 | `principles` | 14 | The rules, each with the reasoning behind it |
 | `corrections` | 47 | What was claimed, what it became, which way the error ran, **who paid** |
 | `detections` | 57 | Who found each defect, and whether they went looking on their own |
-| `lessons` | 62 | What generalises past this project |
+| `lessons` | 63 | What generalises past this project |
 | `post_revisions` | 120 | Every revision of 38 articles, **50 carrying the prose that was cut**, capped at 700 characters |
 | `documents` | 3 | The format spec, the measurement paper and the Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -269,11 +269,11 @@ SELECT * FROM corrections_against_ourselves;
 ```console
 $ python3 tools/verify.py
 
-  stored    c7ef903b03a6cc6f609c4021b15c07c1b661770ecbd420d9ed2699cf842efb48
-  computed  c7ef903b03a6cc6f609c4021b15c07c1b661770ecbd420d9ed2699cf842efb48
+  stored    d4d4a83c83e84ceeab6a9a1957894a4825f3d987e038519d2ad92ecc2d6f7cb8
+  computed  d4d4a83c83e84ceeab6a9a1957894a4825f3d987e038519d2ad92ecc2d6f7cb8
 
 OK    contents match the recorded digest.
-      14 principles, 47 corrections, 57 detections, 62 lessons, 120 post_revisions, 3 documents
+      14 principles, 47 corrections, 57 detections, 63 lessons, 120 post_revisions, 3 documents
 
       This proves the contents are unchanged since the build.
       It does not prove any statement in them is true.
@@ -285,7 +285,7 @@ Change one character of one row and it says so. This is what `tools/tamper-test.
 ```console
 $ python3 tools/verify.py altered-copy.db
 
-  stored    c7ef903b03a6cc6f609c4021b15c07c1b661770ecbd420d9ed2699cf842efb48
+  stored    d4d4a83c83e84ceeab6a9a1957894a4825f3d987e038519d2ad92ecc2d6f7cb8
   computed  <a different digest>
 
 FAIL  contents do not match the recorded digest.
