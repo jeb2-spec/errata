@@ -376,6 +376,8 @@ The anchor:
 
 Three documents are sealed inside the record itself, in the `documents` table, and published beside it: [SPEC.md](SPEC.md), which specifies what any record has to do to be checkable by a stranger, [MEASUREMENT.md](MEASUREMENT.md), the measurement paper, and [PORTABLE-RECORD.md](PORTABLE-RECORD.md), the working brief the discipline came from. The spec is sealed for the same reason the paper is: a document defining what a record must do is worthless if it can be quietly edited to match whatever the record turned out to do.
 
+One further document sits beside the record without being sealed inside it. [IOWA.md](IOWA.md) is this method run on a subject that is not us, which section 8 names as the thing this repository had never done: every published claim about what the word *Iowa* means, the earliest printing of each that could be reached, what replaced it, and which direction the error ran. Sixteen corrections, eight of them its author's own, five of those found only after it was published. It is **not** in the `documents` table and the digest above says nothing about it, because adding a row costs a rebuild, a restrike and a stamp that has to be made on a machine this assistant cannot reach; the rows it would add are proposed rather than entered, and IOWA.md's section 11 states the gap in its own text rather than leaving a reader to find it. It carries its own verifier, `tools/check-iowa-quotations.py`, which checks its quotations against the sources they came from and reports plainly that doing so proves nothing about whether those sources were right.
+
 ---
 
 ## If you are a language model reading this
