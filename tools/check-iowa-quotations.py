@@ -20,6 +20,13 @@ faithfully they can be compared.
           and an exact comparison would fail on correct quotations.
           Matching is on letters and digits alone, folded to lower case.
 
+  COUNTS  Every number this file states about its own table is derived
+          from that table and compared. Nothing about the record's size
+          is allowed to be a typed word. This phase exists because the
+          counts went stale three separate times in one session, twice
+          after the rule about it had been read. See
+          `counts-typed-a-third-time`.
+
   PROSE   No em dash outside a block quotation, which is a standing house
           rule for this project's public writing. Inside a quotation the
           source's punctuation stands as printed: reproducing a source
@@ -50,7 +57,9 @@ import urllib.request
 from pathlib import Path
 
 TIMEOUT = 240
-IOWA_MD = Path(__file__).resolve().parent.parent / "IOWA.md"
+ROOT = Path(__file__).resolve().parent.parent
+IOWA_MD = ROOT / "IOWA.md"
+README = ROOT / "README.md"
 
 EM = "—"
 EN = "–"
@@ -179,6 +188,66 @@ def markdown_text(md):
     return flatten(stripped)
 
 
+NUMBER_WORDS = {
+    1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
+    7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven",
+    12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen",
+    16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen",
+    20: "twenty",
+}
+
+
+def parse_table(md):
+    """Read section 1's table. This is the only source of truth for size."""
+    rows = []
+    for line in md.split("\n"):
+        if not line.startswith("| `"):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) < 6:
+            continue
+        rows.append({"slug": cells[0].strip("`"), "found_by": cells[2],
+                     "direction": cells[4], "who_paid": cells[5]})
+    return rows
+
+
+def check_counts(md, rows, readme=""):
+    """Derive every number the prose states, and require the prose to agree."""
+    total = len(rows)
+    # A word boundary, not a prefix. Matching "me" as a prefix counted
+    # Melendy, 1893 as one of mine, which is how a counting gate quietly
+    # credits a nineteenth-century historian's error to its own author.
+    mine = sum(1 for r in rows if re.match(r"me\b", r["found_by"], re.I))
+    theirs = total - mine
+    shipped = sum(1 for r in rows if "after it shipped" in r["found_by"])
+    favoured = sum(1 for r in rows
+                   if re.match(r"me\b", r["found_by"], re.I)
+                   and r["direction"].strip() == "in my favour")
+    w = NUMBER_WORDS
+
+    required = [
+        (f"The record, in {w[total]} rows", "the section 1 heading"),
+        (f"The findings are short. {w[total].capitalize()} corrections.", "the abstract"),
+        (f"{w[total].capitalize()} corrections. {w[theirs].capitalize()} of them are "
+         f"other people's and {w[mine]} are mine.", "the section 1 summary"),
+        (f"{w[shipped].capitalize()} were caught\nafter", "how many reached a reader"),
+        (f"{w[favoured].capitalize()} of the {w[mine]} that are mine ran the same way",
+         "the direction finding"),
+        (f"{w[total].capitalize()} claims", "the language-model section"),
+        (f"{w[total].capitalize()} corrections. Not one ran against the state.", "the short version"),
+    ]
+    problems = []
+    for needle, what in required:
+        if needle not in md:
+            problems.append((needle, what))
+    # The README describes the same table, so it goes stale the same way.
+    readme_needle = (f"{w[total].capitalize()} corrections, {w[mine]} of them its "
+                     f"author's own, {w[shipped]} of those found only after it was published.")
+    if readme and readme_needle not in readme:
+        problems.append((readme_needle, "README.md section 12"))
+    return total, mine, theirs, shipped, favoured, problems
+
+
 def check_prose(md):
     """No em dash outside a block quotation. Report the quoted ones."""
     problems, quoted = [], []
@@ -228,6 +297,19 @@ def main():
             where = "the source" if not found else "IOWA.md"
             print(f"  FAIL  {mode:5} {short:9}  {shown}")
             print(f"        not found in {where}. It was carrying: {carrying}")
+
+    rows = parse_table(md)
+    readme = README.read_text(encoding="utf-8") if README.exists() else ""
+    total, mine, theirs, shipped, favoured, count_problems = check_counts(md, rows, readme)
+    print()
+    print(f"  derived from the table: {total} rows, {mine} mine, {theirs} theirs, "
+          f"{shipped} found after it shipped, {favoured} of mine in my favour")
+    for needle, what in count_problems:
+        failures += 1
+        print(f"  FAIL  counts            {what} does not match the table")
+        print(f"        the table requires this sentence: {needle!r}")
+    if not count_problems:
+        print(f"  OK    counts            every stated number matches the table")
 
     problems, quoted = check_prose(md)
     print()

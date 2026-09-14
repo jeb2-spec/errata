@@ -26,11 +26,11 @@ primary sources are out of copyright and online, and
 `tools/check-iowa-quotations.py` will check every quotation in this file
 against the scans without trusting a word of it.
 
-The findings are short. Fifteen corrections. **Not one of them has ever run
+The findings are short. Eighteen corrections. **Not one of them has ever run
 against the state of Iowa.** Not one of them was printed by an Ioway. The
 oldest is two hundred and three years old and corrects a name misheard by a
-single syllable. Eight are mine, five of them against the published version of
-this very file, and **all eight ran in my favour.** The
+single syllable. Ten are mine, five of them against the published version of
+this very file, and **eight of the ten ran in my favour.** The
 claim that the word means *the beautiful land* has no source in
 any language and appears to have been assembled out of a Sauk and Meskwaki
 exclamation that nobody recorded at the time. The claim that it means *the
@@ -51,7 +51,7 @@ The practical thing · The short version
 
 ---
 
-## 1. The record, in sixteen rows
+## 1. The record, in eighteen rows
 
 | | the claim | first printing reached | what replaced it | direction | who paid |
 | --- | --- | --- | --- | --- | --- |
@@ -71,26 +71,44 @@ The practical thing · The short version
 | `a-verifier-blind-to-its-own-class-of-error` | the checker proves the quotations accurate | me, after it shipped | it folded away every character that is not a letter or a digit, so it could not see a single one of the six; it printed *all 24 quotations are present* while six were wrong | in my favour | every reader who trusted a green line |
 | `the-people-were-not-checked` | the checker covers the sources | me, after it shipped | it covered the three books and omitted the Iowa Tribe of Oklahoma's page, so the one quotation that most needed checking was the one nothing checked | in my favour | the Iowa Tribe of Oklahoma |
 | `a-gate-that-matched-its-own-echo` | the checker confirms this file prints what it quotes | me, while writing the fix for the four above | section 12 prints a sample of the checker's own output, and that sample was inside the text being searched, so a quotation could pass by appearing in a previous run's echo | in my favour | anyone who trusted the count |
+| `counts-typed-a-third-time` | the numbers in the prose describe the table | me, after it shipped | the abstract still said *fifteen* after the table reached sixteen, and two sentences said *five* reached a reader where four did | **mixed**: the stale total understated my errors, the other two overstated them | the reader, in both directions |
+| `a-gate-that-credited-melendy-to-me` | the counting gate reports who found each defect | me, on the gate's first run | it tested the author column with a *prefix* match on "me", so *Melendy, 1893* was scored as one of mine; it reported nine mine and seven theirs where the truth is eight and eight | against myself | a nineteenth-century historian |
 
-Sixteen corrections. Eight of them are other people's and eight are mine.
+Eighteen corrections. Eight of them are other people's and ten are mine.
 
-**Not one ran against the state of Iowa.** Nine cost the Ioway. Five cost a
-reader. One cost everyone who was living there before 1673, and one cost only a
-house rule about punctuation. Those five numbers add to sixteen, and the
-`who paid` column is what they are counted from, so the arithmetic is yours to
-check rather than mine to assert.
+**Not one ran against the state of Iowa.** Nine cost the Ioway. Six cost a
+reader. One cost everyone who was living there before 1673, one cost only a
+house rule about punctuation, and one cost a nineteenth-century historian who
+was credited with a mistake that was mine. Those five numbers add to eighteen,
+and the `who paid` column is what they are counted from, so the arithmetic is
+yours to check rather than mine to assert.
 
-Three of mine were caught before this file was published. Four were caught
+Three of mine were caught before this file was published. Five were caught
 after, in the merged and public version, which in this record's own vocabulary
-makes them escapes. They are listed here rather than quietly repaired, because
+makes them escapes. The remaining two were caught in the machinery built to
+catch the five. They are all listed here rather than quietly repaired, because
 a file arguing that corrections belong beside the work does not get to make an
 exception for its own.
 
-**And all eight of mine ran the same way.** Every one made the text tidier,
-tighter, or greener than the evidence allowed. That is not a coincidence and it
-is not bad luck. It is the direction an error runs when the person making it
-wants the thing to come out well, and it is the single most useful sentence I
-can leave for whoever writes the next one of these.
+**Eight of the ten that are mine ran the same way.** Every one of those made
+the text tidier, tighter, or greener than the evidence allowed. That is the
+direction an error runs when the person making it wants the thing to come out
+well, and it is the most useful sentence I can leave for whoever writes the
+next one of these.
+
+The other two are why that sentence is no longer *all*. An earlier version of
+this paragraph said every single one of mine ran in my favour, which was the
+best line in the file. Then the counting gate found a stale total that
+understated my own error count **and** two sentences that overstated how many
+reached a reader, in the same episode, running both ways at once; and the
+gate's own first run scored a nineteenth-century historian's mistake as mine
+because it matched *Melendy* on the first two letters of *me*.
+
+So the clean version was false, and it was false in the direction that made it
+quotable. **A thesis that survives every new piece of evidence is not being
+tested**, and this is the second time in one document that mine has had to give
+ground to the table. The table is the thing. The sentence about it is a
+summary, and section 1 is where you check whether the summary is true.
 
 The last column is typed by me. It shows what I scored, not that the scoring
 is right. Argue with it. The rows below carry the quotations it was scored
@@ -448,9 +466,24 @@ this file print it* test by appearing in the echo of an earlier run. One did.
 circularity the repository's `tamper-test.py` was built to escape, arrived at
 again by a different road.
 
+And the machinery built to catch those produced two more. The gate that now
+derives every number in this file from the table found that the abstract had
+gone on saying *fifteen* after the table reached sixteen, and that two
+sentences claimed five defects had reached a reader where four had. **Those two
+ran in opposite directions**, one understating my errors and one overstating
+them, which is the first entry in this table that does not lean one way. And on
+its very first run the same gate scored *Melendy, 1893* as one of mine, because
+it tested the author column with a prefix match on the letters *me*. It
+reported nine mine and seven theirs where the truth is eight and eight.
+
+I only saw that because the gate prints what it derived before it judges. A
+checker that printed `FAIL` alone would have sent me to correct sentences that
+were already right.
+
 Those are `seventeen-em-dashes`, `six-quotations-altered-in-transcription`,
-`a-verifier-blind-to-its-own-class-of-error`, `the-people-were-not-checked` and
-`a-gate-that-matched-its-own-echo`.
+`a-verifier-blind-to-its-own-class-of-error`, `the-people-were-not-checked`,
+`a-gate-that-matched-its-own-echo`, `counts-typed-a-third-time` and
+`a-gate-that-credited-melendy-to-me`.
 The tool now compares clean sources character for character, keeps folding only
 for the scans where folding is the honest comparison, checks the tribe's page,
 and refuses an em dash in this file's own prose. **A gate, not a resolution to
@@ -915,7 +948,7 @@ earliest printing, keep the prior state in its own words, record which
 direction the error leaned and who paid, name what you could not check, and
 give the reader the commands.
 
-And notice which way the errors ran. Sixteen claims, and not one of the errors
+And notice which way the errors ran. Eighteen claims, and not one of the errors
 ever cost the state anything, while nine of them cost the Ioway. That was not
 anybody's plan. **It is what happens by default when a record about
 people is kept entirely by other people, and it is the reason to check before
@@ -940,9 +973,9 @@ The best answer is that the word belongs to no language at all.
 The territory took the name on 3 July 1838.
 The Ioway signed away the last of the country 108 days later.
 
-Sixteen corrections. Not one ran against the state.
+Eighteen corrections. Not one ran against the state.
 Not one was printed by an Ioway.
-Eight are mine, and all eight ran in my favour.
+Ten are mine. Eight of the ten ran in my favour.
 
 Ground truth or silence.
 ```
