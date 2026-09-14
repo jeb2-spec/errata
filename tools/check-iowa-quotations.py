@@ -22,10 +22,18 @@ faithfully they can be compared.
 
   COUNTS  Every number this file states about its own table is derived
           from that table and compared. Nothing about the record's size
-          is allowed to be a typed word. This phase exists because the
-          counts went stale three separate times in one session, twice
-          after the rule about it had been read. See
-          `counts-typed-a-third-time`.
+          is allowed to be a typed word. This phase exists because those
+          counts kept going stale, repeatedly, in one session, and more
+          than once after the rule about it had been read. The tally of
+          how many times is itself a derivable number and is therefore
+          not written here: the rows are in IOWA.md section 1, whose
+          slugs begin `counts-` and `a-gate-`.
+
+          And note what this phase does NOT cover: it reads IOWA.md and
+          README.md. When it was added, the next stale number appeared
+          within the hour in a YAML frontmatter field and a pull request
+          description, neither of which any gate reads. A gate covers
+          where you pointed it. The error goes where you did not.
 
   PROSE   No em dash outside a block quotation, which is a standing house
           rule for this project's public writing. Inside a quotation the
