@@ -34,7 +34,7 @@ CREATE VIEW passages_removed AS
 INSERT INTO meta VALUES ('title','The Vera Record');
 INSERT INTO meta VALUES ('what_this_is','The conduct record of a project that argues a record beats a reputation, applied to itself. Principles, every correction made and which direction each error ran, transferable lessons, and the full revision history of every published article including the prose removed.');
 INSERT INTO meta VALUES ('built_on','2026-09-16');
-INSERT INTO meta VALUES ('source_commit','6a89851');
+INSERT INTO meta VALUES ('source_commit','f05cf55');
 INSERT INTO meta VALUES ('format','SQLite 3. Public domain file format, no server required. A plain-text errata.sql dump ships alongside for any reader without SQLite.');
 INSERT INTO meta VALUES ('how_to_open','sqlite3 errata.db  then  .tables  and  SELECT * FROM corrections;  Or open it in any SQLite browser, or read errata.sql in a text editor.');
 INSERT INTO meta VALUES ('start_here','SELECT * FROM corrections ORDER BY occurred_on; then SELECT * FROM passages_removed;');
@@ -44,8 +44,8 @@ INSERT INTO meta VALUES ('disclosure_redaction','Personal names are replaced wit
 INSERT INTO meta VALUES ('disclosure_scope','Contains no personal identifiers, no family information, and nothing about private individuals. All article text reproduced here was already published publicly.');
 INSERT INTO meta VALUES ('integrity_note','SHA-256 over a canonical serialisation of every row in every table, including this meta table, with three rows excluded: the digest row itself, because it cannot contain its own hash, and the two provenance rows built_on and source_commit, because they describe the build and not the record, and including them meant every commit to the source repository moved the seal with nothing in the record changed (corrected 2026-09-03, see the corrections table). Covering the rest of meta matters: without it the disclosures below could be edited and the file would still verify. It proves the contents are unchanged since the build. It does not, and cannot, prove any statement in it is true. Integrity is not accuracy.');
 INSERT INTO meta VALUES ('license','The contents may be quoted and redistributed freely with attribution to the Vera Project.');
-INSERT INTO meta VALUES ('counts','14 principles, 50 corrections, 63 lessons, 120 article revisions across 38 articles');
-INSERT INTO meta VALUES ('integrity_sha256','6da38b408e7b35eaa8cf9cf20fd8ccb9cd1f62caf2ed5afb8f7127d945cf8109');
+INSERT INTO meta VALUES ('counts','14 principles, 51 corrections, 63 lessons, 120 article revisions across 38 articles');
+INSERT INTO meta VALUES ('integrity_sha256','2d0340722842ca59c49710e20f3098b463285084d2e79e57fbce798ff109bebf');
 INSERT INTO principles VALUES ('ground-truth-or-silence','Ground truth or silence','If you cannot show it, do not claim it. Sourced to the record, or unsaid.','Governs publication, not belief. It says nothing about what anyone may know, notice, or act on. Reading it as a theory of reality would make it false.');
 INSERT INTO principles VALUES ('presence-is-not-proof','Presence is not proof','A true fact framed as a verdict becomes a lie about a person. Describe, never condemn.','Something being present is not evidence it was used for harm. Plenty of honest software looks exactly like the thing someone is afraid of.');
 INSERT INTO principles VALUES ('the-practical-thing','The practical thing at the end','Every piece of work leaves the reader something they can actually do.','A diagnosis with no next step is entertainment. The reader came with a problem.');
@@ -110,6 +110,7 @@ INSERT INTO corrections VALUES ('a-clock-that-only-ran-on-one-row','2026-09-05',
 INSERT INTO corrections VALUES ('the-wrong-racetrack','2026-09-16','A photograph''s caption on an unlisted page, and the sentence beside it','Sonoma Raceway.','Thunderhill Raceway. The caption had stood for nineteen days on the subject''s own earlier word, so the correction of 2026-08-28 that put it there was itself wrong about the track, and the sentence in the prose that repeated it moved the same day. The subject is the authority on his own record; he corrected it twice, and the second time is the one that held.','in nobody''s favour','the reader, and the subject','The person the page is about looked at his own page and named the track.',0);
 INSERT INTO corrections VALUES ('a-heading-one-row-behind','2026-09-16','The heading of this README''s first section, above the block that lists every correction','The record, in forty six rows.','Forty seven rows sat beneath it, and had since the build of 2026-09-05 that added the forty seventh; the heading was written for the build before and never reread, through two published builds. The gate that checks this README against the database tested the comment inside the query block and the sentence beneath it, and not the heading two lines above them. The heading is in the gate now.','in our favour','the reader','Read while preparing a different correction. Adjacent work, not a pass aimed at the heading, and nothing had prompted it.',1);
 INSERT INTO corrections VALUES ('a-stamp-the-site-said-was-owed','2026-09-16','The errata page on the site, on whether the build of 2026-09-06 was stamped','This build, dated 2026-09-06, is not stamped yet.','It was stamped on 2026-09-06 with four calendars, and the anchor log said so from that day. The proof was never copied beside the site''s copy of the database, and the page decides what to say by whether that file is present, so for ten days it reported the absence of a copy as the absence of a stamp, in the paragraph that explains why a missing stamp is disclosed rather than hidden. The doctor now fails when the anchor log calls the current build stamped and the site''s copy of the proof is missing or differs.','against ourselves','the reader','Read the live page against the anchor log while preparing two other corrections. Adjacent work; nothing had prompted it.',0);
+INSERT INTO corrections VALUES ('a-publish-that-dropped-a-document','2026-09-16','The published repository itself, between 21:10 and 21:12 UTC on the evening of this row','That the published record carried IOWA.md, the method applied to a subject outside this project, and the checker that tests every quotation in it against the scans.','A publish replaced the whole tree with this project''s copy of it, which had never carried either file: both had been added to the mirror directly three days earlier and not to the tree the publisher ships. The publisher resets onto the remote and stages everything, so a file the mirror holds and the tree does not becomes a deletion, and the guard added after the last dropped publish counts database rows, not files. Restored a minute and a half later by adding both files to the shipped tree, and the publisher now refuses to delete a published file unless the operator says the removal is intended.','in nobody''s favour','the reader','The publisher prints the tree it read back off the remote so that somebody looks. Somebody looked, and two files were missing from a listing that had carried them that morning.',0);
 INSERT INTO detections VALUES ('settlement-pre-publication','adversarial-review','pre-publication',1,'A separate review pass over the draft, before it shipped.');
 INSERT INTO detections VALUES ('restored-a-true-detail','self-audit','post-publication',1,'Searched the corpus after the deletion, which is the wrong order.');
 INSERT INTO detections VALUES ('auditor-publication-clause','reader','post-publication',1,'A reader supplied the clause number.');
@@ -170,6 +171,7 @@ INSERT INTO detections VALUES ('a-clock-that-only-ran-on-one-row','self-audit','
 INSERT INTO detections VALUES ('the-wrong-racetrack','subject','post-publication',1,'The person the page is about, who is also the founder, read his own page and named the track. Scored as the subject because the claim was about his life and he read it as its subject; a reader who would rather count him as the founder can move one row. Contemporaneous.');
 INSERT INTO detections VALUES ('a-heading-one-row-behind','self-audit','post-publication',1,'Found while reading the README to prepare a different correction. Adjacent work is a weaker kind of unprompted than a pass aimed at nothing in particular, as this table has already noted once, and it is scored independent for the same reason. Contemporaneous.');
 INSERT INTO detections VALUES ('a-stamp-the-site-said-was-owed','self-audit','post-publication',1,'Read the live page against the anchor log while preparing two other corrections. Nothing had prompted it. Contemporaneous.');
+INSERT INTO detections VALUES ('a-publish-that-dropped-a-document','self-audit','post-publication',1,'Read the file listing the publisher prints back from the remote after it pushes. The listing exists so that somebody looks; nothing else prompted it. Contemporaneous.');
 INSERT INTO lessons VALUES (1,'verification','A gate that only inspects the case it was written for is not inspecting the case it exists for.','Write the check for the state that prompted it and it covers that state and stops. This record''s abandonment check asks whether an unstamped build has been unstamped too long, and it sat inside a branch entered only when the unstamped build is also the current one, so a build that was superseded before anybody stamped it fell out of the check the instant a newer build arrived. That is the exact case the check was for: a debt nobody is paying is a debt attention has already moved past. Ask what the guarded condition looks like once the situation has developed, not only what it looked like when it was noticed, and apply the check to every row that can be in that condition rather than to the one row that was in it on the day.');
 INSERT INTO lessons VALUES (2,'verification','A gate built from a hand kept list of claims inherits the omissions of the hand.','The list is the weak part, not the checking. This project''s build fails when the README stops describing the database, which is the right design, and the list of things it compared was typed: it covered four of the six tables the README tabulates and neither of the two whose counts had gone stale. Derive what must be checked from the structure being described, so a new table or a new claim is covered the moment it exists rather than the moment somebody remembers it.');
 INSERT INTO lessons VALUES (3,'design','Type is geometry or it is a request, and a request has no measurable width.','Asking for a font by name means no dimension exists until a renderer picks a face, so nothing that depends on the width of the words can be checked before it ships, and the same file renders differently on two machines. Set outlines when a layout has to be provable. Then a check can assert that a word clears what it sits in without rendering anything at all, which is what caught this one.');
@@ -1252,15 +1254,15 @@ section.
 
 ---
 
-## The finding, from fifty defects
+## The finding, from fifty one defects
 
-Fifty corrections. Eighty two point zero percent of them reached a reader
+Fifty one corrections. Eighty two point four percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
 | a second model, reviewing adversarially | 21 | 0 |
-| the assistant auditing itself | 16 | 10 |
+| the assistant auditing itself | 17 | 10 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
 | the person being written about | 2 | 0 |
@@ -1596,7 +1598,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 50.** Small enough that the attribution table is suggestive, not
+- **n = 51.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -1608,8 +1610,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the sixty
-  detection rows were read back from prose written after the fact; forty one
+- **Most detection rows are reconstructed.** Nineteen of the sixty one
+  detection rows were read back from prose written after the fact; forty two
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
