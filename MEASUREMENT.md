@@ -139,18 +139,18 @@ section.
 
 ---
 
-## The finding, from forty seven defects
+## The finding, from fifty one defects
 
-Forty seven corrections. Eighty point nine percent of them reached a reader
+Fifty one corrections. Eighty two point four percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
 | a second model, reviewing adversarially | 21 | 0 |
-| the assistant auditing itself | 14 | 10 |
+| the assistant auditing itself | 17 | 10 |
 | the founder | 7 | 0 |
 | an outside reader | 3 | 0 |
-| the person being written about | 1 | 0 |
+| the person being written about | 2 | 0 |
 | a different vendor's assistant | 0 | 1 |
 
 *Triggered* means the detector only looked because somebody else voiced doubt:
@@ -483,7 +483,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 47.** Small enough that the attribution table is suggestive, not
+- **n = 51.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -495,8 +495,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the fifty seven
-  detection rows were read back from prose written after the fact; thirty seven
+- **Most detection rows are reconstructed.** Nineteen of the sixty one
+  detection rows were read back from prose written after the fact; forty two
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
