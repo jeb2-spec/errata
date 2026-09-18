@@ -26,11 +26,11 @@ primary sources are out of copyright and online, and
 `tools/check-iowa-quotations.py` will check every quotation in this file
 against the scans without trusting a word of it.
 
-The findings are short. Eleven corrections. **Not one of them has ever run
+The findings are short. Eighteen corrections. **Not one of them has ever run
 against the state of Iowa.** Not one of them was printed by an Ioway. The
 oldest is two hundred and three years old and corrects a name misheard by a
-single syllable; the newest three are mine, made this week, and all three ran
-in my favour. One of those three is against an earlier draft of this file. The
+single syllable. Ten are mine, five of them against the published version of
+this very file, and **eight of the ten ran in my favour.** The
 claim that the word means *the beautiful land* has no source in
 any language and appears to have been assembled out of a Sauk and Meskwaki
 exclamation that nobody recorded at the time. The claim that it means *the
@@ -51,7 +51,7 @@ The practical thing · The short version
 
 ---
 
-## 1. The record, in eleven rows
+## 1. The record, in eighteen rows
 
 | | the claim | first printing reached | what replaced it | direction | who paid |
 | --- | --- | --- | --- | --- | --- |
@@ -60,19 +60,55 @@ The practical thing · The short version
 | `this-is-the-place` | *Iowa* means this is the place | Le Claire to Parvin, 10 March 1860 | no source in any language of the region | in the state's favour | the Ioway |
 | `the-beautiful-land` | *Iowa* means the beautiful land | Melendy, 1893 | the same | in the state's favour | the Ioway, and every reader since |
 | `first-of-record-in-1700` | the Ioway are first of record in 1700 | Foster, in Miner, 1911 | the same book's own appendix lists 1673 | in the author's favour | his reader |
-| `a-lexicon-quoted-twice` | Riggs's entry reads *Ayu'hpä* | Foster, in Miner, 1911 | the same book's appendix reads *Iyuhba* | in nobody's favour | the next person to look it up |
+| `a-lexicon-quoted-twice` | Riggs's entry reads *Ayu’hpä* | Foster, in Miner, 1911 | the same book's appendix reads *Iyuhba* | in nobody's favour | the next person to look it up |
 | `the-spelling` | the district is *Iowa* | Lea, 1836 | Lea, later: it should have been *Ioway* | in nobody's favour | the Ioway |
 | `first-recorded-in-1673` | the area was first recorded in 1673 | iowa.gov, read 14 September 2026 | first recorded *in writing, by Europeans*; people had lived there for millennia | in the state's favour | everyone who was already there |
 | `a-thesis-that-wanted-it-all-to-collapse` | the Ioway's own name for themselves is probably folklore too | me, this week | it is attested from Ioway and Otoe testimony in 1819, corroborated from a third language, and published by both Ioway nations today | in my favour | the Ioway |
 | `a-slur-i-nearly-printed` | *Iowa* is an insult the Dakota used for them | me, this week | if the gloss has no linguistic basis then neither does reading it as an insult | in my favour | the Dakota, and the Ioway |
 | `entries-that-were-not-adjacent` | Riggs's dictionary prints the Ioway entry four lines from the Dakota word for sleepy | me, in a draft of this file | the root is a headword in a different section of the book; what is three entries away is a different word | in my favour | the reader |
+| `seventeen-em-dashes` | IOWA.md's own prose, as merged | me, after it shipped | a standing house rule for this project's public writing bars them; every other document in this repository has zero, and this one had seventeen | in my favour | the house standard |
+| `six-quotations-altered-in-transcription` | the quotations reproduce their sources | me, after it shipped | six of six checked character by character had been altered: an em dash for the Iowa Tribe of Oklahoma's en dash, ASCII apostrophes for Foster's U+2019, straight quotes for the tribe's curly ones, *the Grey Ones* for Foster's *the Gray-Ones* | in my favour | the sources, and the Iowa Tribe of Oklahoma most of all |
+| `a-verifier-blind-to-its-own-class-of-error` | the checker proves the quotations accurate | me, after it shipped | it folded away every character that is not a letter or a digit, so it could not see a single one of the six; it printed *all 24 quotations are present* while six were wrong | in my favour | every reader who trusted a green line |
+| `the-people-were-not-checked` | the checker covers the sources | me, after it shipped | it covered the three books and omitted the Iowa Tribe of Oklahoma's page, so the one quotation that most needed checking was the one nothing checked | in my favour | the Iowa Tribe of Oklahoma |
+| `a-gate-that-matched-its-own-echo` | the checker confirms this file prints what it quotes | me, while writing the fix for the four above | section 12 prints a sample of the checker's own output, and that sample was inside the text being searched, so a quotation could pass by appearing in a previous run's echo | in my favour | anyone who trusted the count |
+| `counts-typed-a-third-time` | the numbers in the prose describe the table | me, after it shipped | the abstract still said *fifteen* after the table reached sixteen, and two sentences said *five* reached a reader where four did | **mixed**: the stale total understated my errors, the other two overstated them | the reader, in both directions |
+| `a-gate-that-credited-melendy-to-me` | the counting gate reports who found each defect | me, on the gate's first run | it tested the author column with a *prefix* match on "me", so *Melendy, 1893* was scored as one of mine; it reported nine mine and seven theirs where the truth is eight and eight | against myself | a nineteenth-century historian |
 
-Eleven corrections. Eight of them are other people's and three are mine.
+Eighteen corrections. Eight of them are other people's and ten are mine.
 
-**Not one ran against the state of Iowa.** Seven cost the Ioway. Three cost a
-reader. One cost everyone who was living there before 1673. The three that are
-mine are in the table because I caught them, which is exactly the weakness of
-every record like this one: it contains the errors somebody noticed.
+**Not one ran against the state of Iowa.** Nine cost the Ioway. Six cost a
+reader. One cost everyone who was living there before 1673, one cost only a
+house rule about punctuation, and one cost a nineteenth-century historian who
+was credited with a mistake that was mine. Those five numbers add to eighteen,
+and the `who paid` column is what they are counted from, so the arithmetic is
+yours to check rather than mine to assert.
+
+Three of mine were caught before this file was published. Five were caught
+after, in the merged and public version, which in this record's own vocabulary
+makes them escapes. The remaining two were caught in the machinery built to
+catch the five. They are all listed here rather than quietly repaired, because
+a file arguing that corrections belong beside the work does not get to make an
+exception for its own.
+
+**Eight of the ten that are mine ran the same way.** Every one of those made
+the text tidier, tighter, or greener than the evidence allowed. That is the
+direction an error runs when the person making it wants the thing to come out
+well, and it is the most useful sentence I can leave for whoever writes the
+next one of these.
+
+The other two are why that sentence is no longer *all*. An earlier version of
+this paragraph said every single one of mine ran in my favour, which was the
+best line in the file. Then the counting gate found a stale total that
+understated my own error count **and** two sentences that overstated how many
+reached a reader, in the same episode, running both ways at once; and the
+gate's own first run scored a nineteenth-century historian's mistake as mine
+because it matched *Melendy* on the first two letters of *me*.
+
+So the clean version was false, and it was false in the direction that made it
+quotable. **A thesis that survives every new piece of evidence is not being
+tested**, and this is the second time in one document that mine has had to give
+ground to the table. The table is the thing. The sentence about it is a
+summary, and section 1 is where you check whether the summary is true.
 
 The last column is typed by me. It shows what I scored, not that the scoring
 is right. Argue with it. The rows below carry the quotations it was scored
@@ -88,10 +124,10 @@ people. Read in the order the links were made and it is six borrowings, each
 one further from anybody who was ever asked.
 
 **1673. Somebody's own name, written down first.** On the manuscript map that
-went with his journal, the Jesuit Jacques Marquette wrote `Pa-h8tet` — the
-`8` being the Jesuit shorthand for the *ou* sound, so *Pahoutet*. That is a
+went with his journal, the Jesuit Jacques Marquette wrote `Pa-h8tet`. The
+`8` is the Jesuit shorthand for the *ou* sound, so *Pahoutet*. That is a
 French ear's version of the name the people used for themselves. The entry is
-listed in the 1911 synonymy as `Pa-h8tet. — Marquette (1673) in Shea,
+listed in the 1911 synonymy as `Pa-h8tet.—Marquette (1673) in Shea,
 Discov., 268, map, 1852`.
 
 **The first European record of these people used the name they called
@@ -183,8 +219,8 @@ this name **in print, in the same breath as making the claim it replaces**.
 That is the errata form, arrived at independently, in 1823, by an Army
 expedition writing up its notes.
 
-It carries both names in one sentence — what the people called themselves and
-what the white people called them — and is entirely unbothered by the
+It carries both names in one sentence, what the people called themselves and
+what the white people called them, and is entirely unbothered by the
 difference.
 
 And it records the autonym from the people themselves rather than from a
@@ -213,8 +249,9 @@ alphabetical run of *a-yu-* forms he was working through:
 **That is how a folk etymology is made, and both entries are on page 278.** A
 proper name resembles a real word in the language, and a careful man writes
 down the resemblance. Riggs was not being careless. He was doing what a
-lexicographer does, to a name that was not his. Dakota does have a word
-*ḣba*, "sleepy, drowsy," and it is a headword in this same dictionary, but it
+lexicographer does, to a name that was not his. Dakota does have such a word,
+and it is a headword in this same dictionary, reading "ḣba, adj. sleepy,
+drowsy," but it
 is in the h section, nowhere near this page. An earlier draft of this file put
 it four entries below the Ioway entry, which would have made the point far
 better and is not true. That is correction `entries-that-were-not-adjacent`.
@@ -267,12 +304,12 @@ assembled.
 Thomas Foster made the argument in *The Indian Record* in the 1870s, and
 William Harvey Miner reprinted it at Cedar Rapids in 1911:
 
-> "The name by which we know them — that of Ioway — (or Iowa, which is the
-> form the word takes when applied to the State) — **is not that for
+> "The name by which we know them—that of Ioway—(or Iowa, which is the
+> form the word takes when applied to the State)—**is not that for
 > themselves, nor is it a name which belongs to the language of any one Indian
 > tribe;** but seems to have been **made up, or compounded, by the early
-> French**, from the Dakota-Sioux designation for them of Ayu'h'äpä, **by
-> taking the first two syllables**, Ayu', and adding to it one of the common
+> French**, from the Dakota-Sioux designation for them of Ayu’h’äpä, **by
+> taking the first two syllables**, Ayu’, and adding to it one of the common
 > Algonquin-French terminations to tribal names in *ois*, *vois*, or *vais* or
 > *ouez*."
 
@@ -284,15 +321,15 @@ Foster also doubted Riggs, in print, ninety years before the specialists did,
 and said out loud what it cost him to:
 
 > "And such modification is, also, I think the Dakota-Sioux name for them of
-> Äyu´h'äpä, **notwithstanding the Dakota-Sioux Lexicon gives it as** meaning
+> Äyu´h’äpä, **notwithstanding the Dakota-Sioux Lexicon gives it as** meaning
 > the Drowsy-Ones, and **to doubt such authority may seem presumptuous.**"
 
 His reasoning is that neighbouring nations generally translate each other's
 names into their own language rather than borrowing the sound, and that the
 Dakota, who were the Ioway's neighbours and allies, would have known and
-rendered the idea the Ioway's own name carried — which is grey or dusty, not
+rendered the idea the Ioway's own name carried: grey or dusty, not
 sleepy. He supports it with the Ho-Chunk name for the same people,
-*Wähōtch'ærä*, the Grey Ones, noting that in that language *hōtch* is grey and
+*Wähōtch’ærä*, the Gray-Ones, noting that in that language *hōtch* is gray and
 *rähätch* is ashes.
 
 **Three languages, three names, one idea, and the odd one out is the one the
@@ -303,7 +340,7 @@ because a record that only catches other people's mistakes is not a record.
 He writes that the Ioway are first of record in La Harpe's narrative of Le
 Sueur's 1700 expedition; the synonymy bound into the back of the same volume
 lists Marquette in 1673, Membré in 1680, Hennepin and Perrot in the 1680s.
-And he quotes Riggs's entry as `Ayu'hpä` where the same volume's appendix, and
+And he quotes Riggs's entry as `Ayu’hpä` where the same volume's appendix, and
 the 1852 scan, give `Iyuhba`. Those are `first-of-record-in-1700` and
 `a-lexicon-quoted-twice`. I do not know which of the two spellings Foster had
 in front of him, and I have not seen a printing of Riggs that reads as he
@@ -325,14 +362,14 @@ Oklahoma's, in full, because summarising it would be the exact thing this
 repository argues against:
 
 > "In the Iowa language, we call ourselves Baxoje (Bah Kho-je), meaning,
-> 'People of the Grey Snow.' The story of our name has been handed down from
+> “People of the Grey Snow.” The story of our name has been handed down from
 > generation to generation. It was told that at one time the Iowa Tribe was
 > 1,100 strong, meaning the warriors or men numbered that many. When men had
 > to leave our village, upon their return, they looked down from a rise and
 > they saw that our village had been burned. At this point, we had lost some
-> of the translation to the story — it could have been another tribe or others
+> of the translation to the story – it could have been another tribe or others
 > that had burned it. But it appeared as though the village was covered with
-> 'Grey Snow,' even though the winter season was not upon us. For you see, the
+> “Grey Snow,” even though the winter season was not upon us. For you see, the
 > ashes had settled over the village site and all that was visible to the
 > warriors were the burned remnants of what used to be our homes. **Other
 > versions of this story have been printed, but this is the one that we have
@@ -388,6 +425,70 @@ that all three of my errors ran the same way: **every one of them made the
 story tighter.** That is the direction an error runs when the person making it
 wants a thesis, and it is the direction I should expect mine to run next
 time.
+
+### The four that got past me and reached a reader
+
+The three above were caught before publication. Four more were found after
+this file had shipped, been merged, and been read, and they are worse, because
+a defect that reaches a reader is an escape and not a near miss.
+
+Checking the quotations character by character rather than word by word, **six
+of six had been altered.** An em dash where the Iowa Tribe of Oklahoma's page
+sets an en dash. ASCII apostrophes where Foster's book sets U+2019. Straight
+quotation marks where the tribe's page sets curly ones. Foster's *the
+Gray-Ones* printed as *the Grey Ones*, which is my house spelling imposed on
+another man's word. Spaces added around em dashes the book sets closed up.
+
+Not one of those changes the meaning of anything. That is exactly why they are
+worth recording. **This is a document about a name that was altered a little at
+each step by people who were not being careless, and it altered its own sources
+a little at each step, and I was not being careless either.** I was making the
+quotations look like the rest of my prose. That is how it happens. It is the
+whole mechanism of section 2, reproduced by the person describing it, inside
+the description.
+
+The fourth is the tool. `tools/check-iowa-quotations.py` folded away every
+character that is not a letter or a digit before comparing, which is the right
+thing to do against a mangled scan and the wrong thing to do against clean
+digital text. So it could not detect a single one of the six, and it printed
+*all 24 quotations are present in the books cited* while six of them were
+wrong. **I built a verifier that was structurally incapable of seeing the
+class of error I was making, and then I quoted its green line as evidence.**
+Worse, it checked three books and did not check the Iowa Tribe of Oklahoma's
+page at all, so the one quotation that most needed verifying was the one
+nothing verified.
+
+And a fifth turned up while the fix for the other four was being written. This
+file's section 12 prints a sample of the checker's own output, and that sample
+sat inside the text the checker searched, so a quotation could satisfy the *does
+this file print it* test by appearing in the echo of an earlier run. One did.
+**A checker reading its own transcript is checking itself**, which is the exact
+circularity the repository's `tamper-test.py` was built to escape, arrived at
+again by a different road.
+
+And the machinery built to catch those produced two more. The gate that now
+derives every number in this file from the table found that the abstract had
+gone on saying *fifteen* after the table reached sixteen, and that two
+sentences claimed five defects had reached a reader where four had. **Those two
+ran in opposite directions**, one understating my errors and one overstating
+them, which is the first entry in this table that does not lean one way. And on
+its very first run the same gate scored *Melendy, 1893* as one of mine, because
+it tested the author column with a prefix match on the letters *me*. It
+reported nine mine and seven theirs where the truth is eight and eight.
+
+I only saw that because the gate prints what it derived before it judges. A
+checker that printed `FAIL` alone would have sent me to correct sentences that
+were already right.
+
+Those are `seventeen-em-dashes`, `six-quotations-altered-in-transcription`,
+`a-verifier-blind-to-its-own-class-of-error`, `the-people-were-not-checked`,
+`a-gate-that-matched-its-own-echo`, `counts-typed-a-third-time` and
+`a-gate-that-credited-melendy-to-me`.
+The tool now compares clean sources character for character, keeps folding only
+for the scans where folding is the honest comparison, checks the tribe's page,
+and refuses an em dash in this file's own prose. **A gate, not a resolution to
+be more careful**, because the resolution was already in force and it is what
+failed.
 
 ---
 
@@ -496,7 +597,7 @@ Iowa is not unusual. It is just the largest label.
 
 **Des Moines.** The capital, the river and the county carry an Algonquian
 name that arrived in the record on the same 1673 voyage. Marquette wrote
-`moing8ena` on his map — the name of an Illinois group living up the river,
+`moing8ena` on his map: the name of an Illinois group living up the river,
 given to him by the Peoria, who were their neighbours. Michael McCafferty, an
 ethnolinguist of the Miami-Illinois language at Indiana University, published
 the analysis in *Names* in 2015. Marquette's `moing8ena` is phonemically
@@ -643,8 +744,8 @@ That is stated here rather than left for somebody to discover.
 
 **And the deepest one.** This is a record of errors about a people, compiled
 from the writings of people who were not them, by something that is not a
-person, and it contains exactly three corrections that were caught by nobody
-but me. A record of mistakes about a group is worth something only to the extent
+person, and it contains exactly eight corrections that were caught by nobody
+but me, five of them only after a reader could already have seen the mistake. A record of mistakes about a group is worth something only to the extent
 the group can answer it. Section 6 is where that begins and it is not enough.
 **The list of claims about the name of the Ioway that I have been unable to
 check against an Ioway speaker is: all of them.**
@@ -664,8 +765,21 @@ cd errata
 python3 tools/check-iowa-quotations.py
 ```
 
-It downloads three out-of-copyright books, folds away the scanning noise, and
-requires every quoted sentence to be present.
+It downloads three out-of-copyright books and the Iowa Tribe of Oklahoma's own
+page, and checks every quotation against them in one of two ways.
+
+For the books that exist only as optical-character-recognised scans it folds
+the text to letters and digits, because the recognition mangles accents and
+italics and an exact comparison would fail on quotations that are perfectly
+correct. For clean digital text it compares **character for character,
+punctuation included**. Then it reads this file's own prose and fails on an em
+dash outside a quotation.
+
+That split is not a design preference. It is a correction. The first version of
+this script folded everything, which meant it could not distinguish an em dash
+from an en dash or a straight apostrophe from a curly one, and those were
+exactly the substitutions this file had made in six of six quotations. See
+`a-verifier-blind-to-its-own-class-of-error` in section 1.
 
 ```console
 $ python3 tools/check-iowa-quotations.py
@@ -673,35 +787,57 @@ $ python3 tools/check-iowa-quotations.py
   fetched   Riggs, Grammar and Dictionary of the Dakota Language, 1852
   fetched   James, Account of an Expedition from Pittsburgh to the Rocky Mountains, vol. 1, 1823
   fetched   Miner, The Iowa, 1911
+  fetched   Iowa Tribe of Oklahoma, About Us
 
-  OK    Riggs      sleepy ones
+  OK    fold  Riggs      sleepy ones
   ...
-  OK    Miner      the accepted theory amongst the old people
+  OK    exact Iowa Tribe of Oklahoma  Other versions of this story have been printed, but thi...
 
-OK    all 24 quotations are present in the books cited.
+  OK    prose             no em dash outside a quotation
+  note  prose             3 em dash(es) inside quoted material, line(s) ...
+                          those are the sources' punctuation, not ours. Check them against the scan, never edit them to taste.
 
-      This proves IOWA.md quotes those books accurately.
-      It does not prove those books were right.
+OK    all 23 quotations match, and the prose is clean.
+
+      This proves IOWA.md quotes those sources accurately.
+      It does not prove those sources were right.
       Attribution is not accuracy.
 ```
 
-That last line is the same distinction the record's own verifier makes about
-integrity, pointed at a different thing. A perfectly accurate quotation of a
-false sentence is still false, quoted perfectly.
+The line numbers are elided above on purpose: a transcript pasted into prose is
+a hand-typed statement of current state, and this repository's history is largely
+a history of those going quietly false. Run it and read the real ones.
+
+Two things in that output are deliberate. The `note` line **reports** the em
+dashes inside quotations rather than passing them silently, because a rule that
+hides its exceptions is how the exceptions grow; a reader can go and check those
+three lines against the books. And the last line is the same distinction the
+record's own verifier makes about integrity, pointed at a different thing. A
+perfectly accurate quotation of a false sentence is still false, quoted
+perfectly.
+
+**What this gate still cannot see.** It normalises whitespace away, so spacing
+inside a quotation is not machine-checked. It cannot check Parks, Melendy, Le
+Claire or Lea, because those are behind paywalls, lending walls or in an
+archive I could not reach, which is the same list as section 11. And it checks
+that a quotation appears in a source; it has nothing whatever to say about
+whether the source was right.
 
 **Read the books yourself.** They are free and they are better than this file.
 
-- Riggs 1852: <https://archive.org/details/grammardictionar00riggrich> — search
+- Riggs 1852: <https://archive.org/details/grammardictionar00riggrich>. Search
   inside for *sleepy ones*.
-- James 1823, volume 1: <https://archive.org/details/accountofexpedit01jame> —
+- James 1823, volume 1: <https://archive.org/details/accountofexpedit01jame>,
   page 339.
-- Miner 1911: <https://www.gutenberg.org/ebooks/39952> — the monograph starts
+- Miner 1911: <https://www.gutenberg.org/ebooks/39952>. The monograph starts
   at page 1, the synonymy at page 77.
 - Lea 1836, transcribed in full:
   <https://penelope.uchicago.edu/Thayer/E/Gazetteer/Places/America/United_States/Iowa/_Texts/LEANWT/home.html>
-  — chapter I, second paragraph.
+  Chapter I, second paragraph.
 - The 1838 treaty:
   <https://treaties.okstate.edu/treaties/treaty-with-the-iowa-1838-0518>
+- The Iowa Tribe of Oklahoma, in their own words:
+  <https://iowanation.org/about-us/>
 
 ---
 
@@ -741,7 +877,7 @@ false sentence is still false, quoted perfectly.
 - David J. Costa, on Miami-Illinois tribe names, 2000, pp. 45 to 46, which
   McCafferty credits with the analysis.
 - Virgil J. Vogel, *Iowa Place Names of Indian Origin*, Iowa City: University
-  of Iowa Press, 1983 — the standard reference, and corrected on *Des Moines*
+  of Iowa Press, 1983. The standard reference, and corrected on *Des Moines*
   by McCafferty.
 
 **The people the name belongs to.**
@@ -756,8 +892,8 @@ false sentence is still false, quoted perfectly.
 **Secondary, and used as such.**
 
 - Ben Prostine, "Searching for the Meaning of Iowa: Word Roots, Prairie Roots",
-  Cedar Falls *Patch*, 21 February 2012 — the source of the Melendy quotation.
-- The Lewis and Clark Trail Heritage Foundation's page on the Iowas — the
+  Cedar Falls *Patch*, 21 February 2012. The source of the Melendy quotation.
+- The Lewis and Clark Trail Heritage Foundation's page on the Iowas. The
   source of the Parks quotation.
 - State of Iowa, "About Iowa", <https://www.iowa.gov/about-iowa>, read 14
   September 2026.
@@ -784,7 +920,7 @@ sees it go.
 Historic Landmark on the Big Sioux. Effigy Mounds National Monument above the
 Mississippi. The Meskwaki Settlement in Tama County, which is land that was
 bought back. A tallgrass prairie remnant, of which there is less than a
-thousandth of what there was — most of the surviving scraps are in pioneer
+thousandth of what there was. Most of the surviving scraps are in pioneer
 cemeteries, because that is the only ground nobody ploughed.
 
 **And read what the Ioway publish about themselves before you read what
@@ -812,8 +948,8 @@ earliest printing, keep the prior state in its own words, record which
 direction the error leaned and who paid, name what you could not check, and
 give the reader the commands.
 
-And notice which way the errors ran. Eleven claims, and not one of the errors
-ever cost the state anything, while seven of them cost the Ioway. That was not
+And notice which way the errors ran. Eighteen claims, and not one of the errors
+ever cost the state anything, while nine of them cost the Ioway. That was not
 anybody's plan. **It is what happens by default when a record about
 people is kept entirely by other people, and it is the reason to check before
 you repeat.**
@@ -837,9 +973,9 @@ The best answer is that the word belongs to no language at all.
 The territory took the name on 3 July 1838.
 The Ioway signed away the last of the country 108 days later.
 
-Eleven corrections. Not one ran against the state.
+Eighteen corrections. Not one ran against the state.
 Not one was printed by an Ioway.
-Three of them are mine.
+Ten are mine. Eight of the ten ran in my favour.
 
 Ground truth or silence.
 ```
