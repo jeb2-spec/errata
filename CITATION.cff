@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: >-
+  If you use this record, cite it and name the build you used. The built_on
+  and integrity_sha256 rows of the meta table identify a build exactly, and
+  ANCHORS.md ties each digest to a Bitcoin block.
+type: dataset
+title: "errata"
+abstract: >-
+  A public, verifiable record of one project's own corrections: every claim
+  published and got wrong, what replaced it, which way the error ran, and who
+  paid. Beside it, the full revision history of every published article, with
+  the removed prose kept and each change labelled human, co-authored,
+  assistant or automation. SQLite and plain SQL, sealed with a SHA-256 digest
+  over every row and timestamped into Bitcoin with OpenTimestamps. The digest
+  proves the contents are unchanged since the build. It does not prove any
+  sentence in them is true.
+authors:
+  - name: "The Vera Project"
+    website: "https://www.veraproject.xyz"
+repository-code: "https://github.com/jeb2-spec/errata"
+url: "https://www.veraproject.xyz/errata"
+license: CC-BY-4.0
+date-released: "2026-08-30"
+keywords:
+  - corrections
+  - errata
+  - provenance
+  - tamper-evident
+  - opentimestamps
+  - sqlite
+  - human-ai-collaboration
+  - ai-authorship-disclosure
+  - open-data

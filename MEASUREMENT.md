@@ -139,16 +139,16 @@ section.
 
 ---
 
-## The finding, from fifty one defects
+## The finding, from ninety four defects
 
-Fifty one corrections. Eighty two point four percent of them reached a reader
+Ninety four corrections. Eighty four point zero percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| a second model, reviewing adversarially | 21 | 0 |
-| the assistant auditing itself | 17 | 10 |
-| the founder | 7 | 0 |
+| the assistant auditing itself | 49 | 11 |
+| a second model, reviewing adversarially | 31 | 0 |
+| the founder | 8 | 0 |
 | an outside reader | 3 | 0 |
 | the person being written about | 2 | 0 |
 | a different vendor's assistant | 0 | 1 |
@@ -173,9 +173,12 @@ shape this paper is about: a superlative nobody had run the query for. The
 correction row said the falsifying table sat four lines above the sentence.
 It sat seventeen lines above with a paragraph in between, which is correction
 `four-lines-that-were-seventeen`, a false detail inside the row that fixes a
-false sentence. The adversarial column leads because several review passes over one week added
+false sentence. The adversarial column led until 2026-10-20 because several review passes over one week added
 rows to it, most of them defects in this paper or in the README that summarises
-it and some in code and in other documents. The exact split per pass is not
+it and some in code and in other documents. The self-audit column overtook it
+with the Field Guide refresh of 2026-10-20, most of whose live defects were found
+by research threads the assistant briefed for a general refresh that named no
+defect. The exact split per pass is not
 stated because this record does not tag a detection with the pass that produced
 it, and the last two attempts to state it in prose were both wrong. **The table above is derived
 from the database by the build, and the build fails if this page disagrees
@@ -483,7 +486,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 51.** Small enough that the attribution table is suggestive, not
+- **n = 94.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -495,8 +498,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the sixty one
-  detection rows were read back from prose written after the fact; forty two
+- **Most detection rows are reconstructed.** Nineteen of the one hundred and five
+  detection rows were read back from prose written after the fact; eighty six
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not

@@ -4,3 +4,7 @@
 # would put two proofs for one file in the tree with nothing saying which
 # is current. Deleted after every upgrade, ignored so it cannot slip in.
 *.ots.bak
+
+# Python writes these when conformance.py loads the anchor reader. Build
+# noise; a published record should contain only what a reader is meant to read.
+__pycache__/

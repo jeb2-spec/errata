@@ -18,13 +18,13 @@ If you got here from a friend and none of this looks like your world: it is a li
 
 It records every claim the project has had to correct in public, what replaced each one, the direction the error ran, and who paid for it. Part of the record is derived from version-control history, so it cannot be forgotten. The rest is entered deliberately, in practice mostly by the assistant that made the errors, and the file does not record which of us entered which row. The whole is sealed with a digest anyone can recompute using a short verifier written in standard-library Python, and published builds are anchored to a public ledger the authors cannot rewrite, with a log that says which stamps are confirmed, which are pending, and which are still owed. A build made where the calendar servers cannot be reached ships unstamped and says so. The record is then turned on itself: a measurement of who catches the project's errors, an attempt to estimate the ones nobody caught using the capture-recapture estimators that software inspection borrowed from ecology, and a report of how that attempt failed twice.
 
-The findings to date are brief. Fifty one errors. Forty six of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it sixty eight minutes later produced a degenerate one, and a third run produced a pairwise estimate its own third reviewer falsifies, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
+The findings to date are brief. Ninety four errors. Sixty six of them ran in our own favour. Most reached a reader before anyone caught them. No defect in the table has ever been found independently by two detectors, so the number of errors nobody found is not estimable from it, and the measurement script refuses to invent a figure. Pointing two reviewers at the same material with the same brief, which this project had never once done, produced overlap immediately and the first estimate it has been able to compute. Repeating it sixty eight minutes later produced a degenerate one, and a third run produced a pairwise estimate its own third reviewer falsifies, so the estimator is reported here as unstable rather than as a result. And the method has been run on one project, this one, so it is demonstrated and not validated.
 
 **Contents.** 1. The record · 2. The problem · 3. Terms · 4. What is inside · 5. Method · 6. One correction, in full · 7. Measurement · 8. Limits · 9. Reproduction · 10. What this claims for agents · 11. Disclosures · 12. Sources · The short version
 
 ---
 
-## 1. The record, in fifty one rows
+## 1. The record, in ninety four rows
 
 ```console
 $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our_favour FROM corrections;"
@@ -80,10 +80,53 @@ $ sqlite3 data/errata.db "SELECT occurred_on, direction, who_it_cost, ran_in_our
 2026-09-16|in our favour|the reader|1
 2026-09-16|against ourselves|the reader|0
 2026-09-16|in nobody's favour|the reader|0
+2026-10-20|in our favour|the reader|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|against the company|the company we were writing about, and the reader|1
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|against the company|the company we were writing about|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|against the company|the company we were writing about|1
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|in nobody's favour|the reader|0
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|against the company|the reader, and the company we were writing about|1
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|in the company's favour|the reader|0
+2026-10-20|against ourselves|us|0
+2026-10-20|in our favour|the founder|1
+2026-10-20|against ourselves|us|0
+2026-10-20|in our favour|the reader|1
+2026-11-12|in our favour|the founder|1
+2026-11-13|in nobody's favour|the reader|0
+2026-11-13|in nobody's favour|the reader|0
+2026-11-13|in our favour|the reader|1
+2026-11-13|against ourselves|the founder, and us|0
+2026-10-20|in our favour|the reader|1
 
 ```
 
-Fifty one errors. Forty six of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
+Ninety four errors. Sixty six of them ran in our own favour. The last column is where that number comes from: an error against the company we were writing about still flattered our argument, so it is scored as ours. We fixed those too.
 
 That is the entire claim, and it is in a database rather than a paragraph because a paragraph asks you to believe it.
 
@@ -111,7 +154,7 @@ So this repository is the idea turned around and pointed at its authors. If we a
 SELECT * FROM passages_removed;
 ```
 
-Fourteen principles. Fifty one corrections. Sixty three lessons. One hundred and twenty revisions across thirty eight published articles, fifty of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
+Fourteen principles. Ninety four corrections. Sixty five lessons. One hundred and twenty revisions across thirty eight published articles, fifty of which carry the prose that was removed, each capped at seven hundred characters. Twenty six are at that cap and the record does not yet mark which, so read a long passage as possibly cut. That is correction `the-exact-prose-that-was-truncated`, and until the cap is recorded the honest word is not exact.
 
 None of it is flattering. That is the point.
 
@@ -140,9 +183,9 @@ Seven tables in one SQLite file, with a plain-text dump of the same contents bes
 | table | rows | what it holds |
 | --- | --- | --- |
 | `principles` | 14 | The rules, each with the reasoning behind it |
-| `corrections` | 51 | What was claimed, what it became, which way the error ran, **who paid** |
-| `detections` | 61 | Who found each defect, and whether they went looking on their own |
-| `lessons` | 63 | What generalises past this project |
+| `corrections` | 94 | What was claimed, what it became, which way the error ran, **who paid** |
+| `detections` | 105 | Who found each defect, and whether they went looking on their own |
+| `lessons` | 65 | What generalises past this project |
 | `post_revisions` | 120 | Every revision of 38 articles, **50 carrying the prose that was cut**, capped at 700 characters |
 | `documents` | 3 | The format spec, the measurement paper and the Portable Record, in full |
 | `meta` | n/a | Provenance, disclosures, integrity digest |
@@ -207,7 +250,7 @@ Then it was run a second time, on the change that carries this sentence, and it 
 
 This section has now been wrong about the same paragraph three times, which is why it no longer paraphrases the table. It called the founder the single largest independent detector when the table showed a tie. It said every error the assistant caught on its own was mechanical when some were judgement. Then, correcting those two, it said that every failure of judgement about a person, about a public claim, or about the system's own limits had been caught by somebody else. No column records whether a failure was one of judgement, so nothing in the schema could have tested that sentence, which is what made it feel safe to write. It was false anyway. The corrections are `a-tie-called-a-lead`, `every-was-five-of-seven`, `lesson-five-was-never-true` and `a-sentence-shaped-so-nothing-could-test-it`.
 
-The claim that survives is small enough to check. A system reviewing its own work is not an independent second reviewer, because it shares the priors that produced the error. What this record shows is that its self-review catches things, that most of what it catches on its own is mechanical, and that the failures which did the most damage were caught by somebody else. That last split is a reading of the detection notes and not a column, because nothing in the schema records whether a failure was mechanical or one of judgement; the paper says so and names the rows to read. Whether any of it holds anywhere but here, one project cannot say.
+The claim that survives is small enough to check. A system reviewing its own work is not an independent second reviewer, because it shares the priors that produced the error. What this record shows is that its self-review catches things, that most of what it catches on its own is mechanical, and that the failures which did the most damage were caught by somebody else. The refresh of 2026-10-20 complicates that: two of its rows are failures of judgement about companies, sentences that invited suspicion of a studio and of a publisher because of where they are based, and the assistant's own research threads caught both before any reviewer looked. That split is a reading of the detection notes and not a column, because nothing in the schema records whether a failure was mechanical or one of judgement; the paper says so and names the rows to read. Whether any of it holds anywhere but here, one project cannot say.
 
 ---
 
@@ -256,7 +299,7 @@ sqlite3 data/errata.db
 Three queries worth running first:
 
 ```sql
--- the whole argument, in fifty one rows
+-- the whole argument, in ninety four rows
 SELECT occurred_on, direction, who_it_cost FROM corrections;
 
 -- every passage removed from a published article, and why
@@ -273,11 +316,11 @@ SELECT * FROM corrections_against_ourselves;
 ```console
 $ python3 tools/verify.py
 
-  stored    2d0340722842ca59c49710e20f3098b463285084d2e79e57fbce798ff109bebf
-  computed  2d0340722842ca59c49710e20f3098b463285084d2e79e57fbce798ff109bebf
+  stored    ef43b370945de71ad3168c3d2ab852787d0f80c3bb96547dbfcca8e86dd39acb
+  computed  ef43b370945de71ad3168c3d2ab852787d0f80c3bb96547dbfcca8e86dd39acb
 
 OK    contents match the recorded digest.
-      14 principles, 51 corrections, 61 detections, 63 lessons, 120 post_revisions, 3 documents
+      14 principles, 94 corrections, 105 detections, 65 lessons, 120 post_revisions, 3 documents
 
       This proves the contents are unchanged since the build.
       It does not prove any statement in them is true.
@@ -289,7 +332,7 @@ Change one character of one row and it says so. This is what `tools/tamper-test.
 ```console
 $ python3 tools/verify.py altered-copy.db
 
-  stored    2d0340722842ca59c49710e20f3098b463285084d2e79e57fbce798ff109bebf
+  stored    ef43b370945de71ad3168c3d2ab852787d0f80c3bb96547dbfcca8e86dd39acb
   computed  <a different digest>
 
 FAIL  contents do not match the recorded digest.
@@ -306,18 +349,45 @@ Three checks. It alters one character in one row of a throwaway copy and require
 
 The third check is the one that is not circular. Reading the same database with the same library proves the library agrees with itself. Rebuilding the number from the published text proves that the bytes you can read carry the record, and that somebody who distrusts us and has no SQLite can reach the same number alone. It was proposed by an outside reader who had inspected this repository but could not execute anything, and who said so rather than implying otherwise. Its first run failed: the order of rows inside the digest turned out to depend on a database tie-break nobody had written down, so the published text could not reproduce it. That is correction `an-order-the-text-could-not-reproduce`, and the rule is now a byte sort that needs no database.
 
-**Check the anchor, without trusting us and without running a Bitcoin node.**
+**Check the anchor with nothing installed.**
+
+```bash
+python3 tools/anchor-info.py                     # every proof in this repository
+python3 tools/anchor-info.py data/errata.db.ots  # just the current build
+```
+
+Standard-library Python, no packages, no node, no network. It walks each proof from the file's SHA-256 to the value a Bitcoin block committed to, and prints two things per attestation: the block height, and that block's merkle root in the byte order explorers print. Look the height up on any explorer you like and compare the two strings. That last step is deliberately yours, because a script in this repository checking our claim against our copy of anything would be us checking us.
+
+It also prints the SHA-256 the stamp was made against, so you can compare it with the file you just cloned, and it says plainly when a stamp is pending rather than confirmed. A pending stamp is waiting on the calendars, not missing.
+
+**The same check with the reference client**, if you would rather not trust our reader either:
 
 ```bash
 pip install opentimestamps-client
 ots info data/errata.db.ots
 ```
 
-That reads the proof file and nothing else. It prints the SHA-256 the stamp was made against, which you can compare with the file you just cloned, and it prints the Bitcoin block heights the proof commits to once the calendars have aggregated it. To finish the job yourself, run `ots -v info` on the same file: the value on the line above each `BitcoinBlockHeaderAttestation` is the merkle root of that block, byte-reversed. Reverse it, look the block up on any explorer you like, and see whether the two match. Nothing in that path goes through us.
+That reads the proof file and nothing else, and prints the same block heights. For the merkle roots, run `ots -v info`: the value on the line above each `BitcoinBlockHeaderAttestation` is the merkle root of that block, byte-reversed. Two independent readers arriving at the same heights is worth more than either one alone, which is the whole argument this repository makes about implementations.
 
 `ots verify` is the one-command version, and it needs a local Bitcoin node to read block headers from. Without one it exits with a cookie-file error, so it is not the command to reach for first. Until 4 September 2026 this section offered `ots verify` with no mention of the node, and offered an archived example that could not run at all; that is correction `anchor-commands-nobody-ran`.
 
 A stamp still waiting for aggregation shows calendar commitments rather than a block. Earlier builds' stamps are kept under `data/anchors/`, named for the build each one proves. [ANCHORS.md](ANCHORS.md) says which builds are confirmed, which are pending, which stamp if any is still owed, and how to regenerate any anchored file byte for byte.
+
+**Print the whole shape in one command.**
+
+```bash
+python3 tools/conformance.py
+```
+
+[SPEC.md](SPEC.md) section 6 specifies a readout: does the digest recompute, does it fail on a changed byte, does the published plain text reproduce it, how many entries there are and what share of them reached a reader before anyone caught them, which detectors found what independently, the anchor status of every build including any that are owed, and what the record says it does not prove. This prints those seven, in that order, using only the standard library.
+
+Two things about it are worth saying before you run it.
+
+**It is a readout and not a grade.** There is no certificate and no pass mark, and section 6 rules out any body that could issue one, because an authority that approves other people's records is a reputation system and that is the thing this format exists to avoid. The aim is narrower and duller: a record should not be able to look rigorous without being rigorous, because the tool prints its shape whether its author likes it or not. A record where every detector is the author shows exactly that. This one shows a best overlap of zero between independent detectors, which is why it refuses to print an estimate of the defects nobody found, and it says so on the line where a friendlier tool would print a number.
+
+**It is our tool, run on our record.** That is a real limit and it is not fixed by the tool being careful. What it buys is that the unflattering rows are mechanical: the escape rate, the detector table and the anchor tally are queries, not sentences, so they move when the record moves and cannot be quietly left stale. The exit code follows the machinery only. The digest, the tamper test and the anchor log can fail it. Nothing about the record's shape can, because the shape is for you to weigh.
+
+Running it against the copy in this repository is a check on us. Running it against a record built by somebody else is the thing the format is for, and that has never happened, which [SPEC.md](SPEC.md) says first rather than in a footnote.
 
 ---
 
@@ -428,4 +498,4 @@ Content under [CC BY 4.0](LICENSE). `tools/verify.py` under MIT.
 
 Quote it, fork it, hold us to it. If you cite it, cite the build and not the page: the digest that `tools/verify.py` prints identifies the exact record you read, and this address points at whatever we publish next.
 
-*Kept by the Vera Project. Corrected fifty one times in its first nineteen days, forty six of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
+*Kept by the Vera Project. Corrected ninety four times in its first seventy seven days, sixty six of them errors that ran in our own favour and were fixed anyway. That is the only credential this file has, and it is the right one.*
