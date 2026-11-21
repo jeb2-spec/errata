@@ -139,14 +139,14 @@ section.
 
 ---
 
-## The finding, from ninety four defects
+## The finding, from ninety five defects
 
-Ninety four corrections. Eighty four point zero percent of them reached a reader
+Ninety five corrections. Eighty four point two percent of them reached a reader
 before anyone caught them. Then this:
 
 | detector | independent finds | triggered finds |
 | --- | ---: | ---: |
-| the assistant auditing itself | 49 | 11 |
+| the assistant auditing itself | 50 | 11 |
 | a second model, reviewing adversarially | 31 | 0 |
 | the founder | 8 | 0 |
 | an outside reader | 3 | 0 |
@@ -486,7 +486,7 @@ no priors. That is the only property being asked of it.
 
 ## Honest limits of this document
 
-- **n = 94.** Small enough that the attribution table is suggestive, not
+- **n = 95.** Small enough that the attribution table is suggestive, not
   established. Do not read the detector ranking as stable: one review pass
   over one document moved the top row.
 - **Nothing a check stops before publication appears anywhere on this page, so
@@ -498,8 +498,8 @@ no priors. That is the only property being asked of it.
   fixed, and swept it out of existence before it was published. It is in no
   figure here. Whatever the right way to count that is, this design counts it
   as nothing.
-- **Most detection rows are reconstructed.** Nineteen of the one hundred and five
-  detection rows were read back from prose written after the fact; eighty six
+- **Most detection rows are reconstructed.** Nineteen of the one hundred and six
+  detection rows were read back from prose written after the fact; eighty seven
   were recorded at the time. Reconstruction
   names whoever noticed first and systematically loses second finders, which
   is precisely the overlap the estimate needs. So the true overlap is not
